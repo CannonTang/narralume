@@ -1,0 +1,490 @@
+/* ==========================================================================
+   长篇推演 v3（实验记录本 / loom）。主屏 = 一本在拍摄中必经原面的都是
+   「记录面」：左侧是「检索实验腔」（你一个问题、一页被撤回的片搭），
+   右侧是预测农业 + 记忆盐度 + 干跑手感墙。
+   ========================================================================== */
+
+.lab {
+  min-height: 100vh;
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1rem, 2.5vw, 1.8rem)
+    clamp(2rem, 5vh, 4rem) clamp(1.2rem, 4vw, 2.8rem);
+  max-width: 1580px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+
+.lab__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(1rem, 2.4vw, 2rem);
+  align-items: start;
+  flex: 1;
+}
+.lab__column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 0;
+}
+
+/* ---- 弱注记与瞬时回响 ----------------------------------------------------- */
+
+.lab__note {
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+.lab__flash {
+  color: var(--vera);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+
+/* ---- 左：检索实验腔 ------------------------------------------------------ */
+
+.lab__search {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.4rem 1.5rem;
+}
+.lab__search-eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.1em;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+}
+.lab__search-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1.15rem;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+.lab__search-form {
+  display: flex;
+  gap: 0.6rem;
+  align-items: bottom;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 0.8rem;
+}
+.lab__search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 2;
+  color: var(--ink);
+}
+.lab__search-input::placeholder {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+.lab__search-btn {
+  padding: 0.5rem 1rem;
+  background: var(--vera);
+  color: var(--paper-raised);
+  border-radius: var(--radius-card);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition:
+    background-color 160ms ease,
+    transform 180ms var(--ease-out-editorial);
+}
+.lab__search-btn:hover:not(:disabled) {
+  background: var(--vera-deep);
+  transform: translateY(-1px);
+}
+.lab__search-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.lab__search-meta {
+  display: flex;
+  gap: 0.6rem;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+.lab__hits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.lab__hit {
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition:
+    border-color 160ms ease,
+    transform 180ms var(--ease-out-editorial),
+    box-shadow 180ms ease;
+}
+.lab__hit:hover {
+  border-color: var(--vera-hairline);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lift-soft);
+}
+.lab__hit-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.lab__hit-auth {
+  padding: 0.1rem 0.5rem 0.14rem;
+  border-radius: 999px;
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--hairline-soft);
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.lab__hit-auth[data-a="locked"],
+.lab__hit-auth[data-a="confirmed"] {
+  color: var(--canon);
+  border-color: color-mix(in srgb, var(--canon) 45%, transparent);
+  background: color-mix(in srgb, var(--canon) 10%, transparent);
+}
+.lab__hit-title {
+  font-weight: 550;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  flex: 1;
+}
+.lab__hit-score {
+  font-family: var(--font-mono);
+  color: var(--vera);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+}
+.lab__hit-content {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.75;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.lab__hit-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+}
+.lab__hit-flag {
+  padding: 0.1rem 0.4rem 0.14rem;
+  border: 1px solid var(--hairline-soft);
+  border-radius: 2px;
+}
+.lab__hit-flag[data-on="true"] {
+  color: var(--vera-deep);
+  border-color: var(--vera-hairline);
+  background: var(--vera-soft);
+}
+
+/* ---- 右：推测面板 + 干跑 --------------------------------------------------- */
+
+.lab__panel {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.lab__panel-head {
+  padding: 0.8rem 0.95rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.lab__panel-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 0.96rem;
+  letter-spacing: 0.04em;
+}
+.lab__panel-count {
+  margin-left: auto;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+}
+.lab__panel-body {
+  padding: 0.85rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lab__predictions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.lab__prediction {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  padding: 0.8rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.lab__prediction-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.lab__prediction-horizon {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--vera);
+  letter-spacing: 0.08em;
+}
+.lab__prediction-title {
+  font-weight: var(--weight-display);
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  flex: 1;
+}
+.lab__prediction-status {
+  font-size: 0.62rem;
+  color: var(--ink-faint);
+}
+.lab__prediction-summary {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+.lab__prediction-foot {
+  display: flex;
+  gap: 0.45rem;
+  margin-top: 0.25rem;
+}
+.lab__prediction-btn {
+  padding: 0.32rem 0.7rem 0.36rem;
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  transition: all 140ms ease;
+}
+.lab__prediction-btn:hover:not(:disabled) {
+  border-color: var(--vera-hairline);
+  color: var(--vera-deep);
+}
+.lab__prediction-btn[data-on="adopted"] {
+  background: var(--canon);
+  border-color: var(--canon);
+  color: var(--paper-raised);
+}
+.lab__prediction-btn[data-on="dismissed"] {
+  background: var(--paper-sunk);
+  border-color: var(--hairline);
+  color: var(--ink-faint);
+}
+.lab__prediction-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* ---- 记忆盐度小叠 --------------------------------------------------------- */
+
+.lab__memories {
+  border-top: 1px dashed var(--hairline);
+  padding-top: 0.7rem;
+}
+.lab__memories-head {
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.55rem;
+}
+.lab__memory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.lab__memory {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--hairline-soft);
+  border-radius: 2px;
+  background: var(--paper);
+}
+.lab__memory-layer {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--vera);
+  letter-spacing: 0.1em;
+}
+.lab__memory-title {
+  font-weight: var(--weight-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  margin: 0.2rem 0;
+}
+.lab__memory-content {
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  line-height: 1.65;
+}
+
+/* ---- 干跑 -------------------------------------------------------------- */
+
+.lab__dryrun {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.lab__dryrun-input {
+  width: 100%;
+  min-height: 4.5rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  padding: 0.65rem 0.85rem;
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--ink);
+  resize: vertical;
+  transition: border-color 140ms ease;
+}
+.lab__dryrun-input:focus {
+  border-color: var(--vera);
+}
+.lab__dryrun-btn {
+  align-self: flex-start;
+}
+.lab__dryrun-result {
+  border-top: 1px dashed var(--hairline);
+  padding-top: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.lab__dryrun-safe {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+.lab__dryrun-safe[data-safe="true"] {
+  color: var(--canon);
+}
+.lab__dryrun-safe[data-safe="false"] {
+  color: var(--vera-deep);
+}
+.lab__finding {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--hairline-soft);
+  border-radius: 2px;
+  background: var(--paper);
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+.lab__finding[data-severity="warning"] {
+  border-left: 2px solid var(--vera);
+  background: var(--vera-soft);
+}
+.lab__finding-detail {
+  margin: 0.3rem 0 0;
+  color: var(--ink-soft);
+}
+.lab__dryrun-fingerprint {
+  color: var(--ink-faint);
+  font-size: 0.62rem;
+}
+
+@media (max-width: 1100px) {
+  .lab__layout {
+    grid-template-columns: 1fr;
+  }
+}
+/* ---- 显式维护卡：生成预测 + 记忆整理 --------------------------------------- */
+
+.lab__actions {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.4rem 1.5rem;
+}
+.lab__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.34rem;
+  min-width: 0;
+}
+.lab__field > span {
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+.lab__field input,
+.lab__field textarea {
+  min-width: 0;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  transition: border-color 140ms ease;
+}
+.lab__field input:hover,
+.lab__field textarea:hover {
+  border-color: color-mix(in srgb, var(--ink) 32%, transparent);
+}
+.lab__field input:focus,
+.lab__field textarea:focus {
+  border-color: var(--vera);
+}
+.lab__field textarea {
+  min-height: 4.5rem;
+  resize: vertical;
+}
+.lab__actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+.lab__actions-row .lab__field {
+  flex: 1;
+}

@@ -1,0 +1,35 @@
+# 公网 LLM Relay。上游 Key 只存在本地 Bridge；Worker 仅持有 Access 与
+# Bridge 凭据，浏览器不持有任何真实密钥。
+name = "narralume-relay"
+main = "src/index.ts"
+compatibility_date = "2026-08-01"
+
+[vars]
+UPSTREAM_BASE_URL = "https://bridge.example.com/v1"
+RELAY_MODEL = "example-model"
+WEB_ORIGIN = "https://demo.example.com"
+
+[secrets]
+required = [
+  "BRIDGE_ACCESS_CLIENT_ID",
+    "BRIDGE_ACCESS_CLIENT_SECRET",
+    "BRIDGE_SHARED_SECRET",
+    "TURNSTILE_SECRET_KEY",
+    "SESSION_SIGNING_KEY"
+  ]
+
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "11001"
+
+  [ratelimits.simple]
+  limit = 30
+  period = 60
+
+[[durable_objects.bindings]]
+name = "SESSION_QUOTAS"
+class_name = "SessionQuota"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["SessionQuota"]

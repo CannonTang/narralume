@@ -1,0 +1,836 @@
+/* ==========================================================================
+   藏书室 v3：巨型刊头 + ghost 底字 + 编目索引行 + 行尾真书脊 + 右缘竖排卷首语。
+   构图纪律：张力全部来自字级、空间与一件纸造物（书脊），不动色。
+   ========================================================================== */
+
+.shelf {
+  position: relative;
+  overflow-x: clip;
+  min-height: 100vh;
+  padding: clamp(1.6rem, 4.5vh, 3.2rem) clamp(1.4rem, 4.5vw, 4.5rem) 6rem;
+}
+
+/* --- 建书入口（右上角三枚细描边） -------------------------------------- */
+
+.shelf__cta {
+  position: absolute;
+  top: clamp(1.6rem, 4.5vh, 3.2rem);
+  right: clamp(1.4rem, 4.5vw, 4.5rem);
+  z-index: 3;
+  display: flex;
+  gap: 0.55rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: var(--radius-card);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition:
+    border-color 150ms ease,
+    color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 200ms ease,
+    transform 200ms var(--ease-out-editorial);
+}
+.btn--outline {
+  border: 1px solid var(--hairline);
+  color: var(--ink-soft);
+  background: transparent;
+}
+.btn--outline:hover {
+  border-color: var(--vera-hairline);
+  color: var(--vera);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  transform: translateY(-1px);
+}
+.btn--primary {
+  border: 1px solid var(--vera);
+  background: var(--vera);
+  color: var(--paper-raised);
+}
+.btn--primary:hover {
+  background: var(--vera-deep);
+  border-color: var(--vera-deep);
+  box-shadow: var(--shadow-lift-soft);
+  transform: translateY(-1px);
+}
+.btn:disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+.btn svg {
+  flex-shrink: 0;
+}
+
+/* --- 巨型刊头 + ghost 底字 --------------------------------------------- */
+
+.shelf__masthead {
+  position: relative;
+  z-index: 0;
+  margin-top: clamp(0.5rem, 1.5vh, 1.2rem);
+}
+
+.shelf__ghost {
+  position: absolute;
+  top: -0.32em;
+  left: -0.08em;
+  z-index: 0;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(7rem, 15vw, 15rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ink);
+  opacity: 0.055;
+  transform: rotate(-2deg);
+  pointer-events: none;
+  user-select: none;
+}
+@supports not (-webkit-text-stroke: 1px black) {
+  .shelf__ghost {
+    color: var(--ink);
+    opacity: 0.045;
+  }
+}
+
+.shelf__title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: clamp(3.4rem, 7vw, 7rem);
+  line-height: 1.02;
+  letter-spacing: 0.03em;
+  transform-origin: left bottom;
+  transform: rotate(-1.4deg);
+}
+
+.shelf__kicker {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.9rem;
+  color: var(--vera);
+  text-transform: uppercase;
+}
+
+/* --- 工具行：检索 / 归档开关 -------------------------------------------- */
+
+.shelf__toolbar {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(1.1rem, 2.5vh, 1.8rem);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.shelf__search {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: 1;
+  min-width: 12rem;
+  max-width: 26rem;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 0.4rem;
+  color: var(--ink-faint);
+  transition: border-color 160ms ease;
+}
+.shelf__search:focus-within {
+  border-color: var(--vera);
+  color: var(--vera);
+}
+.shelf__search input {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.shelf__search input::placeholder {
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+}
+
+.shelf__archive-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ink-faint);
+  font-size: 0.78rem;
+  padding: 0.35rem 0.1rem;
+  border-bottom: 1px solid transparent;
+  transition: color 150ms ease;
+}
+.shelf__archive-toggle:hover {
+  color: var(--ink);
+}
+.shelf__archive-toggle[aria-pressed="true"] {
+  color: var(--vera);
+  border-bottom-color: var(--vera-hairline);
+}
+
+.shelf__view-switch {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--paper-raised) 68%, transparent);
+}
+.shelf__view-switch button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.9rem;
+  padding: 0.3rem 0.55rem;
+  border-radius: 2px;
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  transition: color 140ms ease, background-color 140ms ease;
+}
+.shelf__view-switch button:hover { color: var(--ink); }
+.shelf__view-switch button[aria-pressed="true"] {
+  color: var(--vera);
+  background: var(--paper-raised);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+/* --- 书架 --------------------------------------------------------------- */
+
+.shelf__catalog {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.8rem;
+}
+
+.shelf__list { margin-top: 0.3rem; }
+.shelf-list__head,
+.shelf-row {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) auto 2.4rem 22px;
+  align-items: center;
+  gap: 1.2rem;
+}
+.shelf-list__head {
+  padding: 0.7rem 0 0.55rem;
+  color: var(--ink-faint);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.shelf-row {
+  position: relative;
+  width: 100%;
+  padding: 1.05rem 0 1rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  text-align: left;
+  outline-offset: 4px;
+}
+.shelf-row[data-menu-open="true"] { z-index: 40; }
+.shelf-row[data-archived="true"] .shelf-row__body { opacity: 0.5; }
+.shelf-row__open {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  border-radius: var(--radius-card);
+  cursor: pointer;
+}
+.shelf-row__open:focus-visible { outline: 2px solid var(--vera); outline-offset: 3px; }
+.shelf-row__no { display: flex; flex-direction: column; gap: 0.3rem; color: var(--ink-faint); }
+.shelf-row__no .mono:first-child { color: var(--ink-soft); }
+.shelf-row__id { font-size: 0.62rem; opacity: 0.75; }
+.shelf-row__body { min-width: 0; display: flex; align-items: baseline; gap: 1.4rem; }
+.shelf-row__title {
+  flex-shrink: 0;
+  max-width: 46%;
+  overflow: hidden;
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+  font-weight: var(--weight-display);
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 160ms ease, transform 320ms var(--ease-out-editorial);
+}
+.shelf-row__premise {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink-faint);
+  font-family: var(--font-quote);
+  font-size: 0.88rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: transform 320ms var(--ease-out-editorial);
+}
+.shelf-row:hover .shelf-row__title { color: var(--vera); transform: translateX(4px); }
+.shelf-row:hover .shelf-row__premise { transform: translateX(8px); }
+.shelf-row__premise[data-empty="true"] { opacity: 0.6; }
+.shelf-row__meta {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  color: var(--ink-faint);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.shelf-row__phase { color: var(--ink-soft); }
+.shelf-row__archived-tag { padding: 0.05rem 0.4rem; border: 1px solid var(--vera-hairline); color: var(--vera); }
+.shelf-row__menu { position: relative; z-index: 2; justify-self: end; }
+.shelf-row__menu-btn { opacity: 0; transition: opacity 150ms ease; }
+.shelf-row:hover .shelf-row__menu-btn,
+.shelf-row:focus-within .shelf-row__menu-btn,
+.shelf-row__menu-btn[aria-expanded="true"] { opacity: 1; }
+
+.shelf-spine {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-self: end;
+  justify-self: end;
+  width: 22px;
+  height: 68px;
+  transform: rotate(-2deg);
+  transform-origin: bottom;
+  pointer-events: none;
+}
+.shelf-spine__cap {
+  height: 4px;
+  border-radius: 1px 1px 0 0;
+  background: linear-gradient(180deg, var(--paper-raised), var(--paper));
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 18%, transparent);
+}
+.shelf-spine__band { height: 2px; background: hsl(var(--spine-hue) 33% 24%); }
+.shelf-spine__cloth {
+  position: relative;
+  flex: 1;
+  border-radius: 0 0 1px 1px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 244, 226, 0.04) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, hsl(var(--spine-hue) 42% 32%), hsl(var(--spine-hue) 30% 22%));
+  box-shadow: inset 1px 0 rgba(255, 249, 238, 0.42), inset -1px 0 rgba(18, 10, 5, 0.5), 4px 4px 6px rgba(18, 10, 5, 0.2);
+}
+.shelf-spine__emboss {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: rgba(255, 244, 226, 0.28);
+  box-shadow: 0 1px rgba(18, 10, 5, 0.45);
+}
+.shelf-spine__emboss--second { top: 26px; }
+
+.shelf-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  min-width: 11rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+}
+.shelf-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border-radius: 2px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  text-align: left;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+.shelf-menu__item:hover,
+.shelf-menu__item:focus-visible {
+  background: var(--vera-soft);
+  color: var(--vera);
+}
+.shelf-menu__item--danger:hover,
+.shelf-menu__item--danger:focus-visible {
+  background: color-mix(in srgb, var(--conflict) 10%, transparent);
+  color: var(--conflict);
+}
+.shelf-menu__divider {
+  height: 1px;
+  margin: 0.3rem 0.5rem;
+  background: var(--hairline-soft);
+}
+.shelf-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+}
+
+/* --- 空态 --------------------------------------------------------------- */
+
+.shelf__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.3rem;
+  padding: clamp(2.5rem, 8vh, 5rem) 1rem 4rem;
+  text-align: center;
+}
+.shelf__empty-line {
+  font-family: var(--font-quote);
+  font-weight: var(--weight-meta);
+  font-size: 1.15rem;
+  letter-spacing: 0.22em;
+  color: var(--ink-soft);
+}
+.shelf__empty-sub {
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+}
+
+/* --- 对话框（建书 / 重命名 / 删除 / 导入） -------------------------------- */
+
+.shelf-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+  background: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+.shelf-dialog {
+  width: min(27rem, 100%);
+  max-height: 84vh;
+  overflow-y: auto;
+  padding: 1.7rem 1.7rem 1.4rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+}
+.shelf-dialog__eyebrow {
+  color: var(--vera);
+  text-transform: uppercase;
+}
+.shelf-dialog__title {
+  margin-top: 0.5rem;
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+}
+.shelf-dialog__note {
+  margin-top: 0.5rem;
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+.shelf-dialog__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 1.2rem;
+}
+.shelf-dialog__label {
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+.shelf-dialog__input,
+.shelf-dialog__textarea {
+  border: none;
+  border-bottom: 1px solid var(--hairline);
+  background: transparent;
+  padding: 0.45rem 0;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--ink);
+  outline: none;
+  resize: vertical;
+  transition: border-color 150ms ease;
+}
+.shelf-dialog__input:focus,
+.shelf-dialog__textarea:focus {
+  border-bottom-color: var(--vera);
+}
+.shelf-dialog__input::placeholder,
+.shelf-dialog__textarea::placeholder {
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+}
+.shelf-dialog__actions {
+  margin-top: 1.6rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.55rem;
+}
+.shelf-dialog__error {
+  margin-top: 1rem;
+}
+
+.shelf-dialog__candidates {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  max-height: 40vh;
+  overflow-y: auto;
+  border-top: 1px solid var(--hairline-soft);
+}
+.shelf-candidate {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.2rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+.shelf-candidate input {
+  accent-color: var(--vera);
+  width: 15px;
+  height: 15px;
+}
+.shelf-candidate__kind {
+  color: var(--vera);
+  flex-shrink: 0;
+}
+.shelf-candidate__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- 响应折叠 ------------------------------------------------------------ */
+
+@media (max-width: 1060px) {
+  .shelf__cta {
+    position: static;
+    margin-top: 1.6rem;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 860px) {
+  .shelf {
+    padding: 1.4rem 1.1rem 5rem;
+  }
+  .shelf__title {
+    font-size: clamp(3.4rem, 18vw, 6rem);
+    transform: rotate(-1.1deg);
+  }
+  .shelf__ghost {
+    font-size: 34vw;
+    top: -0.2em;
+  }
+  .shelf__catalog-head {
+    display: none;
+  }
+  .shelf-list__head {
+    display: none;
+  }
+  .shelf-row {
+    grid-template-columns: 3.4rem minmax(0, 1fr) 2.2rem 22px;
+    gap: 0.9rem;
+  }
+  .shelf-row__no {
+    gap: 0.2rem;
+  }
+  .shelf-row__id {
+    display: none;
+  }
+  .shelf-row__body {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+  .shelf-row__title {
+    max-width: 100%;
+  }
+  .shelf-row__meta {
+    display: none;
+  }
+  .shelf-row__menu-btn {
+    opacity: 1;
+  }
+  /* 280px 小屏，书与行都缩 */
+  .shelf-spine {
+    height: 52px;
+  }
+}
+
+/* --- R5 封面书架 ---------------------------------------------------------- */
+.shelf__catalog-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 0 0.9rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.12em;
+}
+.shelf__catalog-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--hairline-soft);
+}
+.shelf__bookshelf {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.8rem 1.8rem;
+  padding: 1rem 0.4rem 0;
+}
+.shelf-book {
+  position: relative;
+  min-width: 0;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--hairline);
+  isolation: isolate;
+}
+.shelf-book__open {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius-card);
+  cursor: pointer;
+}
+.shelf-book__open:focus-visible {
+  outline: 2px solid var(--vera);
+  outline-offset: 5px;
+}
+.shelf-book__cover-wrap {
+  position: relative;
+  width: min(100%, 10.5rem);
+  margin: 0 auto;
+  padding: 0 0.45rem 0.6rem;
+}
+.book-cover {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2 / 3;
+  border: 1px solid color-mix(in srgb, var(--ink) 26%, transparent);
+  background: var(--paper-raised);
+  box-shadow: 8px 10px 0 color-mix(in srgb, var(--ink) 9%, transparent), 0 2px 12px color-mix(in srgb, var(--ink) 12%, transparent);
+  transform: rotate(calc((var(--book-hue) - 180) * 0.004deg));
+  transition: transform 280ms var(--ease-out-editorial), box-shadow 280ms ease;
+}
+.shelf-book:hover .book-cover,
+.shelf-book:focus-within .book-cover {
+  transform: translateY(-4px) rotate(0deg);
+  box-shadow: 10px 14px 0 color-mix(in srgb, var(--ink) 11%, transparent), 0 6px 18px color-mix(in srgb, var(--ink) 16%, transparent);
+}
+.book-cover__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  transition: transform 240ms ease;
+}
+.book-cover__default {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 1.05rem 0.95rem 1rem;
+  color: var(--paper-raised);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--vera) 22%, transparent), transparent 54%),
+    hsl(var(--book-hue) 30% 29%);
+}
+.book-cover__default strong {
+  max-height: 6.2em;
+  overflow: hidden;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: var(--weight-display);
+  line-height: 1.38;
+  letter-spacing: 0.08em;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+.book-cover__default span:not(.book-cover__mark) {
+  max-height: 3.4em;
+  overflow: hidden;
+  color: color-mix(in srgb, var(--paper-raised) 78%, transparent);
+  font-family: var(--font-quote);
+  font-size: 0.72rem;
+  line-height: 1.7;
+}
+.book-cover__mark {
+  color: color-mix(in srgb, var(--paper-raised) 72%, transparent);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+}
+.book-cover__default i {
+  position: absolute;
+  right: 0.9rem;
+  bottom: 1.1rem;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid color-mix(in srgb, var(--paper-raised) 55%, transparent);
+  border-radius: 50%;
+}
+.book-cover__default i::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.35rem;
+  width: 1.2rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--paper-raised) 60%, transparent);
+  transform: rotate(-35deg);
+}
+.book-cover__edge {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.28rem;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--ink) 22%, transparent), transparent);
+  pointer-events: none;
+}
+.shelf-book__info {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  margin-top: 1rem;
+}
+.shelf-book__title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+.shelf-book__title {
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--font-serif);
+  font-size: 1.28rem;
+  font-weight: var(--weight-display);
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.shelf-book__subtitle {
+  margin-top: 0.18rem;
+  color: var(--vera);
+  font-family: var(--font-quote);
+  font-size: 0.78rem;
+}
+.shelf-book__premise {
+  display: -webkit-box;
+  margin-top: 0.55rem;
+  overflow: hidden;
+  color: var(--ink-faint);
+  font-family: var(--font-quote);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.shelf-book__premise[data-empty="true"] { opacity: 0.6; }
+.shelf-book__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+  color: var(--ink-faint);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+}
+.shelf-book__archived-tag {
+  flex-shrink: 0;
+  padding: 0.08rem 0.28rem;
+  border: 1px solid var(--vera-hairline);
+  color: var(--vera);
+}
+.shelf-book__menu {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.1rem;
+  z-index: 4;
+}
+.shelf-book__menu-btn { opacity: 0; }
+.shelf-book:hover .shelf-book__menu-btn,
+.shelf-book:focus-within .shelf-book__menu-btn,
+.shelf-book__menu-btn[aria-expanded="true"] { opacity: 1; }
+.book-edit__layout {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.2rem;
+}
+.shelf-dialog--book-edit { width: min(42rem, 100%); }
+.book-edit__preview { display: flex; flex-direction: column; gap: 0.55rem; }
+.book-cover--editing { width: 100%; box-shadow: none; transform: none; }
+.book-edit__upload { justify-content: center; width: 100%; cursor: pointer; }
+.book-edit__reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.3rem;
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+}
+.book-edit__reset:hover { color: var(--vera); }
+.book-edit__hint { margin-top: 0.6rem; color: var(--ink-faint); font-size: 0.74rem; line-height: 1.6; }
+
+/* 取景弹窗：react-easy-crop 舞台。固定高，3:4 框由库渲染，样式贴合纸面。 */
+.shelf-dialog--crop { width: min(30rem, 100%); }
+.cover-cropper__stage--dialog {
+  position: relative;
+  width: 100%;
+  height: min(24rem, 52vh);
+  margin-top: 0.8rem;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-sunk);
+}
+.cover-cropper__stage--dialog .reactEasyCrop_CropArea {
+  border: 1.5px solid var(--vera);
+  box-shadow: 0 0 0 9999px rgba(24, 18, 12, 0.42);
+}
+.shelf-recycle { display: grid; gap: 0.65rem; }
+.shelf-recycle__item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--hairline-soft); }
+.shelf-recycle__item p { margin: 0.2rem 0 0; color: var(--ink-faint); font-size: 0.72rem; }
+.shelf-recycle__actions { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.shelf-recycle__confirm { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--hairline-soft); }
+.shelf-recycle__confirm input { width: 100%; margin-top: 0.6rem; }
+
+@media (max-width: 1060px) {
+  .shelf__bookshelf { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .shelf__catalog-head { font-size: 0.62rem; }
+  .shelf__bookshelf { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.3rem 1.1rem; padding-inline: 0; }
+  .shelf-book__cover-wrap { width: min(100%, 10rem); }
+  .shelf-book__title { font-size: 1.08rem; }
+  .shelf-book__menu-btn { opacity: 1; }
+  .book-edit__layout { grid-template-columns: 7.2rem minmax(0, 1fr); gap: 0.8rem; }
+  .shelf-recycle__item { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 430px) {
+  .shelf__bookshelf { grid-template-columns: 1fr 1fr; gap: 2rem 0.8rem; }
+  .shelf-book__cover-wrap { width: min(100%, 8.6rem); }
+  .shelf-book__premise { font-size: 0.7rem; }
+  .book-edit__layout { grid-template-columns: 1fr; }
+  .book-edit__preview { width: min(10rem, 58%); margin-inline: auto; }
+}

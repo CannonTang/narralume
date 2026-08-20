@@ -1,0 +1,43 @@
+{
+  "version": "evidence-protocol-v1",
+  "cases": [
+    {
+      "id": "multi-paragraph-evidence",
+      "kind": "paragraphs",
+      "content": "潮水越过旧码头。\n\n守灯人锁上仓门。\n\n远处响起第三声汽笛。",
+      "evidenceParagraphs": [1, 3],
+      "expectedQuotes": ["潮水越过旧码头。", "远处响起第三声汽笛。"]
+    },
+    {
+      "id": "duplicate-paragraph-location",
+      "kind": "duplicate",
+      "content": "门外没有人。\n\n门外没有人。\n\n灯灭了。",
+      "evidenceParagraphs": [2],
+      "expectedQuote": "门外没有人。"
+    },
+    {
+      "id": "version-drift-rejected",
+      "kind": "version-drift",
+      "original": "她把钥匙留在窗台。",
+      "changed": "她把钥匙收进口袋。",
+      "originalVersionId": "version-1",
+      "changedVersionId": "version-2"
+    },
+    {
+      "id": "empty-revision-noop",
+      "kind": "revision-noop",
+      "base": "第一段。\r\n\r\n第二段。",
+      "revision": ""
+    },
+    {
+      "id": "structured-prompt-fallback",
+      "kind": "structured-fallback",
+      "capabilities": {
+        "structuredOutput": true,
+        "structuredOutputNative": false,
+        "structuredOutputJsonMode": false
+      },
+      "expectedTiers": ["prompt"]
+    }
+  ]
+}

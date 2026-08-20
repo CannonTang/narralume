@@ -1,0 +1,537 @@
+/* ==========================================================================
+   审稿室 v3（校样台）。核心手势：把「被审的正文」当成桌面中央的大物件、
+   审稿报告与待决 issue 则放在桌缘。二列：左正文（白色高亮证据位置）+
+   右栏（报告元信息 + issue 堆）。
+   ========================================================================== */
+
+.review {
+  min-height: 100vh;
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1rem, 2.5vw, 1.8rem)
+    clamp(2rem, 5vh, 4rem) clamp(1.2rem, 4vw, 2.8rem);
+  max-width: 1580px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+
+.review__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: clamp(1rem, 2.4vw, 2rem);
+  align-items: start;
+  flex: 1;
+}
+
+/* ---- 左侧：被审正文 ------------------------------------------------------ */
+
+.review__doc {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+  padding: clamp(1.1rem, 2.6vw, 2rem) clamp(1rem, 2.8vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  min-width: 0;
+}
+.review__doc-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  padding-bottom: 0.9rem;
+}
+.review__doc-kicker {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.review__verdict {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.22rem 0.7rem 0.24rem;
+  border: 1px solid var(--vera-hairline);
+  border-radius: 2px;
+  color: var(--vera-deep);
+  background: var(--vera-soft);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+.review__verdict[data-v="blocked"] {
+  color: var(--vera-deep);
+  border-color: var(--vera-hairline);
+  background: color-mix(in srgb, var(--vera-soft) 70%, transparent);
+}
+.review__verdict[data-v="revise"] {
+  color: var(--branch);
+  border-color: color-mix(in srgb, var(--branch) 38%, transparent);
+  background: color-mix(in srgb, var(--branch) 8%, transparent);
+}
+.review__verdict[data-v="pass"] {
+  color: var(--canon);
+  border-color: color-mix(in srgb, var(--canon) 40%, transparent);
+  background: color-mix(in srgb, var(--canon) 9%, transparent);
+}
+.review__doc-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+}
+.review__doc-meta {
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+.review__doc-body {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  line-height: 1.95;
+  letter-spacing: 0.02em;
+  white-space: pre-wrap;
+  color: var(--ink);
+  word-break: break-word;
+}
+/* 写作台里的完整展开变体：与编辑稿同纸，永不截断 */
+.review__doc-body--desk {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  padding: 0.85rem 1rem;
+  max-height: none;
+  overflow: visible;
+}
+.review__doc-body--desk mark {
+  background: color-mix(in srgb, var(--vera-soft) 65%, transparent);
+  color: var(--vera-deep);
+  padding: 0 0.1em;
+}
+.review__doc-body mark {
+  background: color-mix(in srgb, var(--vera-soft) 65%, transparent);
+  color: var(--vera-deep);
+  padding: 0 0.1em;
+  border-radius: 2px;
+  border-bottom: 1px solid color-mix(in srgb, var(--vera-hairline) 60%, transparent);
+}
+.review__doc-empty {
+  padding: 2.4rem 1.5rem;
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-sunk);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+  text-align: center;
+  color: var(--ink-faint);
+}
+.review__doc-empty strong {
+  font-weight: var(--weight-display);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+.review__doc-empty-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--vera-deep);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+.review__doc-empty-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+.review__doc-empty--page {
+  padding: 4.5rem 1.5rem;
+  grid-column: 1 / -1;
+}
+.review__doc-empty--page p {
+  max-width: 34rem;
+}
+.review__doc-skeleton {
+  border: 1px dashed var(--hairline-soft);
+  border-radius: var(--radius-card);
+  padding: 1rem;
+  background: var(--paper);
+}
+
+/* ---- 右侧：报告 + issue 列 ------------------------------------------------ */
+
+.review__side {
+  position: sticky;
+  top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.review__panel {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  display: flex;
+  flex-direction: column;
+}
+.review__panel-head {
+  padding: 0.85rem 0.95rem 0.8rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.review__panel-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.18rem;
+}
+.review__panel-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+}
+.review__panel-sub {
+  margin-left: auto;
+  color: var(--ink-faint);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+}
+.review__panel-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  overflow-y: auto;
+}
+
+.review__issues {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.review__issue {
+  border: 1px solid var(--hairline);
+  border-left: 2px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  padding: 0.75rem 0.85rem 0.7rem;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    transform 180ms var(--ease-out-editorial);
+}
+.review__issue:hover {
+  border-left-color: var(--vera-hairline);
+  box-shadow: var(--shadow-lift-soft);
+  transform: translateY(-1px);
+}
+.review__issue[data-decided="true"] {
+  opacity: 0.64;
+}
+.review__issue-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.review__issue-badge {
+  padding: 0.1rem 0.55rem 0.14rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+.review__issue-badge[data-s="critical"] {
+  color: var(--vera-deep);
+  border-color: var(--vera-hairline);
+  background: var(--vera-soft);
+}
+.review__issue-badge[data-s="major"] {
+  color: var(--branch);
+  border-color: color-mix(in srgb, var(--branch) 38%, transparent);
+}
+.review__issue-badge[data-s="minor"] {
+  color: var(--ink-faint);
+}
+.review__issue-cat {
+  flex-shrink: 0;
+  color: var(--ink-faint);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+}
+.review__issue-message {
+  margin-top: 0.4rem;
+  color: var(--ink);
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+.review__issue-evidence {
+  margin-top: 0.45rem;
+  padding: 0.4rem 0.55rem 0.45rem 0.7rem;
+  border-left: 2px solid color-mix(in srgb, var(--vera-hairline) 60%, transparent);
+  background: color-mix(in srgb, var(--vera-soft) 40%, transparent);
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.7;
+  font-style: italic;
+}
+.review__issue-suggest {
+  margin-top: 0.4rem;
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+.review__issue-foot {
+  margin-top: 0.55rem;
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.review__decision-chip {
+  margin-left: auto;
+  padding: 0.16rem 0.5rem 0.2rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--hairline-soft);
+  color: var(--ink-faint);
+}
+.review__decision-chip[data-d="accept"] {
+  color: var(--canon);
+  border-color: color-mix(in srgb, var(--canon) 45%, transparent);
+  background: color-mix(in srgb, var(--canon) 8%, transparent);
+}
+.review__decision-chip[data-d="reject"],
+.review__decision-chip[data-d="false_positive"] {
+  color: var(--vera-deep);
+  border-color: var(--vera-hairline);
+  background: var(--vera-soft);
+}
+.review__decision-chip[data-d="intentional_keep"] {
+  color: var(--branch);
+  border-color: color-mix(in srgb, var(--branch) 40%, transparent);
+}
+
+.review__decider {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+.review__decider-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.42rem 0.55rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    background-color 140ms ease;
+}
+.review__decider-btn:hover {
+  border-color: var(--vera-hairline);
+  color: var(--vera-deep);
+  background: var(--vera-soft);
+}
+.review__decider-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.review__decider-btn:disabled:hover {
+  border-color: var(--hairline);
+  color: var(--ink-soft);
+  background: var(--paper);
+}
+.review__decider-btn[data-on="true"] {
+  border-color: var(--vera);
+  color: var(--vera-deep);
+  background: var(--vera-soft);
+}
+
+/* ---- 报告（verdict/scores) ------------------------------------------------- */
+
+.review__report {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  padding: 0.85rem 0.95rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.review__report-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+.review__report-verdict {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  padding: 0.18rem 0.55rem 0.2rem;
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+.review__report-verdict[data-v="pass"] {
+  color: var(--canon);
+}
+.review__report-verdict[data-v="revise"] {
+  color: var(--branch);
+}
+.review__report-verdict[data-v="block"] {
+  color: var(--vera-deep);
+}
+.review__report-summary {
+  color: var(--ink);
+  font-size: 0.84rem;
+  line-height: 1.75;
+}
+.review__report-scores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+}
+
+.review__empty {
+  padding: 1.2rem 0.9rem;
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+  line-height: 1.8;
+  text-align: center;
+}
+.review__empty strong {
+  display: block;
+  color: var(--ink);
+  font-weight: var(--weight-display);
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.04em;
+}
+
+/* ---- 反馈 ---------------------------------------------------------------- */
+
+.review__flash {
+  position: fixed;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  z-index: 60;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+  color: var(--ink);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+@media (max-width: 1100px) {
+  .review__layout {
+    grid-template-columns: 1fr;
+  }
+  .review__side {
+    position: static;
+    max-height: none;
+  }
+}
+
+/* ---- 页眉报告切换 + 选中 issue + 提案 diff ------------------------------- */
+
+.review__report-picker {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: -0.3rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.review__report-picker select {
+  appearance: none;
+  max-width: 17rem;
+  padding: 0.38rem 1.7rem 0.4rem 0.6rem;
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  background-color: var(--paper-raised);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235c554a' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.55rem center;
+  box-shadow: var(--shadow-lift-soft);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition:
+    border-color 140ms ease,
+    box-shadow 160ms ease;
+}
+.review__report-picker select:hover {
+  border-color: var(--vera-hairline);
+}
+.review__report-picker select:focus-visible {
+  outline: 1px solid var(--vera);
+  outline-offset: 1px;
+  border-color: var(--vera);
+}
+
+.review__issue[data-selected="true"] {
+  border-color: var(--vera-hairline);
+  border-left-color: var(--vera);
+  background: color-mix(in srgb, var(--vera-soft) 45%, transparent);
+  box-shadow: var(--shadow-lift-soft);
+}
+.review__issue[data-selected="true"]:hover {
+  transform: none;
+}
+
+.review__proposal-diff {
+  max-height: none;
+  overflow: visible;
+  margin: 0.3rem 0.15rem 0.25rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--hairline-soft);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

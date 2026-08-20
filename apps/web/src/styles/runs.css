@@ -1,0 +1,464 @@
+/* ==========================================================================
+   运行中心 v3（期号档案 / Document Journal 式）。主屏是一张档案管的目录页：
+   左侧卷期（ISSUE NO. 41 断号体）+ 右侧当期运行按时间线逐条排印。
+   ========================================================================== */
+
+.runs {
+  min-height: 100vh;
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1rem, 2.5vw, 1.8rem)
+    clamp(2rem, 5vh, 4rem) clamp(1.2rem, 4vw, 2.8rem);
+  max-width: 1580px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+
+.runs__layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: clamp(1rem, 2.4vw, 2rem);
+  align-items: start;
+  flex: 1;
+}
+
+/* ---- 左：期号栏 ------------------------------------------------------------- */
+
+.runs__volumes {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.runs__volumes-head {
+  padding: 0.85rem 0.95rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.runs__volumes-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 0.96rem;
+  letter-spacing: 0.04em;
+}
+.runs__volumes-count {
+  margin-left: auto;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+}
+.runs__volumes-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+.runs__volume {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 0.95rem;
+  border-top: 1px solid var(--hairline-soft);
+  color: var(--ink-soft);
+  transition:
+    color 140ms ease,
+    background-color 140ms ease;
+}
+.runs__volume:first-of-type {
+  border-top: none;
+}
+.runs__volume:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper-sunk) 40%, transparent);
+}
+.runs__volume[data-active="true"] {
+  background: var(--vera-soft);
+  color: var(--vera-deep);
+}
+.runs__volume-no {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+}
+.runs__volume-title {
+  display: block;
+  font-weight: 550;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  margin-top: 0.15rem;
+}
+.runs__volume-sub {
+  display: block;
+  color: var(--ink-faint);
+  font-size: 0.68rem;
+  margin-top: 0.2rem;
+}
+.runs__volume[data-active="true"] .runs__volume-sub {
+  color: var(--vera);
+}
+
+.runs__empty-guide {
+  padding: 1rem 0.95rem;
+  color: var(--ink-faint);
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+
+/* ---- 右：期号号主档 -------------------------------------------------------- */
+
+.runs__sheet {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.runs__sheet-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.1rem 1.3rem 0.95rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  flex-wrap: wrap;
+}
+.runs__sheet-kicker {
+  color: var(--vera);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+}
+.runs__sheet-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+.runs__sheet-sub {
+  margin-left: auto;
+  color: var(--ink-faint);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+}
+
+.runs__sheet-meta {
+  display: flex;
+  gap: 1.2rem;
+  padding: 0.6rem 1.3rem 1rem;
+  border-bottom: 1px dashed var(--hairline-soft);
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+}
+
+.runs__rows {
+  display: flex;
+  flex-direction: column;
+}
+.runs__row {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto auto;
+  gap: 0.7rem;
+  padding: 0.75rem 1.3rem;
+  border-top: 1px solid var(--hairline-soft);
+  align-items: baseline;
+  transition: background-color 140ms ease;
+}
+.runs__row:hover {
+  background: color-mix(in srgb, var(--paper-sunk) 30%, transparent);
+}
+.runs__row-seq {
+  color: var(--vera);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+}
+.runs__row-title {
+  font-weight: 550;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.runs__row-title small {
+  color: var(--ink-faint);
+  font-weight: normal;
+  margin-left: 0.5rem;
+  font-size: 0.72rem;
+}
+.runs__row-status {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.runs__row-status[data-s="completed"] {
+  color: var(--canon);
+}
+.runs__row-status[data-s="failed"],
+.runs__row-status[data-s="failed_recoverable"] {
+  color: var(--vera-deep);
+}
+.runs__row-status[data-s="running"] {
+  color: var(--vera);
+}
+.runs__row-budget {
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  text-align: right;
+}
+
+@media (max-width: 1100px) {
+  .runs__layout {
+    grid-template-columns: 1fr;
+  }
+  .runs__volumes-list {
+    max-height: none;
+  }
+}
+.runs__pad {
+  padding: 1.2rem;
+}
+.runs__row--button {
+  width: 100%;
+  text-align: left;
+  color: inherit;
+}
+.runs__row--button[data-active="true"] {
+  background: var(--vera-soft);
+}
+.runs__row-status[data-s="awaiting_user"] {
+  color: var(--vera);
+}
+.runs__row-status[data-s="pending"],
+.runs__row-status[data-s="paused"] {
+  color: var(--ink-soft);
+}
+.runs__row-status[data-s="cancelled"] {
+  color: var(--ink-faint);
+}
+
+/* 未选中运行时的虚线注记条 */
+.runs__select-hint {
+  padding: 0.95rem 1.2rem;
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--paper-sunk) 26%, transparent);
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+/* ---- 运行详情：mono 眉题 + 宋体题的续档 ------------------------------------ */
+
+.run-detail {
+  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+}
+.run-detail__head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.9rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.run-detail__head p {
+  color: var(--ink-faint);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  word-break: break-all;
+}
+.run-detail__head h2 {
+  margin-top: 0.25rem;
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1.18rem;
+  letter-spacing: 0.02em;
+}
+.run-detail__head .runs__row-status {
+  margin-top: 0.3rem;
+  white-space: nowrap;
+}
+
+.run-detail__controls,
+.run-detail__stream-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.run-detail__controls {
+  margin-bottom: 0.85rem;
+}
+.run-detail__revision {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+.run-detail__revision textarea {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  resize: vertical;
+}
+.run-detail__revision textarea:focus {
+  outline: none;
+  border-color: var(--vera-hairline);
+}
+.run-detail__notice {
+  margin-bottom: 0.6rem;
+  color: var(--canon);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.run-detail__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  padding-bottom: 0.95rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px dashed var(--hairline-soft);
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+/* 详情分区：可折叠档案盒 */
+.run-detail__block {
+  margin-top: 0.7rem;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.run-detail__block > summary {
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1.02rem;
+  letter-spacing: 0.03em;
+  transition: background-color 140ms ease;
+}
+.run-detail__block > summary:hover {
+  background: color-mix(in srgb, var(--paper-sunk) 30%, transparent);
+}
+.run-detail__block > div {
+  padding: 0 1rem 1rem;
+}
+
+.run-detail__streams,
+.run-detail__timeline,
+.run-detail__calls {
+  display: grid;
+  gap: 0.65rem;
+}
+.run-detail__stream,
+.run-detail__timeline article,
+.run-detail__calls article {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+}
+.run-detail__stream[data-status="interrupted"] {
+  border-left: 2px solid var(--vera);
+}
+.run-detail__stream > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+/* 正文流是稿件本体：宋体排印，按纸面速度读 */
+.run-detail__stream pre {
+  max-height: 26rem;
+  overflow: auto;
+  margin-top: 0.6rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.92rem;
+  line-height: 1.9;
+  color: var(--ink);
+}
+.run-detail__stream-actions {
+  margin-top: 0.7rem;
+}
+.run-detail__warning {
+  margin-top: 0.6rem;
+  color: var(--vera-deep);
+  font-size: 0.78rem;
+}
+
+.run-detail__timeline article,
+.run-detail__calls article {
+  display: grid;
+  gap: 0.3rem;
+}
+.run-detail__timeline strong,
+.run-detail__calls strong {
+  font-weight: 550;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+}
+.run-detail__timeline span,
+.run-detail__calls span {
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+.run-detail__timeline p {
+  color: var(--vera-deep);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.run-detail__json {
+  max-height: 26rem;
+  overflow: auto;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 760px) {
+  .run-detail__head {
+    flex-direction: column;
+  }
+}

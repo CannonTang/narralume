@@ -1,0 +1,27 @@
+name: Bug report
+description: 报告可复现的产品或工程问题
+title: "[Bug] "
+labels: ["type:bug", "status:needs-triage"]
+body:
+  - type: textarea
+    attributes:
+      label: 问题描述
+      description: 实际发生了什么，预期是什么？
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 复现步骤
+      placeholder: "1. …\n2. …\n3. …"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: 版本与运行方式
+      placeholder: "v0.1.0 / Windows launcher / browser kernel / Docker"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 日志或截图
+      description: 请先移除作品正文、密钥、Cookie 和私人地址。

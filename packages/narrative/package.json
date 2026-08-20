@@ -1,0 +1,24 @@
+{
+  "name": "@narrative-lantern/narrative",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@narrative-lantern/context": "0.1.0",
+    "@narrative-lantern/domain": "0.1.0",
+    "@narrative-lantern/harness": "0.1.0",
+    "@narrative-lantern/llm": "0.1.0",
+    "@narrative-lantern/persistence": "0.1.0",
+    "zod": "^4.4.3"
+  }
+}

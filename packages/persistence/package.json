@@ -1,0 +1,33 @@
+{
+  "name": "@narrative-lantern/persistence",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "default": "./dist/browser.js"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "default": "./dist/node.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@narrative-lantern/context": "0.1.0",
+    "@narrative-lantern/domain": "0.1.0",
+    "@narrative-lantern/llm": "0.1.0",
+    "@sqlite.org/sqlite-wasm": "^3.53.0-build1"
+  },
+  "devDependencies": {
+    "@narrative-lantern/harness": "0.1.0"
+  }
+}

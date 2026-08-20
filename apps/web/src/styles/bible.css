@@ -1,0 +1,1071 @@
+/* ==========================================================================
+   故事圣经 v4（单页 Canon Spread）。左侧书脊保留类目辑签，右侧每次
+   只摊开一个主题；阅读面与人工编辑在同一张纸幅上左右相邻。
+   ========================================================================== */
+
+.bible {
+  min-height: 100vh;
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1rem, 2.5vw, 1.8rem)
+    clamp(2rem, 5vh, 4rem) clamp(1.2rem, 4vw, 2.8rem);
+  max-width: 1580px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* ---- 书目旗标：小 mono 编号 + 作品名 + 章节献纳 ------------------------- */
+
+
+/* ---- 对页布局 ----------------------------------------------------------- */
+
+.bible__spread {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+
+/* 左栏：书脊旁的竖排辑签 */
+.bible__rail {
+  position: sticky;
+  top: 1.4rem;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.55rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+}
+.bible__rail-title {
+  padding: 0.6rem 0.6rem 0.55rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.bible__tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.55rem 0.6rem;
+  border-radius: 2px;
+  text-align: left;
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  transition:
+    color 140ms ease,
+    background-color 140ms ease;
+}
+.bible__tab:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper-sunk) 38%, transparent);
+}
+.bible__tab[data-active="true"] {
+  color: var(--vera);
+  background: var(--vera-soft);
+}
+.bible__tab[data-active="true"]::before {
+  content: "";
+  position: absolute;
+  left: -0.55rem;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  background: var(--vera);
+}
+.bible__tab-short {
+  width: 1.5rem;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.bible__tab-name {
+  flex: 1;
+  letter-spacing: 0.04em;
+}
+.bible__tab-count {
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+}
+.bible__tab[data-active="true"] .bible__tab-count {
+  color: var(--vera);
+  opacity: 0.75;
+}
+
+/* ---- 主纸幅 ------------------------------------------------------------- */
+
+.bible__main {
+  min-width: 0;
+}
+
+.bible__active-spread {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(19rem, 0.72fr);
+  min-height: min(70vh, 48rem);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+}
+
+.bible__active-spread::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--vera) 0 4.5rem,
+    var(--hairline-soft) 4.5rem 100%
+  );
+}
+
+.bible__reader,
+.bible__editor {
+  min-width: 0;
+}
+
+.bible__reader {
+  border-right: 1px solid var(--hairline-soft);
+}
+
+.bible__editor {
+  display: flex;
+  flex-direction: column;
+  background: color-mix(in srgb, var(--paper-sunk) 42%, transparent);
+}
+
+.bible__active-spread .bible__section {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.bible__reader > .bible__section {
+  min-height: 100%;
+}
+
+.bible__loading {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem 0;
+}
+
+.bible__error {
+  max-width: 40rem;
+}
+
+.bible__section {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+}
+.bible__section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 1rem 1.1rem 0.95rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  flex-wrap: wrap;
+}
+.bible__section-no {
+  color: var(--vera);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+}
+.bible__section-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1.16rem;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+.bible__section-en {
+  color: var(--ink-faint);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+}
+.bible__section-sub {
+  margin-left: auto;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+}
+.bible__section-body {
+  padding: 1rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.bible__section-body--fill {
+  padding: 0;
+}
+
+/* ---- 意图：首语、主题带、锁栏 ------------------------------------------- */
+
+.bible__intent-promise {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: clamp(1.3rem, 3.4vw, 2rem);
+  line-height: 1.3;
+  letter-spacing: 0.035em;
+}
+.bible__intent-current {
+  margin: -0.2rem 0 0.3rem;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+.bible__intent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+.bible__intent-kv {
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+}
+.bible__intent-key {
+  color: var(--ink-faint);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+}
+.bible__intent-val {
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+.bible__intent-bands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.bible__band {
+  padding: 0.2rem 0.6rem 0.24rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+.bible__intent-locked {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  border-top: 1px dashed var(--hairline);
+  padding-top: 0.7rem;
+}
+.bible__lock {
+  padding: 0.1rem 0.45rem 0.14rem;
+  border: 1px solid var(--vera-hairline);
+  border-radius: 2px;
+  color: var(--vera-deep);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  background: var(--vera-soft);
+}
+.bible__hint {
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.8rem;
+  line-height: 1.9;
+}
+.bible__hint--inset {
+  padding: 1rem 1.1rem;
+}
+
+/* ---- 大纲：缩进书目流 ---------------------------------------------------- */
+
+.bible__outline {
+  display: flex;
+  flex-direction: column;
+}
+.bible__outline-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.62rem 1.1rem;
+  border-top: 1px solid var(--hairline-soft);
+  align-items: flex-start;
+}
+.bible__outline-row:first-child {
+  border-top: none;
+}
+.bible__outline-kind {
+  width: 3rem;
+  flex-shrink: 0;
+  color: var(--ink-faint);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  padding-top: 0.2rem;
+}
+.bible__outline-title {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.bible__outline-name {
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.5;
+  font-weight: 550;
+}
+.bible__outline-row[data-status="committed"] .bible__outline-name {
+  font-weight: 650;
+}
+.bible__outline-summary {
+  color: var(--ink-faint);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  font-weight: var(--weight-meta);
+}
+.bible__outline-tag {
+  align-self: center;
+  padding: 0.14rem 0.55rem 0.18rem;
+  border: 1px solid var(--canon);
+  border-radius: 2px;
+  color: var(--canon);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  background: color-mix(in srgb, var(--canon) 8%, transparent);
+}
+.bible__outline-status {
+  align-self: center;
+  color: var(--ink-faint);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+}
+.bible__outline-status[data-status="review"] {
+  color: var(--branch);
+}
+.bible__outline-status[data-status="drafting"] {
+  color: var(--vera);
+}
+.bible__outline-shows-kicker {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 0.1rem;
+}
+.bible__outline-mini {
+  color: var(--ink-faint);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+}
+.bible__outline-mini::before {
+  content: "·";
+  margin-right: 0.35rem;
+}
+.bible__outline-mini:first-child::before {
+  content: "";
+  margin-right: 0;
+}
+
+/* ---- 实体：册页格子 ------------------------------------------------------ */
+
+.bible__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 0.55rem;
+}
+.bible__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  padding: 0.65rem 0.75rem 0.7rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  transition:
+    border-color 160ms ease,
+    transform 180ms var(--ease-out-editorial),
+    box-shadow 180ms ease;
+}
+.bible__card:hover {
+  border-color: var(--vera-hairline);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lift-soft);
+}
+.bible__card-kind {
+  color: var(--ink-faint);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+}
+.bible__card-name {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1rem;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+}
+.bible__card-desc {
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  line-height: 1.7;
+}
+.bible__card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: auto;
+}
+.bible__card-chip {
+  padding: 0.08rem 0.4rem 0.1rem;
+  border: 1px solid var(--hairline-soft);
+  border-radius: 999px;
+  color: var(--ink-faint);
+  font-size: 0.6rem;
+}
+
+/* ---- 正典：事实清单 ------------------------------------------------------ */
+
+.bible__facts {
+  display: flex;
+  flex-direction: column;
+}
+.bible__facts-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  padding: 0.58rem 1.1rem;
+  border-top: 1px solid var(--hairline-soft);
+  transition: background-color 140ms ease;
+}
+.bible__facts-row:hover {
+  background: color-mix(in srgb, var(--vera-soft) 42%, transparent);
+}
+.bible__facts-row:first-child {
+  border-top: none;
+}
+.bible__facts-authority {
+  width: 2.6rem;
+  flex-shrink: 0;
+  color: var(--ink-faint);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+}
+.bible__facts-authority[data-a="locked"] {
+  color: var(--vera);
+}
+.bible__facts-authority[data-a="confirmed"] {
+  color: var(--canon);
+}
+.bible__facts-subject {
+  flex-shrink: 0;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.bible__facts-pred {
+  color: var(--ink-faint);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+.bible__facts-obj {
+  flex: 1;
+  min-width: 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.bible__facts-obj[data-locked="true"] {
+  color: var(--ink);
+  font-weight: 550;
+}
+
+/* ---- 关系 / 时间线：纵向谱系 ------------------------------------------- */
+
+.bible__ledger {
+  display: flex;
+  flex-direction: column;
+}
+.bible__ledger-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 0.6rem 1.1rem;
+  border-top: 1px solid var(--hairline-soft);
+}
+.bible__ledger-row:first-child {
+  border-top: none;
+}
+.bible__ledger-meta {
+  width: 5.4rem;
+  flex-shrink: 0;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+}
+.bible__ledger-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+}
+.bible__ledger-line {
+  color: var(--ink);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.bible__ledger-sub {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: var(--weight-meta);
+  line-height: 1.65;
+}
+.bible__ledger-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  margin-top: 0.24rem;
+}
+.bible__badge {
+  padding: 0.08rem 0.42rem 0.12rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  color: var(--ink-faint);
+  font-size: 0.6rem;
+}
+.bible__badge[data-on="true"] {
+  color: var(--vera-deep);
+  border-color: var(--vera-hairline);
+  background: var(--vera-soft);
+}
+
+/* ---- 伏笔：状态彩带 ------------------------------------------------------ */
+
+.bible__foreshadows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0.55rem;
+}
+.bible__foreshadow-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.34rem;
+  padding: 0.65rem 0.75rem 0.7rem;
+  border-top: 2px solid var(--hairline);
+  border-right: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  border-left: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+}
+.bible__foreshadow-card[data-s="resolved"] {
+  border-top-color: var(--canon);
+}
+.bible__foreshadow-card[data-s="developing"],
+.bible__foreshadow-card[data-s="planted"] {
+  border-top-color: var(--vera);
+}
+.bible__foreshadow-card[data-s="abandoned"] {
+  opacity: 0.52;
+}
+.bible__foreshadow-state {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.bible__foreshadow-stat {
+  color: var(--ink-faint);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+.bible__foreshadow-pin {
+  color: var(--vera);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+.bible__foreshadow-title {
+  font-weight: var(--weight-display);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+.bible__foreshadow-desc {
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  line-height: 1.65;
+}
+.bible__foreshadow-meta {
+  margin-top: auto;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+}
+
+/* ---- 其余板块共用工具 ---------------------------------------------------- */
+
+.bible__foot {
+  margin-top: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  border-top: 1px dashed var(--hairline);
+  color: var(--ink-faint);
+  font-size: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  letter-spacing: 0.05em;
+}
+.bible__blockquote {
+  border-left: 2px solid var(--vera-hairline);
+  color: var(--ink-soft);
+  font-family: var(--font-quote);
+  font-size: 0.85rem;
+  line-height: 1.85;
+  padding: 0.1rem 0 0.1rem 0.75rem;
+}
+
+/* ---- 当前分页面内的 AI 候选工作台 ------------------------------------------ */
+
+.bible-ai {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.15rem 1.1rem 1.3rem;
+  border-top: 1px solid var(--hairline);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--vera-soft) 58%, transparent),
+      transparent 42%
+    ),
+    color-mix(in srgb, var(--paper-raised) 74%, transparent);
+}
+
+.bible-ai::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 1.1rem;
+  width: 3.2rem;
+  height: 2px;
+  background: var(--vera);
+}
+
+.bible-ai__head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.bible-ai__seal {
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--vera-hairline);
+  border-radius: 50%;
+  color: var(--vera);
+  background: var(--paper-raised);
+}
+
+.bible-ai__eyebrow {
+  color: var(--vera);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+}
+
+.bible-ai__head h3 {
+  margin-top: 0.12rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+
+.bible-ai__intro {
+  max-width: 34rem;
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  line-height: 1.75;
+}
+
+.bible-ai__composer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.bible-ai__composer textarea {
+  width: 100%;
+  min-height: 5.5rem;
+  resize: vertical;
+  padding: 0.75rem 0.8rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  color: var(--ink);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.bible-ai__composer textarea:focus {
+  outline: none;
+  border-color: var(--vera-hairline);
+  box-shadow: 0 0 0 2px var(--vera-soft);
+}
+
+.bible-ai__composer .btn {
+  align-self: flex-end;
+}
+
+.bible-ai__running {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--vera-hairline);
+  border-left: 2px solid var(--vera);
+  border-radius: var(--radius-card);
+  background: var(--vera-soft);
+  color: var(--vera-deep);
+}
+
+.bible-ai__running div {
+  min-width: 0;
+}
+
+.bible-ai__running strong,
+.bible-ai__running span {
+  display: block;
+}
+
+.bible-ai__running strong {
+  font-size: 0.76rem;
+}
+
+.bible-ai__running span {
+  margin-top: 0.14rem;
+  color: var(--ink-soft);
+  font-size: 0.66rem;
+  line-height: 1.55;
+}
+
+.bible-ai__running a,
+.bible-ai__set > header a {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--ink-faint);
+  border-radius: 50%;
+}
+
+.bible-ai__running a:hover,
+.bible-ai__set > header a:hover {
+  color: var(--vera);
+  background: var(--paper-raised);
+}
+
+.bible-ai__spin {
+  animation: bible-ai-spin 0.9s linear infinite;
+}
+
+@keyframes bible-ai-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bible-ai__sets,
+.bible-ai__items {
+  display: flex;
+  flex-direction: column;
+}
+
+.bible-ai__sets {
+  gap: 0.75rem;
+}
+
+.bible-ai__set {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  overflow: hidden;
+}
+
+.bible-ai__set > header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 0.75rem 0.8rem 0.65rem;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.bible-ai__set > header span {
+  color: var(--vera);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+}
+
+.bible-ai__set > header h4 {
+  margin-top: 0.18rem;
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.bible-ai__instruction {
+  padding: 0.65rem 0.8rem;
+  color: var(--ink-faint);
+  font-family: var(--font-quote);
+  font-size: 0.68rem;
+  line-height: 1.6;
+}
+
+.bible-ai__stale {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin: 0.65rem 0.8rem 0;
+  padding: 0.48rem 0.55rem;
+  color: var(--vera-deep);
+  border-left: 2px solid var(--vera);
+  background: var(--vera-soft);
+  font-size: 0.64rem;
+  line-height: 1.55;
+}
+
+.bible-ai__stale svg {
+  flex: 0 0 auto;
+  margin-top: 0.12rem;
+}
+
+.bible-ai__items {
+  border-top: 1px dashed var(--hairline);
+}
+
+.bible-ai__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.78rem 0.8rem 0.85rem;
+}
+
+.bible-ai__item + .bible-ai__item {
+  border-top: 1px dashed var(--hairline);
+}
+
+.bible-ai__item[data-decided="true"] {
+  background: color-mix(in srgb, var(--paper-sunk) 34%, transparent);
+}
+
+.bible-ai__item-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+
+.bible-ai__item-title span {
+  flex: 0 0 auto;
+  color: var(--vera);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+}
+
+.bible-ai__item-title h5 {
+  font-size: 0.79rem;
+  line-height: 1.45;
+}
+
+.bible-ai__item > p {
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  line-height: 1.65;
+}
+
+.bible-ai__diff {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--hairline-soft);
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.bible-ai__diff > div {
+  display: grid;
+  grid-template-columns: minmax(4.5rem, 0.32fr) minmax(0, 1fr);
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+}
+
+.bible-ai__diff > div + div {
+  border-top: 1px dashed var(--hairline-soft);
+}
+
+.bible-ai__diff dt {
+  color: var(--ink-faint);
+  font-size: 0.62rem;
+}
+
+.bible-ai__diff dd {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 0.35rem;
+  align-items: start;
+  font-size: 0.64rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.bible-ai__diff del {
+  color: var(--ink-faint);
+  text-decoration-color: var(--vera-hairline);
+}
+
+.bible-ai__diff ins {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.bible-ai__impact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.24rem;
+  padding-left: 1rem;
+  color: var(--ink-faint);
+  font-size: 0.62rem;
+  line-height: 1.55;
+  list-style: square;
+}
+
+.bible-ai__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.bible-ai__decision {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  align-self: flex-end;
+  color: var(--canon) !important;
+  font-size: 0.65rem !important;
+}
+
+.bible-ai__decision[data-action="reject"] {
+  color: var(--ink-faint) !important;
+}
+
+.bible-ai__locked-note {
+  padding: 0.45rem 0.55rem;
+  border-left: 2px solid var(--vera);
+  background: var(--vera-soft);
+  color: var(--vera-deep) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bible-ai__spin {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .bible__spread {
+    grid-template-columns: 1fr;
+  }
+  .bible__rail {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .bible__rail::-webkit-scrollbar {
+    display: none;
+  }
+  .bible__rail-title {
+    display: none;
+  }
+  .bible__tab {
+    display: inline-flex;
+    width: auto;
+    padding-right: 0.85rem;
+  }
+  .bible__tab[data-active="true"]::before {
+    top: auto;
+    left: 18%;
+    right: 18%;
+    bottom: 0;
+    width: auto;
+    height: 2px;
+  }
+  .bible__intent-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bible-ai__diff > div {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 1180px) {
+  .bible__active-spread {
+    grid-template-columns: 1fr;
+  }
+
+  .bible__reader {
+    border-right: 0;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+}
+
+@media (max-width: 520px) {
+  .bible-ai__actions {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+  }
+
+  .bible-ai__actions .btn {
+    white-space: normal;
+    line-height: 1.35;
+  }
+
+  .bible-ai__diff dd {
+    grid-template-columns: 1fr;
+  }
+
+  .bible-ai__diff dd > span {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+}

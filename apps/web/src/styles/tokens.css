@@ -1,0 +1,95 @@
+/* ==========================================================================
+   叙灯 v3 设计令牌：浅色为默认（纸米一层），[data-theme="dark"] 为夜灯变体。
+   一切色彩 / 字体 / 阴影 / 发丝线只允许引用这里的变量；
+   唯一例外是「朱印」这类物件配件（物件本身有真实颜色，不是 UI 色）。
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* 纸：一层底、浮起面、下凹面 */
+  --paper: #f6f2ea;
+  --paper-raised: #fdfcf9;
+  --paper-sunk: #ece5d5;
+
+  /* 墨：三级明度（标题 / 正文次级 / 弱》） */
+  --ink: #26211a;
+  --ink-soft: #5c554a;
+  --ink-faint: #6f675d;
+
+  /* 暖朱：唯一性格色，只编码强调与状态 */
+  --vera: #b6402c;
+  --vera-deep: #96301e;
+  --vera-soft: rgba(182, 64, 44, 0.09);
+  --vera-hairline: rgba(182, 64, 44, 0.34);
+
+  /* 语义色：正典 / 冲突 / 支线 */
+  --canon: #37755e;
+  --conflict: #b0492e;
+  --branch: #6a5fa8;
+
+  /* 发丝线 */
+  --hairline: rgba(38, 33, 26, 0.14);
+  --hairline-soft: rgba(38, 33, 26, 0.07);
+
+  /* 字族：宋正文（可变轴）/ 仿宋引（同族低字重实现）/ mono 注记 / sans 兜底 */
+  --font-serif:
+    "Noto Serif SC Variable", "Songti SC", "Noto Serif SC", "SimSun", serif;
+  --font-quote:
+    "Noto Serif SC Variable", "STFangsong", "FangSong", "仿宋", serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+  --font-sans: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  /* 三级字重：标题 700 / 正文 450 / meta·引文 350 */
+  --weight-display: 700;
+  --weight-body: 450;
+  --weight-meta: 350;
+
+  /* 双层阴影：近清晰 + 远弥散 */
+  --shadow-lift:
+    0 1px 2px rgba(38, 33, 26, 0.12),
+    0 18px 44px -14px rgba(38, 33, 26, 0.24);
+  --shadow-lift-soft:
+    0 1px 1px rgba(38, 33, 26, 0.09),
+    0 10px 26px -12px rgba(38, 33, 26, 0.18);
+
+  /* 纸纹素材（SVG feTurbulence data-URI；用量与混合模式见 base.css） */
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  /* 骨架 */
+  --rail-width: 212px;
+  --rail-width-slim: 64px;
+  --radius-card: 3px;
+  --ease-out-editorial: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: #17130e;
+  --paper-raised: #211b13;
+  --paper-sunk: #100d09;
+
+  --ink: #e8e1d3;
+  --ink-soft: #b4a996;
+  --ink-faint: #887e70;
+
+  --vera: #d45f45;
+  --vera-deep: #b6402c;
+  --vera-soft: rgba(208, 85, 58, 0.15);
+  --vera-hairline: rgba(208, 85, 58, 0.42);
+
+  --canon: #5b9c84;
+  --conflict: #ce6249;
+  --branch: #9286c9;
+
+  --hairline: rgba(232, 225, 211, 0.15);
+  --hairline-soft: rgba(232, 225, 211, 0.07);
+
+  --shadow-lift:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 18px 44px -14px rgba(0, 0, 0, 0.6);
+  --shadow-lift-soft:
+    0 1px 1px rgba(0, 0, 0, 0.42),
+    0 10px 26px -12px rgba(0, 0, 0, 0.5);
+}

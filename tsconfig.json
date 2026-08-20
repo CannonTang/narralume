@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "files": [],
+  "references": [
+    { "path": "./apps/bridge" },
+    { "path": "./packages/contracts" },
+    { "path": "./packages/domain" },
+    { "path": "./packages/harness" },
+    { "path": "./packages/context" },
+    { "path": "./packages/persistence" },
+    { "path": "./packages/llm" },
+    { "path": "./packages/narrative" },
+    { "path": "./apps/relay" },
+    { "path": "./apps/server" },
+    { "path": "./apps/web" }
+  ]
+}

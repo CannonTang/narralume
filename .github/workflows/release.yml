@@ -1,0 +1,118 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run verify
+      - run: npm run test:coverage
+      - run: npx playwright install chromium
+      - run: npm run test:e2e
+
+  build:
+    needs: validate
+    name: ${{ matrix.target }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: windows-x64
+            archive: .tmp/release/*-windows-x64.zip
+          - os: ubuntu-latest
+            target: linux-x64
+            archive: .tmp/release/*-linux-x64.tar.gz
+          - os: macos-15
+            target: macos-arm64
+            archive: .tmp/release/*-macos-arm64.tar.gz
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run release:build -- --target=${{ matrix.target }}
+      - name: Smoke test packaged launcher (macOS/Linux)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          archive=(.tmp/release/*.tar.gz)
+          smoke_root=$(mktemp -d)
+          tar -xzf "${archive[0]}" -C "$smoke_root"
+          package_root=$(find "$smoke_root" -mindepth 1 -maxdepth 1 -type d -print -quit)
+          trap '"$package_root/scripts/stop.sh" || true' EXIT
+          NARRALUME_PORT=14327 \
+            NARRALUME_NO_BROWSER=1 \
+            NARRALUME_FORCE_PORTABLE_NODE=1 \
+            "$package_root/scripts/start.sh"
+          curl --fail --silent http://127.0.0.1:14327/api/health
+          NARRALUME_PORT=14327 "$package_root/scripts/backup.sh" release-smoke
+          "$package_root/scripts/stop.sh"
+          trap - EXIT
+      - name: Smoke test packaged launcher (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $archive = Get-ChildItem -Path ".tmp/release/*-windows-x64.zip" | Select-Object -First 1
+          if (-not $archive) { throw "Windows release archive was not created." }
+          $smokeRoot = Join-Path $env:RUNNER_TEMP "narralume-release-$([guid]::NewGuid())"
+          New-Item -ItemType Directory -Path $smokeRoot | Out-Null
+          Expand-Archive -LiteralPath $archive.FullName -DestinationPath $smokeRoot
+          $packageRoot = (Get-ChildItem -LiteralPath $smokeRoot -Directory | Select-Object -First 1).FullName
+          if (-not $packageRoot) { throw "Windows release archive has no package directory." }
+          $env:NARRALUME_PORT = "14327"
+          $env:NARRALUME_FORCE_PORTABLE_NODE = "1"
+          try {
+            & (Join-Path $packageRoot "scripts/start.ps1") -NoBrowser -NoWait
+            $health = Invoke-RestMethod "http://127.0.0.1:14327/api/health" -TimeoutSec 10
+            if ($health.status -ne "ok") { throw "Packaged server health check failed." }
+            & (Join-Path $packageRoot "scripts/backup.ps1") "release-smoke"
+          } finally {
+            & (Join-Path $packageRoot "scripts/stop.ps1")
+          }
+      - uses: actions/upload-artifact@v5
+        with:
+          name: release-${{ matrix.target }}
+          path: ${{ matrix.archive }}
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: release-*
+          path: .tmp/release
+          merge-multiple: true
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          files=(.tmp/release/*)
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "${files[@]}" --clobber
+          else
+            args=("$GITHUB_REF_NAME" "${files[@]}" --draft --generate-notes --title "$GITHUB_REF_NAME")
+            if [[ "$GITHUB_REF_NAME" == *-* ]]; then args+=(--prerelease); fi
+            gh release create "${args[@]}"
+          fi

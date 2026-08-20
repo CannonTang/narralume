@@ -1,0 +1,726 @@
+/* ==========================================================================
+   自动驾驶 v3（航海日志 / 航次手册）。主屏 = 一出去的船：左侧 index 是
+   罗盘（每一笔进全向南的指针），右侧是航次手、指令口（你写你导）、
+   与备选排水影响的航次手帐。
+   ========================================================================== */
+
+.autopilot {
+  min-height: 100vh;
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1rem, 2.5vw, 1.8rem)
+    clamp(2rem, 5vh, 4rem) clamp(1.2rem, 4vw, 2.8rem);
+  max-width: 1580px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+
+.autopilot__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: clamp(1rem, 2.4vw, 2rem);
+  align-items: start;
+  flex: 1;
+}
+
+/* ---- 左侧：罗盘区 ------------------------------------------------------- */
+
+.autopilot__compass {
+  position: relative;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+  padding: clamp(1.1rem, 2.4vw, 2rem);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: clamp(1rem, 2vw, 2rem);
+}
+.autopilot__compass-face {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  user-select: none;
+  position: relative;
+}
+.autopilot__compass-face svg {
+  width: 92%;
+  height: 92%;
+  aspect-ratio: 1;
+  max-width: 420px;
+}
+.autopilot__compass-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 1;
+}
+.autopilot__compass-kicker {
+  display: flex;
+  gap: 0.5rem;
+  color: var(--ink-faint);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.autopilot__current {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.autopilot__current-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.autopilot__current-sub {
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.8;
+}
+
+.autopilot__legs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.6rem;
+}
+.autopilot__quality {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--hairline-soft);
+  background: var(--hairline-soft);
+}
+.autopilot__quality span {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+  padding: 0.55rem 0.65rem;
+  background: var(--paper-raised);
+  color: var(--ink-faint);
+  font-size: 0.62rem;
+  line-height: 1.35;
+}
+.autopilot__quality strong {
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: var(--weight-display);
+}
+.autopilot__quality [data-quality="revise"] strong {
+  color: #9a6a12;
+}
+.autopilot__quality [data-quality="block"] strong {
+  color: var(--vera-deep);
+}
+.autopilot__quality [data-quality="missing"] strong {
+  color: var(--ink-soft);
+}
+.autopilot__leg {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.5rem 0.7rem;
+  border-left: 1px dashed var(--hairline);
+  background: color-mix(in srgb, var(--paper) 50%, transparent);
+}
+.autopilot__leg[data-role="rolling-plan"] {
+  border-left-color: var(--branch);
+}
+.autopilot__leg[data-role="chapter"] {
+  border-left-color: var(--vera);
+}
+.autopilot__leg[data-role="closing-review"] {
+  border-left-color: var(--canon);
+}
+.autopilot__leg-no {
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  width: 2.2rem;
+}
+.autopilot__leg-name {
+  flex: 1;
+  font-size: 0.85rem;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.autopilot__leg-state {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+}
+.autopilot__leg[data-state="running"] .autopilot__leg-state {
+  color: var(--vera);
+}
+.autopilot__leg[data-state="failed"] .autopilot__leg-state {
+  color: var(--vera-deep);
+}
+.autopilot__leg[data-state="cancelled"] .autopilot__leg-state {
+  color: var(--ink-faint);
+  text-decoration: line-through;
+}
+.autopilot__leg[data-state="failed"] {
+  border-left-color: var(--vera-deep);
+}
+
+/* ---- 指挥台：航次 + 指令 + 可选操作 --------------------------------------- */
+
+.autopilot__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.autopilot__list {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  overflow: hidden;
+}
+.autopilot__list-head {
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.autopilot__list-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 0.96rem;
+  letter-spacing: 0.04em;
+}
+.autopilot__list-count {
+  margin-left: auto;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+}
+
+.autopilot__session {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.65rem 0.85rem;
+  border-top: 1px solid var(--hairline-soft);
+  color: var(--ink-soft);
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+.autopilot__session:first-of-type {
+  border-top: none;
+}
+.autopilot__session:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper-sunk) 40%, transparent);
+}
+.autopilot__session[data-active="true"] {
+  background: var(--vera-soft);
+  color: var(--vera-deep);
+}
+.autopilot__session-no {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.autopilot__session-title {
+  display: grid;
+  gap: 0.15rem;
+  flex: 1;
+  font-weight: 550;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.autopilot__session-title small {
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.autopilot__session-status {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+}
+.autopilot__session[data-active="true"] .autopilot__session-status {
+  color: var(--vera);
+}
+
+/* ---- 指令口 -------------------------------------------------------------- */
+
+.autopilot__steer {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  padding: 1rem 1.1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.autopilot__steer-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.autopilot__steer-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1rem;
+}
+.autopilot__steer-kicker {
+  margin-left: auto;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+.autopilot__steer-input {
+  width: 100%;
+  min-height: 5.2rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  padding: 0.7rem 0.85rem;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--ink);
+  resize: vertical;
+}
+.autopilot__revision {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.7rem 0.85rem;
+  margin-bottom: 0.9rem;
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+}
+.autopilot__revision textarea {
+  width: 100%;
+  min-height: 4.2rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--ink);
+  resize: vertical;
+}
+.autopilot__revision textarea:focus {
+  outline: none;
+  border-color: var(--vera-hairline);
+}
+.autopilot__revision .autopilot__action-btn {
+  align-self: flex-start;
+}
+.autopilot__steer-input:focus {
+  outline: none;
+  border-color: var(--vera-hairline);
+}
+.autopilot__steer-btn {
+  align-self: flex-end;
+  padding: 0.45rem 1rem;
+  background: var(--vera);
+  color: var(--paper-raised);
+  border-radius: var(--radius-card);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition:
+    background-color 160ms ease,
+    transform 180ms var(--ease-out-editorial);
+}
+.autopilot__steer-btn:hover:not(:disabled) {
+  background: var(--vera-deep);
+  transform: translateY(-1px);
+}
+.autopilot__steer-btn:disabled {
+  opacity: 0.6;
+}
+
+/* ---- 航次手帐（可选步骤） ------------------------------------------------- */
+
+.autopilot__notes,
+.autopilot__reviews {
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.autopilot__notes-title,
+.autopilot__reviews-title {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.autopilot__notes li,
+.autopilot__reviews li {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  padding-left: 0.4rem;
+  border-left: 1px dashed var(--hairline);
+  margin-left: 0.2rem;
+  list-style: none;
+}
+
+/* ---- 航表小手钮 ------------------------------------------------------------- */
+
+.autopilot__actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem;
+  border-top: 1px dashed var(--hairline);
+  background: color-mix(in srgb, var(--paper-sunk) 22%, transparent);
+}
+.autopilot__action-btn {
+  padding: 0.32rem 0.4rem 0.36rem;
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    background-color 140ms ease;
+}
+.autopilot__action-btn:hover:not(:disabled) {
+  border-color: var(--vera-hairline);
+  color: var(--vera-deep);
+  background: var(--vera-soft);
+}
+.autopilot__action-btn:disabled {
+  opacity: 0.5;
+}
+.autopilot__action-btn[data-t="resume"] {
+  border-color: var(--canon);
+  color: var(--canon);
+}
+
+@media (max-width: 1100px) {
+  .autopilot__layout {
+    grid-template-columns: 1fr;
+  }
+}
+/* ---- 起帆设置：建书候选 / 指南针 / 新航次（mono 眉题 + 宋体题） ------------ */
+
+.autopilot__setup {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+.autopilot__setup-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.95rem 1rem 0.85rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+}
+.autopilot__setup-card header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.autopilot__setup-card header .mono {
+  color: var(--vera);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.autopilot__setup-card header h2 {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+.autopilot__setup-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.autopilot__setup-card textarea,
+.autopilot__setup-card input,
+.autopilot__setup-card select {
+  width: 100%;
+  min-width: 0;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+.autopilot__setup-card ::placeholder {
+  color: var(--ink-faint);
+}
+.autopilot__setup-card textarea {
+  min-height: 3.2rem;
+  resize: vertical;
+}
+.autopilot__setup-card textarea:focus,
+.autopilot__setup-card input:focus,
+.autopilot__setup-card select:focus {
+  outline: none;
+  border-color: var(--vera-hairline);
+  background: var(--paper-raised);
+}
+.autopilot__setup-card > .btn {
+  margin-top: auto;
+  align-self: flex-end;
+}
+.autopilot__braindump {
+  flex: 1;
+  min-height: 7.5rem;
+}
+.autopilot__setup-link {
+  align-self: flex-start;
+  color: var(--vera);
+  font-size: 0.78rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--vera-hairline);
+  padding-bottom: 1px;
+}
+.autopilot__setup-link:hover {
+  color: var(--vera-deep);
+  border-bottom-color: var(--vera-deep);
+}
+.autopilot__foundation-run {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.8rem;
+  border: 1px solid var(--hairline-soft);
+  background: var(--paper-raised);
+}
+.autopilot__foundation-run[data-status="failed_recoverable"] {
+  border-color: var(--vera-hairline);
+}
+.autopilot__foundation-run strong {
+  color: var(--ink);
+}
+.autopilot__foundation-run p {
+  margin: 0.25rem 0 0;
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+.autopilot__setup-hint {
+  color: var(--ink-faint);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  border-top: 1px dashed var(--hairline);
+  padding-top: 0.6rem;
+}
+.autopilot__setup-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.autopilot__advanced {
+  border-top: 1px dashed var(--hairline);
+  padding-top: 0.55rem;
+}
+.autopilot__advanced summary,
+.autopilot__candidate-advanced summary {
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+.autopilot__advanced[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+/* 候选套（向 LLM 生成的建书原料过称） */
+.autopilot__candidate-set {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.autopilot__candidate-set > h3 {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: 0.92rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.autopilot__setup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.autopilot__candidate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+}
+.autopilot__candidate[data-status="adopted"] {
+  border-left: 2px solid var(--canon);
+}
+.autopilot__candidate[data-status="discarded"] {
+  opacity: 0.55;
+}
+.autopilot__candidate > header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.autopilot__candidate > header strong {
+  font-size: 0.8rem;
+  font-weight: 550;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.autopilot__candidate > header span {
+  color: var(--ink-faint);
+  font-size: 0.7rem;
+}
+.autopilot__candidate-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+}
+.autopilot__candidate-summary div {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 0.5rem;
+}
+.autopilot__candidate-summary dt {
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+}
+.autopilot__candidate-summary dd {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+.autopilot__candidate-advanced {
+  border-top: 1px dashed var(--hairline-soft);
+  padding-top: 0.4rem;
+}
+.autopilot__candidate textarea {
+  min-height: 7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+.autopilot__candidate > p[role="alert"] {
+  color: var(--vera-deep);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+.autopilot__candidate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.autopilot__candidate > small {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+/* 航次簿内的注记 / 空态 */
+.autopilot__list-note {
+  padding: 1rem;
+}
+.autopilot__list-empty {
+  padding: 1rem 1.1rem 1.2rem;
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+
+/* 失败处置（承 .autopilot__actions 的虚线分隔底） */
+.autopilot__failure-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 0.85rem;
+  border-top: 1px dashed var(--hairline);
+  background: color-mix(in srgb, var(--paper-sunk) 22%, transparent);
+}
+.autopilot__failure-actions > p {
+  flex-basis: 100%;
+  color: var(--ink-faint);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+/* 航线注记 */
+.autopilot__legs-empty {
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.8rem;
+}
+.autopilot__leg a {
+  color: var(--vera-deep);
+  font-size: 0.72rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--vera-hairline);
+  padding-bottom: 1px;
+  white-space: nowrap;
+}
+.autopilot__notes-error {
+  font-size: 0.8rem;
+  color: var(--vera-deep);
+  line-height: 1.7;
+}
+
+@media (max-width: 1000px) {
+  .autopilot__setup {
+    grid-template-columns: 1fr;
+  }
+}

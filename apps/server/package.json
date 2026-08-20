@@ -1,0 +1,28 @@
+{
+  "name": "@narrative-lantern/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.3.0",
+    "@fastify/static": "^10.1.3",
+    "@narrative-lantern/context": "0.1.0",
+    "@narrative-lantern/contracts": "0.1.0",
+    "@narrative-lantern/domain": "0.1.0",
+    "@narrative-lantern/harness": "0.1.0",
+    "@narrative-lantern/llm": "0.1.0",
+    "@narrative-lantern/narrative": "0.1.0",
+    "@narrative-lantern/persistence": "0.1.0",
+    "@narrative-lantern/services": "0.1.0",
+    "dotenv": "^17.4.2",
+    "fastify": "^5.11.3",
+    "jszip": "^3.10.1",
+    "zod": "^4.4.3"
+  }
+}

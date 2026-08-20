@@ -1,0 +1,21 @@
+name: Feature request
+description: 提议一个有明确用户价值的改进
+title: "[Feature] "
+labels: ["type:feature", "status:needs-triage"]
+body:
+  - type: textarea
+    attributes:
+      label: 用户问题
+      description: 哪类用户在什么场景下遇到什么问题？
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 建议结果
+      description: 描述期望结果，不必先设计内部架构。
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 替代方案与边界
+      description: 已尝试什么？是否影响数据、隐私、兼容性或部署？

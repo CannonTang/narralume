@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>sqlite-wasm OPFS spike</title>
+  </head>
+  <body>
+    <div id="status">booting</div>
+    <script type="module">
+      const status = document.getElementById("status");
+      try {
+        const worker = new Worker(
+          new URL("./src/kernel/spike-worker.ts", import.meta.url),
+          { type: "module" },
+        );
+        const timeout = setTimeout(() => {
+          status.textContent = "timeout";
+        }, 30_000);
+        worker.addEventListener("message", (event) => {
+          clearTimeout(timeout);
+          status.textContent = JSON.stringify(event.data);
+          window.__spikeResult = event.data;
+        });
+        worker.addEventListener("error", (event) => {
+          clearTimeout(timeout);
+          status.textContent = `worker-error: ${event.message ?? "?"} @ ${event.filename ?? "?"}:${event.lineno ?? "?"}`;
+          window.__spikeResult = { ok: false, message: event.message };
+        });
+        worker.addEventListener("messageerror", (event) => {
+          clearTimeout(timeout);
+          status.textContent = `message-error: ${String(event.data)}`;
+        });
+        worker.postMessage("spike");
+      } catch (error) {
+        status.textContent = String(error);
+      }
+    </script>
+  </body>
+</html>

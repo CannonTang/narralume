@@ -1,0 +1,220 @@
+/* ==========================================================================
+   项目概览：进入作品后的默认页。刊头（书名 / 卷首语 / 进度注记）+ 当前章节
+   卡 + 下一步入口三联。构图用编辑纸幅手势：发丝线分区、mono 注记、暖朱
+   只落在当前相位与主按钮上。
+   ========================================================================== */
+
+.overview {
+  min-height: 100vh;
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1rem, 2.5vw, 1.8rem)
+    clamp(2rem, 5vh, 4rem) clamp(1.2rem, 4vw, 2.8rem);
+  max-width: 1580px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* ---- 版面 ---------------------------------------------------------------- */
+
+.overview__board {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.4rem, 3vh, 2.2rem);
+}
+
+/* 刊头 */
+.overview__masthead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--hairline);
+}
+.overview__masthead-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+.overview__masthead-premise {
+  max-width: 58ch;
+  color: var(--ink-soft);
+  font-weight: var(--weight-body);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+.overview__masthead-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}
+.overview__masthead-phase {
+  color: var(--vera);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+}
+.overview__masthead-index {
+  letter-spacing: 0.14em;
+}
+
+/* ---- 当前章节 ------------------------------------------------------------- */
+
+.overview__current {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.overview__current-head {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-meta);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.overview__current-done {
+  padding: 1.2rem 1.4rem;
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius-card);
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.overview__chapter-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 720px;
+  padding: 1.3rem 1.5rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+}
+.overview__chapter-title {
+  font-weight: var(--weight-display);
+  font-size: 1.18rem;
+  letter-spacing: 0.03em;
+}
+.overview__chapter-status {
+  align-self: flex-start;
+  color: var(--vera);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.overview__chapter-summary {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+.overview__chapter-goal,
+.overview__chapter-focus {
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.84rem;
+  line-height: 1.7;
+}
+.overview__chapter-focus {
+  color: var(--ink-soft);
+}
+.overview__chapter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.4rem;
+}
+
+/* ---- 下一步入口 ----------------------------------------------------------- */
+
+.overview__entries {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+}
+.overview__entries-head {
+  grid-column: 1 / -1;
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.overview__entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  transition:
+    border-color 140ms ease,
+    transform 140ms var(--ease-out-editorial),
+    box-shadow 140ms ease;
+}
+.overview__entry:hover {
+  border-color: var(--vera-hairline);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift-soft);
+}
+.overview__entry[data-primary="true"] {
+  border-color: var(--vera-hairline);
+  background:
+    linear-gradient(135deg, var(--vera-soft), transparent 55%),
+    var(--paper-raised);
+}
+.overview__entry[data-primary="true"] .overview__entry-label {
+  color: var(--vera-deep);
+}
+.overview__entry-label {
+  font-weight: var(--weight-display);
+  font-size: 0.98rem;
+}
+.overview__entry-blurb {
+  color: var(--ink-faint);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+}
+
+/* ---- 活动任务协议字段 ----------------------------------------------------- */
+
+.overview__task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.overview__task-action {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---- 待办汇总条 ------------------------------------------------------------ */
+
+.overview__pending {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.overview__pending-item {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--vera-hairline);
+  border-radius: var(--radius-card);
+  background: var(--vera-soft);
+  color: var(--vera);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  transition: border-color 140ms ease;
+}
+.overview__pending-item:hover {
+  border-color: var(--vera);
+}

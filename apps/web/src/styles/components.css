@@ -1,0 +1,341 @@
+/* 最小组件样式（Seal / PageBand / Empty / ErrorNote / Skeleton / IconButton / ConfirmDialog）。 */
+
+/* 朱文镂空印：导航与空状态共用同一纸纹、描边和轻微倾斜。 */
+.seal {
+  --seal-size: 36px;
+  --seal-stroke: 1.5px;
+  --seal-char-size: calc(var(--seal-size) * 0.5);
+  position: relative;
+  flex-shrink: 0;
+  width: var(--seal-size);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 8% 10% 9% 11% / 11% 9% 10% 8%;
+  background: transparent;
+  box-shadow: none;
+  transform: rotate(-2deg);
+  user-select: none;
+  transition: width 240ms var(--ease-out-editorial);
+}
+.seal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: var(--seal-stroke) solid var(--vera);
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      ellipse 55% 42% at 23% 20%,
+      color-mix(in srgb, var(--vera) 12%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 60% 55% at 78% 82%,
+      color-mix(in srgb, var(--vera-deep) 11%, transparent),
+      transparent 60%
+    );
+  pointer-events: none;
+}
+.seal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--paper-grain);
+  background-size: 96px 96px;
+  mix-blend-mode: multiply;
+  opacity: 0.15;
+  pointer-events: none;
+}
+.seal__char {
+  position: relative;
+  z-index: 1;
+  color: var(--vera);
+  font-family: var(--font-serif);
+  font-size: var(--seal-char-size);
+  font-weight: 900;
+  line-height: 1;
+  transform: rotate(1.5deg) translateY(0.02em);
+}
+.seal--empty {
+  --seal-size: 56px;
+}
+.seal--hero {
+  --seal-size: clamp(80px, 7vw, 92px);
+  --seal-stroke: 2px;
+  --seal-char-size: calc(var(--seal-size) * 0.52);
+  transform: rotate(-3deg);
+}
+
+/* 页眉横带：1fr auto 1fr 网格，题名恒定居中，不受左右两侧宽度影响。 */
+.page-band {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  column-gap: 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--hairline);
+}
+.page-band__index {
+  justify-self: start;
+  color: var(--vera);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+.page-band__title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+  line-height: 1.14;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.page-band__meta {
+  justify-self: end;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-align: right;
+}
+.page-band__meta .mono {
+  font-size: 0.62rem;
+}
+@media (max-width: 760px) {
+  .page-band {
+    grid-template-columns: 1fr;
+    row-gap: 0.35rem;
+  }
+  .page-band__title {
+    justify-self: start;
+    order: -1;
+  }
+  .page-band__meta {
+    justify-self: start;
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.9rem;
+  padding: 4rem 1.5rem;
+}
+.empty__title {
+  font-size: 1.25rem;
+  font-weight: var(--weight-display);
+  letter-spacing: 0.04em;
+}
+.empty__description {
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.9rem;
+}
+.empty__action {
+  margin-top: 0.6rem;
+}
+
+/* 未选作品时不借用藏书室承载提示，而是在目标页面保留其印章与职责。 */
+.project-required {
+  flex: 1;
+  min-height: calc(100vh - clamp(4rem, 9vh, 6.5rem));
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.project-required > .empty {
+  width: min(100%, 44rem);
+  gap: 1.05rem;
+  padding: clamp(4.4rem, 12vh, 7rem) 1.5rem 3rem;
+}
+.project-required .empty__title {
+  font-size: clamp(1.45rem, 2.2vw, 1.7rem);
+}
+.project-required .empty__description {
+  max-width: 38rem;
+  font-size: 0.96rem;
+  line-height: 1.8;
+}
+.project-required__back {
+  min-height: 2.45rem;
+  padding-inline: 1.05rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 760px) {
+  .project-required {
+    min-height: calc(100dvh - 8rem);
+  }
+  .project-required > .empty {
+    padding: clamp(4rem, 12vh, 6rem) 0.75rem 2rem;
+  }
+  .project-required .seal--hero {
+    --seal-size: 64px;
+    --seal-stroke: 1.75px;
+  }
+  .project-required .empty__title {
+    font-size: 1.35rem;
+  }
+  .project-required .empty__description {
+    max-width: 21rem;
+    font-size: 0.9rem;
+  }
+}
+
+.error-note {
+  border: 1px solid var(--vera-hairline);
+  border-left: 2px solid var(--vera);
+  background: var(--vera-soft);
+  border-radius: var(--radius-card);
+  padding: 1rem 1.2rem;
+  max-width: 40rem;
+}
+.error-note__title {
+  font-weight: var(--weight-display);
+  font-size: 0.95rem;
+}
+.error-note__message {
+  margin-top: 0.35rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.error-note__hint {
+  margin-top: 0.35rem;
+  color: var(--ink-faint);
+  font-weight: var(--weight-meta);
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.5rem 0;
+}
+.skeleton__line {
+  height: 14px;
+  border-radius: 2px;
+  background: var(--paper-sunk);
+  animation: skeleton-breathe 1.6s ease-in-out infinite;
+}
+@keyframes skeleton-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 通用按钮两级：描边次操作 / 朱底主操作。各工作区控件统一取用。 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.8rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    background-color 140ms ease;
+}
+.btn:hover:not(:disabled) {
+  border-color: var(--vera-hairline);
+  color: var(--vera-deep);
+  background: var(--vera-soft);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.btn--primary {
+  border-color: var(--vera);
+  background: var(--vera);
+  color: var(--paper-raised);
+}
+.btn--primary:hover:not(:disabled) {
+  border-color: var(--vera-deep);
+  background: var(--vera-deep);
+  color: var(--paper-raised);
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--radius-card);
+  color: var(--ink-soft);
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    background-color 140ms ease;
+}
+.icon-button:hover {
+  border-color: var(--hairline);
+  color: var(--ink);
+  background: var(--paper-raised);
+}
+.icon-button[aria-pressed="true"] {
+  border-color: var(--vera-hairline);
+  color: var(--vera);
+  background: var(--vera-soft);
+}
+.confirm-dialog__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--ink) 32%, transparent);
+  backdrop-filter: blur(3px);
+}
+
+.confirm-dialog {
+  width: min(28rem, 100%);
+  padding: 1.25rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+}
+
+.confirm-dialog h2 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+}
+
+.confirm-dialog__body {
+  margin-top: 0.75rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.confirm-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}

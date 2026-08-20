@@ -1,0 +1,7 @@
+# 在线体验站：Cloudflare Workers Static Assets。
+name = "narralume-web"
+compatibility_date = "2026-08-17"
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"
