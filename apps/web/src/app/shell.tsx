@@ -2,10 +2,12 @@ import "./shell.css";
 
 import { useQuery } from "@tanstack/react-query";
 import {
+  Check,
   Command,
   Moon,
   PanelLeftClose,
   PanelLeftOpen,
+  Palette,
   Sun,
 } from "lucide-react";
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
@@ -27,7 +29,11 @@ import {
   type AssistantContextPatch,
 } from "./assistant-page-context";
 import { ProjectAssistant } from "./project-assistant";
-import { useTheme } from "./theme";
+import {
+  VISUAL_THEMES,
+  useTheme,
+  type VisualTheme,
+} from "./theme";
 import {
   ADVANCED_WORKSPACES,
   projectIdFromPath,
@@ -170,6 +176,58 @@ export function RepositoryLink() {
   );
 }
 
+function VisualThemePicker({
+  theme,
+  open,
+  onToggle,
+  onSelect,
+}: {
+  theme: VisualTheme;
+  open: boolean;
+  onToggle: () => void;
+  onSelect: (theme: VisualTheme) => void;
+}) {
+  const active = VISUAL_THEMES.find((option) => option.id === theme) ?? VISUAL_THEMES[0]!;
+  return (
+    <div className="theme-picker">
+      <IconButton
+        icon={Palette}
+        label={`视觉主题：${active.label}`}
+        pressed={open}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={onToggle}
+      />
+      {open ? (
+        <div className="theme-picker__menu" role="menu" aria-label="选择视觉主题">
+          <div className="theme-picker__head">
+            <span className="theme-picker__eyebrow mono">APPEARANCE</span>
+            <strong>视觉主题</strong>
+          </div>
+          {VISUAL_THEMES.map((option) => (
+            <button
+              key={option.id}
+              type="button"
+              className="theme-picker__option"
+              data-active={option.id === theme}
+              role="menuitemradio"
+              aria-checked={option.id === theme}
+              onClick={() => onSelect(option.id)}
+            >
+              <span className="theme-picker__swatch" data-theme={option.id} aria-hidden="true" />
+              <span className="theme-picker__copy">
+                <strong>{option.label}</strong>
+                <small>{option.description}</small>
+              </span>
+              {option.id === theme ? <Check size={15} aria-hidden="true" /> : null}
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export function NaviLink(item: WorkspaceDef, projectId: string | null, current: WorkspaceDef, currentPath: string) {
   const Icon = item.icon;
   const href = item.id === "supply" && projectId
@@ -195,8 +253,15 @@ export function NaviLink(item: WorkspaceDef, projectId: string | null, current: 
 
 function ShellFrame() {
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [visualThemeOpen, setVisualThemeOpen] = useState(false);
   const [railCollapsed, toggleRail] = useRailCollapsed();
-  const { preference: themePreference, theme, toggleTheme } = useTheme();
+  const {
+    preference: themePreference,
+    theme,
+    toggleTheme,
+    visualTheme,
+    setVisualTheme,
+  } = useTheme();
   const location = useLocation();
   const current = workspaceByPath(location.pathname);
   const projectId = projectIdFromPath(location.pathname) ?? (
@@ -326,6 +391,15 @@ function ShellFrame() {
               pressed={themePreference !== "system"}
               onClick={toggleTheme}
             />
+            <VisualThemePicker
+              theme={visualTheme}
+              open={visualThemeOpen}
+              onToggle={() => setVisualThemeOpen((open) => !open)}
+              onSelect={(next) => {
+                setVisualTheme(next);
+                setVisualThemeOpen(false);
+              }}
+            />
             <IconButton
               icon={Command}
               label="命令面板（⌘K）"
@@ -349,6 +423,15 @@ function ShellFrame() {
           label={themeButtonLabel(theme, themePreference)}
           pressed={themePreference !== "system"}
           onClick={toggleTheme}
+        />
+        <VisualThemePicker
+          theme={visualTheme}
+          open={visualThemeOpen}
+          onToggle={() => setVisualThemeOpen((open) => !open)}
+          onSelect={(next) => {
+            setVisualTheme(next);
+            setVisualThemeOpen(false);
+          }}
         />
         <IconButton
           icon={Command}

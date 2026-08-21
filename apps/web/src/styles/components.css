@@ -247,9 +247,12 @@
   gap: 0.35rem;
   padding: 0.42rem 0.8rem;
   border: 1px solid var(--hairline);
-  border-radius: var(--radius-card);
+  min-height: 2.3rem;
+  border-radius: var(--radius-control);
   background: var(--paper-raised);
   color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-weight: 600;
   font-size: 0.76rem;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -285,8 +288,9 @@
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-control);
   color: var(--ink-soft);
+  font-family: var(--font-ui);
   transition:
     border-color 140ms ease,
     color 140ms ease,

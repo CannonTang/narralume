@@ -4,9 +4,56 @@ import { create } from "zustand";
 
 export type Theme = "light" | "dark";
 export type ThemePreference = "system" | Theme;
+export type VisualTheme =
+  | "editorial"
+  | "publisher"
+  | "night"
+  | "forest"
+  | "indigo"
+  | "amber";
+
+export interface VisualThemeOption {
+  id: VisualTheme;
+  label: string;
+  description: string;
+}
+
+export const VISUAL_THEMES: VisualThemeOption[] = [
+  {
+    id: "editorial",
+    label: "文学编辑室",
+    description: "温和纸面，适合日常编写与整理",
+  },
+  {
+    id: "publisher",
+    label: "出版书架",
+    description: "更强的封面、纸张与出版物气质",
+  },
+  {
+    id: "night",
+    label: "夜灯写作室",
+    description: "深色画布，适合长时间沉浸写作",
+  },
+  {
+    id: "forest",
+    label: "松柏档案馆",
+    description: "青绿纸面，安静、自然、偏知识库气质",
+  },
+  {
+    id: "indigo",
+    label: "靛青校稿台",
+    description: "蓝灰画布，清晰、理性、适合长篇校订",
+  },
+  {
+    id: "amber",
+    label: "琥珀印刷所",
+    description: "金黄纸张，温暖、复古、强调出版感",
+  },
+];
 
 const SYSTEM_THEME_QUERY = "(prefers-color-scheme: dark)";
 const THEME_PREFERENCE_KEY = "narralume:theme-preference";
+const VISUAL_THEME_KEY = "narralume:visual-theme";
 
 function themeFor(matchesDark: boolean): Theme {
   return matchesDark ? "dark" : "light";
@@ -26,6 +73,21 @@ function readPreference(): ThemePreference {
   }
 }
 
+function readVisualTheme(): VisualTheme {
+  try {
+    const value = window.localStorage.getItem(VISUAL_THEME_KEY);
+    return value === "publisher" ||
+      value === "night" ||
+      value === "forest" ||
+      value === "indigo" ||
+      value === "amber"
+      ? value
+      : "editorial";
+  } catch {
+    return "editorial";
+  }
+}
+
 function resolvedTheme(preference: ThemePreference): Theme {
   return preference === "system" ? systemTheme() : preference;
 }
@@ -34,13 +96,20 @@ export function applyTheme(theme: Theme): void {
   document.documentElement.dataset.theme = theme;
 }
 
+export function applyVisualTheme(theme: VisualTheme): void {
+  document.documentElement.dataset.visualTheme = theme;
+}
+
 interface ThemeState {
   preference: ThemePreference;
   theme: Theme;
   toggleTheme: () => void;
+  visualTheme: VisualTheme;
+  setVisualTheme: (theme: VisualTheme) => void;
 }
 
 const initialPreference = readPreference();
+const initialVisualTheme = readVisualTheme();
 
 export const useTheme = create<ThemeState>()((set, get) => ({
   preference: initialPreference,
@@ -66,9 +135,20 @@ export const useTheme = create<ThemeState>()((set, get) => ({
     applyTheme(theme);
     set({ preference, theme });
   },
+  visualTheme: initialVisualTheme,
+  setVisualTheme: (visualTheme) => {
+    try {
+      window.localStorage.setItem(VISUAL_THEME_KEY, visualTheme);
+    } catch {
+      /* 私密模式下只保留当前会话。 */
+    }
+    applyVisualTheme(visualTheme);
+    set({ visualTheme });
+  },
 }));
 
 export function followSystemTheme(): () => void {
+  applyVisualTheme(initialVisualTheme);
   if (typeof window.matchMedia !== "function") {
     const preference = readPreference();
     const theme = preference === "system" ? "light" : preference;

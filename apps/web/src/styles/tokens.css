@@ -39,6 +39,7 @@
     "Noto Serif SC Variable", "STFangsong", "FangSong", "仿宋", serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
   --font-sans: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-ui: var(--font-sans);
 
   /* 三级字重：标题 700 / 正文 450 / meta·引文 350 */
   --weight-display: 700;
@@ -60,6 +61,7 @@
   --rail-width: 212px;
   --rail-width-slim: 64px;
   --radius-card: 3px;
+  --radius-control: 8px;
   --ease-out-editorial: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -92,4 +94,280 @@
   --shadow-lift-soft:
     0 1px 1px rgba(0, 0, 0, 0.42),
     0 10px 26px -12px rgba(0, 0, 0, 0.5);
+}
+
+/*
+ * 可切换的视觉主题。data-theme 仍然负责“跟随系统 / 日色 / 夜色”，
+ * data-visual-theme 负责产品气质；两者分开，方便比较整套视觉方向。
+ */
+
+[data-visual-theme="editorial"] {
+  color-scheme: light;
+  --paper: #f5f2ec;
+  --paper-raised: #fffdf9;
+  --paper-sunk: #eae3d7;
+  --ink: #2f2a23;
+  --ink-soft: #665e54;
+  --ink-faint: #81786d;
+  --vera: #b94731;
+  --vera-deep: #963622;
+  --vera-soft: rgba(185, 71, 49, 0.1);
+  --vera-hairline: rgba(185, 71, 49, 0.34);
+  --canon: #39755e;
+  --conflict: #b84b31;
+  --branch: #7164a8;
+  --hairline: rgba(47, 42, 35, 0.17);
+  --hairline-soft: rgba(47, 42, 35, 0.08);
+  --font-ui: "Avenir Next", "PingFang SC", system-ui, sans-serif;
+  --radius-card: 10px;
+  --radius-control: 8px;
+  --shadow-lift:
+    0 1px 2px rgba(47, 42, 35, 0.1),
+    0 20px 46px -16px rgba(47, 42, 35, 0.2);
+  --shadow-lift-soft:
+    0 1px 1px rgba(47, 42, 35, 0.08),
+    0 12px 28px -14px rgba(47, 42, 35, 0.16);
+}
+
+[data-visual-theme="publisher"] {
+  color-scheme: light;
+  --paper: #f3ede2;
+  --paper-raised: #fffaf0;
+  --paper-sunk: #e3d5c2;
+  --ink: #30221c;
+  --ink-soft: #6c584c;
+  --ink-faint: #8a7668;
+  --vera: #a84230;
+  --vera-deep: #7f2c21;
+  --vera-soft: rgba(168, 66, 48, 0.11);
+  --vera-hairline: rgba(168, 66, 48, 0.38);
+  --canon: #3d6b50;
+  --conflict: #b34b35;
+  --branch: #775b8f;
+  --hairline: rgba(75, 48, 35, 0.22);
+  --hairline-soft: rgba(75, 48, 35, 0.1);
+  --font-ui: "Avenir Next", "PingFang SC", system-ui, sans-serif;
+  --radius-card: 5px;
+  --radius-control: 5px;
+  --shadow-lift:
+    0 2px 0 rgba(75, 48, 35, 0.08),
+    0 18px 40px -16px rgba(75, 48, 35, 0.22);
+  --shadow-lift-soft:
+    0 1px 0 rgba(75, 48, 35, 0.08),
+    0 10px 24px -12px rgba(75, 48, 35, 0.18);
+}
+
+[data-visual-theme="night"] {
+  color-scheme: dark;
+  --paper: #15171b;
+  --paper-raised: #22252b;
+  --paper-sunk: #0d0f12;
+  --ink: #f2ecdf;
+  --ink-soft: #c8c0b5;
+  --ink-faint: #9c958b;
+  --vera: #ed8060;
+  --vera-deep: #c85d45;
+  --vera-soft: rgba(237, 128, 96, 0.16);
+  --vera-hairline: rgba(237, 128, 96, 0.46);
+  --canon: #73b79a;
+  --conflict: #ed8060;
+  --branch: #aaa0e0;
+  --hairline: rgba(242, 236, 223, 0.18);
+  --hairline-soft: rgba(242, 236, 223, 0.09);
+  --font-ui: "Avenir Next", "PingFang SC", system-ui, sans-serif;
+  --radius-card: 12px;
+  --radius-control: 9px;
+  --shadow-lift:
+    0 1px 2px rgba(0, 0, 0, 0.46),
+    0 22px 50px -16px rgba(0, 0, 0, 0.72);
+  --shadow-lift-soft:
+    0 1px 1px rgba(0, 0, 0, 0.38),
+    0 12px 30px -14px rgba(0, 0, 0, 0.6);
+}
+
+[data-visual-theme="forest"] {
+  color-scheme: light;
+  --paper: #eef3ed;
+  --paper-raised: #fbfdf9;
+  --paper-sunk: #dfe9df;
+  --ink: #20332d;
+  --ink-soft: #536a60;
+  --ink-faint: #758981;
+  --vera: #2f7663;
+  --vera-deep: #205848;
+  --vera-soft: rgba(47, 118, 99, 0.12);
+  --vera-hairline: rgba(47, 118, 99, 0.38);
+  --canon: #3f8158;
+  --conflict: #b46743;
+  --branch: #6479ac;
+  --hairline: rgba(32, 51, 45, 0.17);
+  --hairline-soft: rgba(32, 51, 45, 0.08);
+  --font-ui: "Avenir Next", "PingFang SC", system-ui, sans-serif;
+  --radius-card: 12px;
+  --radius-control: 9px;
+  --shadow-lift:
+    0 1px 2px rgba(32, 51, 45, 0.1),
+    0 20px 46px -16px rgba(32, 51, 45, 0.18);
+  --shadow-lift-soft:
+    0 1px 1px rgba(32, 51, 45, 0.08),
+    0 12px 28px -14px rgba(32, 51, 45, 0.15);
+}
+
+[data-visual-theme="indigo"] {
+  color-scheme: light;
+  --paper: #eef2fa;
+  --paper-raised: #fbfcff;
+  --paper-sunk: #dce4f3;
+  --ink: #202a3d;
+  --ink-soft: #5e6b83;
+  --ink-faint: #7d89a0;
+  --vera: #4c67b7;
+  --vera-deep: #354d93;
+  --vera-soft: rgba(76, 103, 183, 0.12);
+  --vera-hairline: rgba(76, 103, 183, 0.38);
+  --canon: #47826e;
+  --conflict: #b65b52;
+  --branch: #765da5;
+  --hairline: rgba(32, 42, 61, 0.17);
+  --hairline-soft: rgba(32, 42, 61, 0.08);
+  --font-ui: "Avenir Next", "PingFang SC", system-ui, sans-serif;
+  --radius-card: 14px;
+  --radius-control: 10px;
+  --shadow-lift:
+    0 1px 2px rgba(32, 42, 61, 0.1),
+    0 20px 46px -16px rgba(32, 42, 61, 0.2);
+  --shadow-lift-soft:
+    0 1px 1px rgba(32, 42, 61, 0.08),
+    0 12px 28px -14px rgba(32, 42, 61, 0.16);
+}
+
+[data-visual-theme="amber"] {
+  color-scheme: light;
+  --paper: #f8f1de;
+  --paper-raised: #fffaf0;
+  --paper-sunk: #eadcb5;
+  --ink: #352b1d;
+  --ink-soft: #75644b;
+  --ink-faint: #938266;
+  --vera: #bc862b;
+  --vera-deep: #8d6217;
+  --vera-soft: rgba(188, 134, 43, 0.14);
+  --vera-hairline: rgba(188, 134, 43, 0.42);
+  --canon: #4d7b58;
+  --conflict: #b95f3f;
+  --branch: #80659a;
+  --hairline: rgba(53, 43, 29, 0.19);
+  --hairline-soft: rgba(53, 43, 29, 0.09);
+  --font-ui: "Avenir Next", "PingFang SC", system-ui, sans-serif;
+  --radius-card: 6px;
+  --radius-control: 6px;
+  --shadow-lift:
+    0 2px 0 rgba(91, 65, 21, 0.08),
+    0 18px 40px -16px rgba(91, 65, 21, 0.22);
+  --shadow-lift-soft:
+    0 1px 0 rgba(91, 65, 21, 0.08),
+    0 10px 24px -12px rgba(91, 65, 21, 0.18);
+}
+
+/* 夜灯是独立的深色视觉方向，不会因系统当前是日色而变成浅色。 */
+[data-visual-theme="night"] body::after,
+body[data-visual-theme="night"]::after {
+  opacity: 0.045;
+  mix-blend-mode: screen;
+}
+
+/* 日色主题切换到系统夜色时仍保留各自的性格。 */
+[data-theme="dark"][data-visual-theme="editorial"] {
+  color-scheme: dark;
+  --paper: #1b1815;
+  --paper-raised: #27221d;
+  --paper-sunk: #110f0d;
+  --ink: #eee6d9;
+  --ink-soft: #c0b6a7;
+  --ink-faint: #968b7d;
+  --vera: #da7053;
+  --vera-deep: #b74c37;
+  --vera-soft: rgba(218, 112, 83, 0.16);
+  --vera-hairline: rgba(218, 112, 83, 0.45);
+  --canon: #6da990;
+  --conflict: #da7053;
+  --branch: #a196da;
+  --hairline: rgba(238, 230, 217, 0.17);
+  --hairline-soft: rgba(238, 230, 217, 0.08);
+}
+
+[data-theme="dark"][data-visual-theme="publisher"] {
+  color-scheme: dark;
+  --paper: #211713;
+  --paper-raised: #31231d;
+  --paper-sunk: #140d0a;
+  --ink: #f3e6d5;
+  --ink-soft: #cbb9a8;
+  --ink-faint: #a28e7d;
+  --vera: #e07a5c;
+  --vera-deep: #bb523b;
+  --vera-soft: rgba(224, 122, 92, 0.17);
+  --vera-hairline: rgba(224, 122, 92, 0.48);
+  --canon: #79ae8d;
+  --conflict: #e07a5c;
+  --branch: #b09ace;
+  --hairline: rgba(243, 230, 213, 0.19);
+  --hairline-soft: rgba(243, 230, 213, 0.09);
+}
+
+[data-theme="dark"][data-visual-theme="forest"] {
+  color-scheme: dark;
+  --paper: #111b18;
+  --paper-raised: #1b2a25;
+  --paper-sunk: #0a100e;
+  --ink: #e5f0e7;
+  --ink-soft: #b5c9ba;
+  --ink-faint: #8ca697;
+  --vera: #63b596;
+  --vera-deep: #408a70;
+  --vera-soft: rgba(99, 181, 150, 0.17);
+  --vera-hairline: rgba(99, 181, 150, 0.46);
+  --canon: #7fca9d;
+  --conflict: #dc8061;
+  --branch: #a7b5e0;
+  --hairline: rgba(229, 240, 231, 0.17);
+  --hairline-soft: rgba(229, 240, 231, 0.08);
+}
+
+[data-theme="dark"][data-visual-theme="indigo"] {
+  color-scheme: dark;
+  --paper: #111727;
+  --paper-raised: #1c253b;
+  --paper-sunk: #090e1b;
+  --ink: #e9edff;
+  --ink-soft: #b7c2e4;
+  --ink-faint: #8f9bc1;
+  --vera: #89a2ff;
+  --vera-deep: #627ce0;
+  --vera-soft: rgba(137, 162, 255, 0.17);
+  --vera-hairline: rgba(137, 162, 255, 0.47);
+  --canon: #79c3a5;
+  --conflict: #e38a79;
+  --branch: #c2a9ef;
+  --hairline: rgba(233, 237, 255, 0.18);
+  --hairline-soft: rgba(233, 237, 255, 0.08);
+}
+
+[data-theme="dark"][data-visual-theme="amber"] {
+  color-scheme: dark;
+  --paper: #211b11;
+  --paper-raised: #302818;
+  --paper-sunk: #130f08;
+  --ink: #fff0c9;
+  --ink-soft: #d6c69f;
+  --ink-faint: #aa9a74;
+  --vera: #e7b34d;
+  --vera-deep: #c58c2c;
+  --vera-soft: rgba(231, 179, 77, 0.18);
+  --vera-hairline: rgba(231, 179, 77, 0.5);
+  --canon: #91c087;
+  --conflict: #e58a63;
+  --branch: #c1a0d7;
+  --hairline: rgba(255, 240, 201, 0.19);
+  --hairline-soft: rgba(255, 240, 201, 0.09);
 }

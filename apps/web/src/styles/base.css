@@ -22,7 +22,7 @@ body {
   min-height: 100vh;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-serif);
+  font-family: var(--font-ui);
   font-weight: var(--weight-body);
   font-optical-sizing: auto;
   font-variant-numeric: tabular-nums;

@@ -207,11 +207,11 @@ export function ShelfWorkspace() {
       <div className="shelf__cta" role="group" aria-label="建书入口">
         <button
           type="button"
-          className="btn btn--outline"
+          className="btn btn--primary"
           onClick={() => setCreateMode("blank")}
         >
           <Plus size={14} strokeWidth={1.5} aria-hidden="true" />
-          空白建书
+          新建作品
         </button>
         <button
           type="button"
@@ -219,7 +219,7 @@ export function ShelfWorkspace() {
           onClick={() => setCreateMode("ai")}
         >
           <Sparkles size={14} strokeWidth={1.5} aria-hidden="true" />
-          AI 引导建书
+          AI 引导
         </button>
         <button
           type="button"
@@ -321,18 +321,48 @@ export function ShelfWorkspace() {
         </div>
       ) : isEmpty ? (
         <div className="shelf__empty">
-          <p className="shelf__empty-line">架上尚无一册</p>
-          <p className="shelf__empty-sub">
-            从一张白纸开始，或把旧稿交给 AI 拆解入藏。
-          </p>
-          <button
-            type="button"
-            className="btn btn--primary"
-            onClick={() => setCreateMode("blank")}
-          >
-            <Plus size={14} strokeWidth={1.5} aria-hidden="true" />
-            建一本书
-          </button>
+          <div className="shelf__empty-panel">
+            <div className="shelf__empty-mark" aria-hidden="true">
+              <span>藏</span>
+              <i />
+              <small>NARRALUME</small>
+            </div>
+            <div className="shelf__empty-copy">
+              <p className="shelf__empty-eyebrow mono">YOUR FIRST VOLUME</p>
+              <p className="shelf__empty-line">架上尚无一册</p>
+              <p className="shelf__empty-sub">
+                从一张白纸开始，把灵感、正文和故事事实收进同一张书桌。
+              </p>
+              <div className="shelf__empty-actions">
+                <button
+                  type="button"
+                  className="btn btn--primary"
+                  onClick={() => setCreateMode("blank")}
+                >
+                  <Plus size={14} strokeWidth={1.5} aria-hidden="true" />
+                  建立第一本书
+                </button>
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => setCreateMode("ai")}
+                >
+                  <Sparkles size={14} strokeWidth={1.5} aria-hidden="true" />
+                  AI 协助构思
+                </button>
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploadMutation.isPending}
+                >
+                  <Upload size={14} strokeWidth={1.5} aria-hidden="true" />
+                  导入已有稿件
+                </button>
+              </div>
+              <p className="shelf__empty-hint">支持 Markdown、TXT、DOCX、EPUB 和 JSON 故事包</p>
+            </div>
+          </div>
         </div>
       ) : rows.length === 0 ? (
         <div className="shelf__catalog">

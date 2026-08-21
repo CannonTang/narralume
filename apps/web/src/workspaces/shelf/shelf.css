@@ -7,15 +7,16 @@
   position: relative;
   overflow-x: clip;
   min-height: 100vh;
-  padding: clamp(1.6rem, 4.5vh, 3.2rem) clamp(1.4rem, 4.5vw, 4.5rem) 6rem;
+  max-width: 1580px;
+  padding: clamp(1.6rem, 3.8vh, 2.8rem) clamp(1.4rem, 4vw, 4rem) 6rem;
 }
 
 /* --- 建书入口（右上角三枚细描边） -------------------------------------- */
 
 .shelf__cta {
   position: absolute;
-  top: clamp(1.6rem, 4.5vh, 3.2rem);
-  right: clamp(1.4rem, 4.5vw, 4.5rem);
+  top: clamp(1.6rem, 3.8vh, 2.8rem);
+  right: clamp(1.4rem, 4vw, 4rem);
   z-index: 3;
   display: flex;
   gap: 0.55rem;
@@ -25,8 +26,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  min-height: 2.35rem;
   padding: 0.5rem 0.95rem;
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-control);
+  font-family: var(--font-ui);
+  font-weight: 600;
   font-size: 0.82rem;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -73,7 +77,9 @@
 .shelf__masthead {
   position: relative;
   z-index: 0;
-  margin-top: clamp(0.5rem, 1.5vh, 1.2rem);
+  max-width: 48rem;
+  margin-top: clamp(0.5rem, 1.2vh, 1rem);
+  padding-bottom: 0.2rem;
 }
 
 .shelf__ghost {
@@ -83,13 +89,13 @@
   z-index: 0;
   font-family: var(--font-serif);
   font-weight: 900;
-  font-size: clamp(7rem, 15vw, 15rem);
+  font-size: clamp(6rem, 11vw, 11rem);
   line-height: 1;
   letter-spacing: 0.08em;
   white-space: nowrap;
   color: transparent;
   -webkit-text-stroke: 1.5px var(--ink);
-  opacity: 0.055;
+  opacity: 0.038;
   transform: rotate(-2deg);
   pointer-events: none;
   user-select: none;
@@ -106,11 +112,11 @@
   z-index: 1;
   font-family: var(--font-serif);
   font-weight: var(--weight-display);
-  font-size: clamp(3.4rem, 7vw, 7rem);
+  font-size: clamp(3rem, 5vw, 5.4rem);
   line-height: 1.02;
   letter-spacing: 0.03em;
   transform-origin: left bottom;
-  transform: rotate(-1.4deg);
+  transform: none;
 }
 
 .shelf__kicker {
@@ -120,13 +126,40 @@
   color: var(--vera);
   text-transform: uppercase;
 }
+.shelf__masthead .shelf__kicker.mono {
+  margin-top: 0.7rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+/* 三套主题只在需要时改变书架的“舞台感”，内容结构保持一致。 */
+[data-visual-theme="publisher"] .shelf__title {
+  letter-spacing: 0.06em;
+  transform: rotate(-1deg);
+}
+[data-visual-theme="publisher"] .shelf__ghost {
+  color: var(--vera);
+  opacity: 0.045;
+}
+[data-visual-theme="night"] .shelf__ghost {
+  color: var(--vera);
+  opacity: 0.025;
+}
+[data-visual-theme="night"] .shelf__empty-panel {
+  background:
+    radial-gradient(circle at 80% 15%, color-mix(in srgb, var(--vera) 13%, transparent), transparent 32%),
+    var(--paper-raised);
+}
+[data-visual-theme="night"] .shelf__empty-mark {
+  box-shadow: 0 0.7rem 1.2rem rgba(0, 0, 0, 0.42);
+}
 
 /* --- 工具行：检索 / 归档开关 -------------------------------------------- */
 
 .shelf__toolbar {
   position: relative;
   z-index: 1;
-  margin-top: clamp(1.1rem, 2.5vh, 1.8rem);
+  margin-top: clamp(1.4rem, 3vh, 2.2rem);
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -210,7 +243,7 @@
 .shelf__catalog {
   position: relative;
   z-index: 1;
-  margin-top: 1.8rem;
+  margin-top: 2rem;
 }
 
 .shelf__list { margin-top: 0.3rem; }
@@ -389,21 +422,116 @@
   flex-direction: column;
   align-items: center;
   gap: 1.3rem;
-  padding: clamp(2.5rem, 8vh, 5rem) 1rem 4rem;
+  padding: clamp(2.6rem, 6vh, 4.8rem) 0 4rem;
   text-align: center;
+}
+.shelf__empty-panel {
+  width: min(100%, 58rem);
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.6rem, 4vw, 3.4rem);
+  padding: clamp(1.6rem, 4vw, 2.8rem);
+  border: 1px solid var(--hairline);
+  border-radius: calc(var(--radius-card) + 2px);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--vera) 6%, transparent), transparent 42%),
+    var(--paper-raised);
+  box-shadow: var(--shadow-lift-soft);
+  text-align: left;
+}
+.shelf__empty-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 7.2rem;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--vera) 58%, var(--hairline));
+  background:
+    linear-gradient(150deg, color-mix(in srgb, var(--vera) 28%, transparent), transparent 55%),
+    color-mix(in srgb, var(--paper-sunk) 60%, var(--vera) 12%);
+  box-shadow: 0.5rem 0.6rem 0 color-mix(in srgb, var(--ink) 9%, transparent);
+  transform: rotate(-3deg);
+}
+.shelf__empty-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--vera) 50%, transparent);
+}
+.shelf__empty-mark span {
+  position: relative;
+  z-index: 1;
+  color: var(--vera);
+  font-family: var(--font-serif);
+  font-size: 2.9rem;
+  font-weight: var(--weight-display);
+}
+.shelf__empty-mark i {
+  position: absolute;
+  right: 1.1rem;
+  bottom: 1.2rem;
+  width: 1.45rem;
+  height: 1.45rem;
+  border: 1px solid var(--vera-hairline);
+  border-radius: 50%;
+}
+.shelf__empty-mark i::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.2rem;
+  width: 1rem;
+  height: 1px;
+  background: var(--vera-hairline);
+  transform: rotate(-35deg);
+}
+.shelf__empty-mark small {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.65rem;
+  color: var(--vera);
+  font-family: var(--font-mono);
+  font-size: 0.42rem;
+  letter-spacing: 0.12em;
+}
+.shelf__empty-copy {
+  min-width: 0;
+}
+.shelf__empty-eyebrow {
+  color: var(--vera);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
 }
 .shelf__empty-line {
   font-family: var(--font-quote);
   font-weight: var(--weight-meta);
-  font-size: 1.15rem;
-  letter-spacing: 0.22em;
+  font-size: clamp(1.35rem, 2.3vw, 1.85rem);
+  letter-spacing: 0.12em;
   color: var(--ink-soft);
 }
 .shelf__empty-sub {
+  max-width: 34rem;
+  margin-top: 0.5rem;
   color: var(--ink-faint);
   font-weight: var(--weight-meta);
   font-size: 0.86rem;
-  letter-spacing: 0.06em;
+  line-height: 1.8;
+}
+.shelf__empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.35rem;
+}
+.shelf__empty-hint {
+  margin-top: 0.75rem;
+  color: var(--ink-faint);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  opacity: 0.82;
 }
 
 /* --- 对话框（建书 / 重命名 / 删除 / 导入） -------------------------------- */
@@ -535,7 +663,7 @@
   }
   .shelf__title {
     font-size: clamp(3.4rem, 18vw, 6rem);
-    transform: rotate(-1.1deg);
+    transform: none;
   }
   .shelf__ghost {
     font-size: 34vw;
@@ -574,6 +702,34 @@
   /* 280px 小屏，书与行都缩 */
   .shelf-spine {
     height: 52px;
+  }
+
+  .shelf__empty-panel {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  .shelf__empty-mark {
+    width: 6rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .shelf__empty-panel {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 1.4rem 1.1rem 1.6rem;
+    text-align: center;
+  }
+  .shelf__empty-copy {
+    width: 100%;
+  }
+  .shelf__empty-sub {
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .shelf__empty-actions {
+    justify-content: center;
   }
 }
 
