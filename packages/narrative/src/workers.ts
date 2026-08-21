@@ -1,10 +1,10 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
 import {
   ContextCompiler,
   type ContextCompileError,
   type ContextSource,
-} from "@narrative-lantern/context";
+} from "@narralume/context";
 import {
   createDocument,
   type CanonFact,
@@ -17,12 +17,12 @@ import {
   type RunBudgetUsage,
   type RunStepError,
   type RunSnapshot,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import type {
   StepExecutionResult,
   StepWorker,
   WorkerRegistry,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   SqliteCanonRepository,
   SqliteAutomationRepository,
@@ -37,7 +37,7 @@ import {
   SqliteStoryRepository,
   SqliteTemplateRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import type { NarrativeModelClient } from "./model-client.js";
 import {

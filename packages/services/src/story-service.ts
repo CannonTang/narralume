@@ -1,8 +1,5 @@
-import type { ProjectCoverMutation } from "@narrative-lantern/contracts";
-import {
-  createCanonFact,
-  type CanonAuthority,
-} from "@narrative-lantern/domain";
+import type { ProjectCoverMutation } from "@narralume/contracts";
+import { createCanonFact, type CanonAuthority } from "@narralume/domain";
 import {
   SqliteAutomationRepository,
   SqliteCanonRepository,
@@ -13,7 +10,7 @@ import {
   SqliteRunRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import { randomUuid } from "./internal/crypto.js";
 import { ServiceError } from "./service-error.js";

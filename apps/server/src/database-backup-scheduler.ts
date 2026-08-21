@@ -1,4 +1,4 @@
-import type { SystemBackupManifestDto } from "@narrative-lantern/contracts";
+import type { SystemBackupManifestDto } from "@narralume/contracts";
 
 export interface ScheduledBackupService {
   create(label: string, now: string): Promise<SystemBackupManifestDto>;

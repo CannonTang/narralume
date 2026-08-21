@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import {
   SqliteAssignmentRepository,
   SqliteModelRepository,
   SqliteProviderRepository,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import { seedDemoRelayProvider } from "../src/demo-relay-seed.js";
 

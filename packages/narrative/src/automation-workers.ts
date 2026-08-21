@@ -1,4 +1,4 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
 import {
   createOutlineNode,
@@ -6,12 +6,12 @@ import {
   type OutlineNode,
   type RunBudgetUsage,
   type RunSnapshot,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import type {
   StepExecutionResult,
   StepWorker,
   WorkerRegistry,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   SqliteAutomationRepository,
   SqliteCanonRepository,
@@ -19,7 +19,7 @@ import {
   SqliteProjectRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import type { NarrativeModelClient } from "./model-client.js";
 import {

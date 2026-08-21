@@ -20,9 +20,9 @@ import {
   StorySteerSchema,
   SteerDecisionRequestSchema,
   PutCompassRequestSchema,
-} from "@narrative-lantern/contracts";
-import { type AutopilotSession, randomUuid } from "@narrative-lantern/domain";
-import { buildSteerClassificationRecipe } from "@narrative-lantern/harness";
+} from "@narralume/contracts";
+import { type AutopilotSession, randomUuid } from "@narralume/domain";
+import { buildSteerClassificationRecipe } from "@narralume/harness";
 import {
   SqliteAutomationRepository,
   SqliteCanonRepository,
@@ -33,14 +33,11 @@ import {
   SqliteReviewRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
-import type {
-  AutopilotCoordinator,
-  RouteApp,
-} from "@narrative-lantern/services";
-import type { RunCoordinator } from "@narrative-lantern/services";
+import type { AutopilotCoordinator, RouteApp } from "@narralume/services";
+import type { RunCoordinator } from "@narralume/services";
 import {
   adoptCandidate,
   AutomationServiceError,
@@ -56,8 +53,8 @@ import {
   resolveSessionFailure,
   runProductProjection,
   withRuntimeModelPolicy,
-} from "@narrative-lantern/services";
-import { bootstrapProject } from "@narrative-lantern/services";
+} from "@narralume/services";
+import { bootstrapProject } from "@narralume/services";
 import { RunRouteError } from "./route-error.js";
 
 const ProjectParamsSchema = z.object({ projectId: z.string().trim().min(1) });

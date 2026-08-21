@@ -13,7 +13,7 @@ import {
   type ModelRequest,
   type NormalizedUsage,
   type StructuredAttemptMode,
-} from "@narrative-lantern/llm";
+} from "@narralume/llm";
 
 import {
   createSmokeWorkspace,

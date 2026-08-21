@@ -2,7 +2,7 @@ import {
   createDocument,
   createOutlineNode,
   createProject,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import { NodeNarrativeDatabase } from "../src/node.js";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 

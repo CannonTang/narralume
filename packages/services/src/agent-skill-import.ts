@@ -1,16 +1,16 @@
-import { randomUuid, sha256Hex } from "@narrative-lantern/domain";
+import { randomUuid, sha256Hex } from "@narralume/domain";
 import { hashBytes } from "./internal/bytes.js";
 
 import {
   IMPORTABLE_AGENT_SKILL_CAPABILITIES,
   ImportedAgentSkillSchema,
   type ImportedAgentSkillDto,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 import {
   SqliteImportedAgentSkillRepository,
   type ImportedAgentSkill,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import JSZip from "jszip";
 
 import { declaredUncompressedSize } from "./internal/zip.js";

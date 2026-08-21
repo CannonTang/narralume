@@ -1,4 +1,4 @@
-import { randomUuid } from "@narrative-lantern/domain";
+import { randomUuid } from "@narralume/domain";
 
 import {
   AssignmentRoleSchema,
@@ -11,7 +11,7 @@ import {
   UpdateProviderRequestSchema,
   UpsertModelRequestSchema,
   UpsertProviderRequestSchema,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 import {
   ConfigurationVersionConflictError,
   PersistenceNotFoundError,
@@ -23,19 +23,19 @@ import {
   type NarrativeDatabase,
   type StoredModel,
   type StoredProvider,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
-import type { RouteApp } from "@narrative-lantern/services";
+import type { RouteApp } from "@narralume/services";
 import {
   testModelConnection,
   type ConnectionTestProfile,
   type ConnectionTestStage,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 import {
   requireProviderDeletable,
   requireProviderDisablable,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 
 const ProviderParamsSchema = z.object({ providerId: z.string().trim().min(1) });
 const ModelParamsSchema = z.object({ modelId: z.string().trim().min(1) });

@@ -3,7 +3,7 @@ import {
   type CanonAccess,
   type CanonEntity,
   type CanonFact,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 
 import type { ContextSource } from "./types.js";
 

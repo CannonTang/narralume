@@ -1,17 +1,14 @@
-import {
-  CanonSpreadSchema,
-  type CanonSpread,
-} from "@narrative-lantern/contracts";
+import { CanonSpreadSchema, type CanonSpread } from "@narralume/contracts";
 import type {
   NarrativeRunStep,
   RunBudgetUsage,
   RunSnapshot,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import type {
   StepExecutionResult,
   StepWorker,
   WorkerRegistry,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   SqliteCanonRepository,
   SqliteDocumentRepository,
@@ -19,7 +16,7 @@ import {
   SqliteReviewRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import {
   candidateAfterInstructions,

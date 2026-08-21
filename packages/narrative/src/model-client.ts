@@ -1,12 +1,12 @@
-import { randomUuid, sha256Hex } from "@narrative-lantern/domain";
+import { randomUuid, sha256Hex } from "@narralume/domain";
 
-import { estimateTokens } from "@narrative-lantern/context";
+import { estimateTokens } from "@narralume/context";
 import type {
   NarrativeRun,
   NarrativeRunStep,
   RunBudgetUsage,
   RunStepError,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import {
   createModelAdapter,
   collectModelEvents,
@@ -26,7 +26,7 @@ import {
   type NormalizedUsage,
   type StructuredValidator,
   type StructuredMode,
-} from "@narrative-lantern/llm";
+} from "@narralume/llm";
 import {
   SqliteAssignmentRepository,
   SqliteLlmCallRepository,
@@ -41,7 +41,7 @@ import {
   type ResolvedModelAssignment,
   type StoredModel,
   type StoredProvider,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 type ModelRole =
   "planning" | "drafting" | "review" | "revision" | "settlement" | "analysis";

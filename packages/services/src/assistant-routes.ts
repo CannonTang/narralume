@@ -1,4 +1,4 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
 import {
   AssistantActivityActionRequestSchema,
@@ -14,8 +14,8 @@ import {
   CreateAssistantConversationRequestSchema,
   CreateAssistantMessageRequestSchema,
   StartAssistantLongGoalRequestSchema,
-} from "@narrative-lantern/contracts";
-import { buildAssistantTurnRecipe } from "@narrative-lantern/harness";
+} from "@narralume/contracts";
+import { buildAssistantTurnRecipe } from "@narralume/harness";
 import {
   AssistantPersistenceError,
   SqliteAssistantLongGoalRepository,
@@ -30,23 +30,20 @@ import {
   SqliteStoryRepository,
   type AssistantActivity,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
-import { AGENT_SKILL_REGISTRY } from "@narrative-lantern/services";
+} from "@narralume/persistence";
+import { AGENT_SKILL_REGISTRY } from "@narralume/services";
 import { z } from "zod";
 
-import type {
-  AutopilotCoordinator,
-  RouteApp,
-} from "@narrative-lantern/services";
-import { isRetryableAssistantActivityError } from "@narrative-lantern/services";
-import { AssistantTaskProjectionService } from "@narrative-lantern/services";
+import type { AutopilotCoordinator, RouteApp } from "@narralume/services";
+import { isRetryableAssistantActivityError } from "@narralume/services";
+import { AssistantTaskProjectionService } from "@narralume/services";
 import {
   AssistantToolExecutionError,
   AssistantToolExecutor,
-} from "@narrative-lantern/services";
-import { ASSISTANT_TOOL_REGISTRY } from "@narrative-lantern/services";
-import type { LongGoalCoordinator } from "@narrative-lantern/services";
-import type { RunCoordinator } from "@narrative-lantern/services";
+} from "@narralume/services";
+import { ASSISTANT_TOOL_REGISTRY } from "@narralume/services";
+import type { LongGoalCoordinator } from "@narralume/services";
+import type { RunCoordinator } from "@narralume/services";
 import {
   requireAliveAssistantModel,
   requireAssistantProject,
@@ -54,7 +51,7 @@ import {
   requireWritingAssignment,
   validateAssistantContext,
   withRuntimeModelPolicy,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 
 const ProjectParamsSchema = z.object({ projectId: z.string().trim().min(1) });
 const ConversationParamsSchema = z.object({

@@ -1,5 +1,5 @@
-import type { NarrativeModelClient } from "@narrative-lantern/narrative";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+import type { NarrativeModelClient } from "@narralume/narrative";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { buildApp } from "../src/app.js";

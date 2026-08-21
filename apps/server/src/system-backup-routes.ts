@@ -1,12 +1,12 @@
-import type { RouteApp } from "@narrative-lantern/services";
+import type { RouteApp } from "@narralume/services";
 import {
   CreateSystemBackupRequestSchema,
   RestoreSystemBackupRequestSchema,
   SystemBackupManifestSchema,
   SystemBackupPreviewSchema,
   SystemBackupRestoreResultSchema,
-} from "@narrative-lantern/contracts";
-import type { NarrativeDatabase } from "@narrative-lantern/persistence";
+} from "@narralume/contracts";
+import type { NarrativeDatabase } from "@narralume/persistence";
 import { z } from "zod";
 
 import type { ServerConfig } from "./config.js";

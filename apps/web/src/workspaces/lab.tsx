@@ -3,7 +3,7 @@
 import "../styles/lab.css";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { LONG_NOVEL_LIMITS } from "@narrative-lantern/contracts";
+import { LONG_NOVEL_LIMITS } from "@narralume/contracts";
 import { Search, Send } from "lucide-react";
 import { useState } from "react";
 

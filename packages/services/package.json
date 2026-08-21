@@ -1,5 +1,5 @@
 {
-  "name": "@narrative-lantern/services",
+  "name": "@narralume/services",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -14,12 +14,12 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@narrative-lantern/context": "0.1.0",
-    "@narrative-lantern/contracts": "0.1.0",
-    "@narrative-lantern/domain": "0.1.0",
-    "@narrative-lantern/harness": "0.1.0",
-    "@narrative-lantern/llm": "0.1.0",
-    "@narrative-lantern/persistence": "0.1.0",
+    "@narralume/context": "0.1.0",
+    "@narralume/contracts": "0.1.0",
+    "@narralume/domain": "0.1.0",
+    "@narralume/harness": "0.1.0",
+    "@narralume/llm": "0.1.0",
+    "@narralume/persistence": "0.1.0",
     "jszip": "^3.10.1",
     "zod": "^4.4.3"
   }

@@ -1,4 +1,4 @@
-import { randomUuid } from "@narrative-lantern/domain";
+import { randomUuid } from "@narralume/domain";
 
 import {
   BackgroundRunCreatedSchema,
@@ -30,9 +30,9 @@ import {
   UpdateCoCreateSessionRequestSchema,
   UpdateDocumentCommentRequestSchema,
   UpdatePersonaRequestSchema,
-} from "@narrative-lantern/contracts";
-import type { StoryPersona } from "@narrative-lantern/domain";
-import { buildSceneAdoptionRecipe } from "@narrative-lantern/harness";
+} from "@narralume/contracts";
+import type { StoryPersona } from "@narralume/domain";
+import { buildSceneAdoptionRecipe } from "@narralume/harness";
 import {
   CreativePersistenceError,
   SqliteCreativeRepository,
@@ -41,10 +41,10 @@ import {
   SqliteRequestReplayRepository,
   SqliteRunRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
-import type { RunCoordinator, RouteApp } from "@narrative-lantern/services";
+import type { RunCoordinator, RouteApp } from "@narralume/services";
 import {
   acceptEditProposal,
   cancelRunsInvalidatedByRevert,
@@ -58,7 +58,7 @@ import {
   requireWritingAssignment,
   runProductProjection,
   withRuntimeModelPolicy,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 import { StudioRouteError } from "./route-error.js";
 
 const ProjectParamsSchema = z.object({ projectId: z.string().trim().min(1) });

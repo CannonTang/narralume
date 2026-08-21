@@ -3,7 +3,7 @@ import {
   SqliteModelRepository,
   SqliteProviderRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import { resolveProviderDefaults } from "./provider-defaults.js";
 

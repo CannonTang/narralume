@@ -1,4 +1,4 @@
-import type { RouteApp } from "@narrative-lantern/services";
+import type { RouteApp } from "@narralume/services";
 import {
   DecidePredictionRequestSchema,
   DryRunRequestSchema,
@@ -8,12 +8,12 @@ import {
   PlotPredictionSchema,
   RetrievalHitSchema,
   RetrievalSearchRequestSchema,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 import {
   SqliteLongNovelRepository,
   SqliteRetrievalRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
 const ProjectParamsSchema = z.object({ projectId: z.string().min(1) });

@@ -1,4 +1,4 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
 import {
   CanonCandidateRunAcceptedSchema,
@@ -7,21 +7,21 @@ import {
   CreateCanonCandidateRequestSchema,
   DecideCanonCandidateItemRequestSchema,
   DecideCanonCandidateItemResponseSchema,
-} from "@narrative-lantern/contracts";
-import { buildCanonCandidateRecipe } from "@narrative-lantern/harness";
-import { CanonCandidateService } from "@narrative-lantern/narrative";
+} from "@narralume/contracts";
+import { buildCanonCandidateRecipe } from "@narralume/harness";
+import { CanonCandidateService } from "@narralume/narrative";
 import {
   SqliteProjectRepository,
   SqliteRunRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
-import type { RunCoordinator, RouteApp } from "@narrative-lantern/services";
+import type { RunCoordinator, RouteApp } from "@narralume/services";
 import {
   requireWritingAssignment,
   withRuntimeModelPolicy,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 
 const SpreadParamsSchema = z.object({
   projectId: z.string().trim().min(1),

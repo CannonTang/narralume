@@ -16,15 +16,12 @@ import {
   RunActionRequestSchema,
   RunDetailSchema,
   RunSnapshotSchema,
-} from "@narrative-lantern/contracts";
-import {
-  createDocument,
-  type NarrativeRunStep,
-} from "@narrative-lantern/domain";
+} from "@narralume/contracts";
+import { createDocument, type NarrativeRunStep } from "@narralume/domain";
 import {
   buildDocumentReviewRecipe,
   compileChapterRecipeTemplate,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   SqliteAssignmentRepository,
   SqliteAutomationRepository,
@@ -40,7 +37,7 @@ import {
   SqliteTemplateRepository,
   type NarrativeDatabase,
   type RunStepSeedInput,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import {
   computeSetupHint,
   deterministicRequestId,
@@ -56,10 +53,10 @@ import {
   runProductProjection,
   withRuntimeModelPolicy,
   extractEffectivePolicy,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 import { z } from "zod";
 
-import type { RunCoordinator, RouteApp } from "@narrative-lantern/services";
+import type { RunCoordinator, RouteApp } from "@narralume/services";
 import { RunRouteError } from "./route-error.js";
 
 const ProjectParamsSchema = z.object({ projectId: z.string().trim().min(1) });

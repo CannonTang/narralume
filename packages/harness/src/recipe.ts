@@ -1,4 +1,4 @@
-import type { ChapterStepKind, RunStepKind } from "@narrative-lantern/domain";
+import type { ChapterStepKind, RunStepKind } from "@narralume/domain";
 
 export interface RunStepSeed {
   id: string;

@@ -14,8 +14,8 @@ import { fileURLToPath } from "node:url";
 import {
   SqliteLlmCallRepository,
   SqliteRunStreamRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, describe, expect, it } from "vitest";
 
 const repositoryRoot = fileURLToPath(new URL("../../../", import.meta.url));

@@ -4,7 +4,7 @@ import type {
   RunBudgetUsage,
   RunSnapshot,
   RunStepError,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {

@@ -12,7 +12,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import type { FastifyInstance } from "fastify";
 import { afterEach, describe, expect, it } from "vitest";
 

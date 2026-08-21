@@ -1,4 +1,4 @@
-import { randomUuid } from "@narrative-lantern/domain";
+import { randomUuid } from "@narralume/domain";
 
 /**
  * 事件广播枢纽：订阅者是「写一帧」回调。Fastify 适配器传入

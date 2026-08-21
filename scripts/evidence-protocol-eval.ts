@@ -2,12 +2,12 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { structuredTierPlan } from "@narrative-lantern/llm";
+import { structuredTierPlan } from "@narralume/llm";
 import {
   evidenceMatchesSource,
   isRevisionNoop,
   ParagraphLocator,
-} from "@narrative-lantern/narrative";
+} from "@narralume/narrative";
 
 interface EvalDataset {
   version: string;

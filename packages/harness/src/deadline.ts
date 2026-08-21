@@ -1,4 +1,4 @@
-import type { NarrativeRun, RunStepError } from "@narrative-lantern/domain";
+import type { NarrativeRun, RunStepError } from "@narralume/domain";
 
 /**
  * Harness deadline tree (M4). Every layer of the execution stack may only

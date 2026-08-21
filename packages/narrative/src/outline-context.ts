@@ -1,5 +1,5 @@
-import type { ContextSource } from "@narrative-lantern/context";
-import type { NarrativeSummary, OutlineNode } from "@narrative-lantern/domain";
+import type { ContextSource } from "@narralume/context";
+import type { NarrativeSummary, OutlineNode } from "@narralume/domain";
 
 export interface OutlineContextRequest {
   projectId: string;

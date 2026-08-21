@@ -1,11 +1,11 @@
-import type { RunSnapshot } from "@narrative-lantern/domain";
-import { buildRequestedRevisionRecipe } from "@narrative-lantern/harness";
+import type { RunSnapshot } from "@narralume/domain";
+import { buildRequestedRevisionRecipe } from "@narralume/harness";
 import {
   SqliteAutomationRepository,
   SqliteReviewRepository,
   SqliteRunRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import { sha256Hex } from "./internal/crypto.js";
 import { latestAwaitReason, RunServiceError } from "./run-policy.js";

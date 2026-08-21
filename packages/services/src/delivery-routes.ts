@@ -1,4 +1,4 @@
-import { sha256Hex, randomUuid } from "@narrative-lantern/domain";
+import { sha256Hex, randomUuid } from "@narralume/domain";
 
 import {
   AnalyzeImportRequestSchema,
@@ -25,23 +25,23 @@ import {
   ValidateWritingSkillRequestSchema,
   WritingSkillPackageSchema,
   WritingSkillValidationSchema,
-} from "@narrative-lantern/contracts";
-import type { StyleProfile, WritingSkill } from "@narrative-lantern/domain";
-import { buildImportAnalysisRecipe } from "@narrative-lantern/harness";
+} from "@narralume/contracts";
+import type { StyleProfile, WritingSkill } from "@narralume/domain";
+import { buildImportAnalysisRecipe } from "@narralume/harness";
 import {
   SqliteDeliveryRepository,
   SqliteProjectRepository,
   SqliteRequestReplayRepository,
   SqliteRunRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
 import {
   DeliveryService,
   type DeliveryServiceError,
-} from "@narrative-lantern/services";
-import type { RunCoordinator, RouteApp } from "@narrative-lantern/services";
+} from "@narralume/services";
+import type { RunCoordinator, RouteApp } from "@narralume/services";
 import {
   deterministicRequestId,
   hashRequest,
@@ -50,7 +50,7 @@ import {
   withRuntimeModelPolicy,
   buildWritingSkillZip,
   parseWritingSkillPackage,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 
 const ProjectParamsSchema = z.object({ projectId: z.string().trim().min(1) });
 const StyleParamsSchema = z.object({ styleId: z.string().trim().min(1) });

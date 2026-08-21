@@ -1,9 +1,6 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
-import {
-  canonContextSources,
-  type ContextSource,
-} from "@narrative-lantern/context";
+import { canonContextSources, type ContextSource } from "@narralume/context";
 import {
   canAccessFact,
   type CanonAccess,
@@ -14,12 +11,12 @@ import {
   type OutlineNode,
   type RelationshipEvent,
   type TimelineEvent,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import type {
   SqliteCanonRepository,
   SqliteNarrativeStateRepository,
   SqliteStoryRepository,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 export type StoryStateAudience = "author" | "reader" | "character";
 

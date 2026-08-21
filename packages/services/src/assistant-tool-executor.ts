@@ -1,14 +1,14 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
 import {
   AUTOMATION_DEFAULTS,
   resolveEffectivePolicy,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 import {
   buildCanonCandidateRecipe,
   buildSelectionEditRecipe,
   compileChapterRecipeTemplate,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   AssistantPersistenceError,
   SqliteAssistantRepository,
@@ -22,7 +22,7 @@ import {
   type AssistantActivity,
   type NarrativeDatabase,
   type StoredAssistantContext,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import type { AutopilotCoordinator } from "./autopilot-coordinator.js";
 import type { LongGoalCoordinator } from "./long-goal-coordinator.js";

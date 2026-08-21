@@ -1,4 +1,4 @@
-import { createProject } from "@narrative-lantern/domain";
+import { createProject } from "@narralume/domain";
 import { NodeNarrativeDatabase } from "../src/node.js";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 

@@ -3,8 +3,8 @@ import {
   createProject,
   type EditProposal,
   type StoryPersona,
-} from "@narrative-lantern/domain";
-import { buildFoundationRecipe } from "@narrative-lantern/harness";
+} from "@narralume/domain";
+import { buildFoundationRecipe } from "@narralume/harness";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import { NodeNarrativeDatabase } from "../src/node.js";

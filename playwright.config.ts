@@ -40,14 +40,14 @@ export default defineConfig({
       timeout: 30_000,
     },
     {
-      command: `npm run preview -w @narrative-lantern/web -- --host 127.0.0.1 --port ${webPort} --strictPort`,
+      command: `npm run preview -w @narralume/web -- --host 127.0.0.1 --port ${webPort} --strictPort`,
       url: webUrl,
       env: { NARRATIVE_API_PROXY: apiUrl },
       reuseExistingServer: false,
       timeout: 30_000,
     },
     {
-      command: `npm run preview:spike -w @narrative-lantern/web -- --host 127.0.0.1 --port ${spikePort} --strictPort`,
+      command: `npm run preview:spike -w @narralume/web -- --host 127.0.0.1 --port ${spikePort} --strictPort`,
       url: `${spikeUrl}/spike.html`,
       reuseExistingServer: false,
       timeout: 30_000,

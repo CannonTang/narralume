@@ -5,7 +5,7 @@ import type {
   RunBudgetUsage,
   RunSnapshot,
   RunStepError,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 
 import { routeRun, type HarnessAction } from "./router.js";
 import {

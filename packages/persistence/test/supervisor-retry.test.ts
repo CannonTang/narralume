@@ -1,9 +1,6 @@
-import { createProject, type RunStepError } from "@narrative-lantern/domain";
+import { createProject, type RunStepError } from "@narralume/domain";
 import { NodeNarrativeDatabase } from "../src/node.js";
-import {
-  buildChapterRecipe,
-  HarnessSupervisor,
-} from "@narrative-lantern/harness";
+import { buildChapterRecipe, HarnessSupervisor } from "@narralume/harness";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { SqliteProjectRepository, SqliteRunRepository } from "../src/index.js";

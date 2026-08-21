@@ -8,8 +8,8 @@ import type { ServerConfig } from "../apps/server/src/config.js";
 import {
   SqliteDocumentRepository,
   SqliteLlmCallRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 
 import {
   configureSmokeModelTarget,

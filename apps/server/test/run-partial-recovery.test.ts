@@ -1,6 +1,6 @@
-import { createProject } from "@narrative-lantern/domain";
-import { buildChapterRecipe } from "@narrative-lantern/harness";
-import type { NarrativeModelClient } from "@narrative-lantern/narrative";
+import { createProject } from "@narralume/domain";
+import { buildChapterRecipe } from "@narralume/harness";
+import type { NarrativeModelClient } from "@narralume/narrative";
 import {
   SqliteLlmCallRepository,
   SqliteModelRepository,
@@ -8,8 +8,8 @@ import {
   SqliteProviderRepository,
   SqliteRunRepository,
   SqliteRunStreamRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { buildApp } from "../src/app.js";

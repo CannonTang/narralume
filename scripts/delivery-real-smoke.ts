@@ -5,8 +5,8 @@ import { config as loadDotEnv } from "dotenv";
 
 import { buildApp } from "../apps/server/src/app.js";
 import type { ServerConfig } from "../apps/server/src/config.js";
-import { SqliteLlmCallRepository } from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+import { SqliteLlmCallRepository } from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 
 import {
   configureSmokeModelTarget,

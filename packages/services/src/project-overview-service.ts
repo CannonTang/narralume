@@ -2,7 +2,7 @@ import type {
   AutopilotSession,
   OutlineStatus,
   RunSnapshot,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import {
   SqliteAutomationRepository,
   SqliteDocumentRepository,
@@ -12,7 +12,7 @@ import {
   SqliteRunRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import { runProductProjection } from "./run-policy.js";
 import { isPrimaryRunRecipe } from "./task-classification.js";

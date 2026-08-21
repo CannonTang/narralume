@@ -1,4 +1,4 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
 export interface SourceParagraph {
   /** One-based ordinal used only in model-facing prompts. */

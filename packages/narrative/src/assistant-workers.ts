@@ -2,16 +2,16 @@ import type {
   NarrativeRunStep,
   RunBudgetUsage,
   RunSnapshot,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import {
   assistantToolAccess,
   type AssistantToolName,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 import type {
   StepExecutionResult,
   StepWorker,
   WorkerRegistry,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   SqliteAssistantRepository,
   SqliteAutomationRepository,
@@ -22,7 +22,7 @@ import {
   SqliteRunRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import type { NarrativeModelClient } from "./model-client.js";
 import {

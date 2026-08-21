@@ -1,6 +1,6 @@
-import { createProject } from "@narrative-lantern/domain";
+import { createProject } from "@narralume/domain";
 import { NodeNarrativeDatabase } from "../src/node.js";
-import { buildFoundationRecipe } from "@narrative-lantern/harness";
+import { buildFoundationRecipe } from "@narralume/harness";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import {

@@ -1,4 +1,4 @@
-import type { NarrativeDatabase } from "@narrative-lantern/persistence";
+import type { NarrativeDatabase } from "@narralume/persistence";
 
 /**
  * Runs keep executing after their project is soft-deleted unless every step

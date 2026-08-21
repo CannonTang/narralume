@@ -1,8 +1,5 @@
-import { CreateWritingSkillRequestSchema } from "@narrative-lantern/contracts";
-import type {
-  WritingSkill,
-  WritingSkillScope,
-} from "@narrative-lantern/domain";
+import { CreateWritingSkillRequestSchema } from "@narralume/contracts";
+import type { WritingSkill, WritingSkillScope } from "@narralume/domain";
 import JSZip from "jszip";
 
 import { declaredUncompressedSize } from "./internal/zip.js";

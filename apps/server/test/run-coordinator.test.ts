@@ -1,7 +1,7 @@
-import type { HarnessSupervisor } from "@narrative-lantern/harness";
+import type { HarnessSupervisor } from "@narralume/harness";
 import { describe, expect, it, vi } from "vitest";
 
-import { RunCoordinator } from "@narrative-lantern/services";
+import { RunCoordinator } from "@narralume/services";
 
 describe("RunCoordinator", () => {
   it("wakes itself when a persisted delayed retry becomes available", async () => {

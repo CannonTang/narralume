@@ -3,11 +3,8 @@ import {
   createDocument,
   createOutlineNode,
   createProject,
-} from "@narrative-lantern/domain";
-import {
-  buildChapterRecipe,
-  HarnessSupervisor,
-} from "@narrative-lantern/harness";
+} from "@narralume/domain";
+import { buildChapterRecipe, HarnessSupervisor } from "@narralume/harness";
 import {
   SqliteAutomationRepository,
   SqliteCanonRepository,
@@ -21,8 +18,8 @@ import {
   SqliteProviderRepository,
   SqliteRunRepository,
   SqliteStoryRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {

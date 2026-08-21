@@ -3,8 +3,8 @@ import {
   createCanonFact,
   createOutlineNode,
   createProject,
-} from "@narrative-lantern/domain";
-import { buildChapterRecipe } from "@narrative-lantern/harness";
+} from "@narralume/domain";
+import { buildChapterRecipe } from "@narralume/harness";
 import {
   SqliteCanonRepository,
   SqliteNarrativeStateRepository,
@@ -12,8 +12,8 @@ import {
   SqliteReviewRepository,
   SqliteRunRepository,
   SqliteStoryRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import {

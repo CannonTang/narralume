@@ -1,9 +1,9 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
 import {
   AUTOMATION_DEFAULTS,
   resolveEffectivePolicy,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 import {
   SqliteAssistantLongGoalRepository,
   SqliteAssistantRepository,
@@ -15,7 +15,7 @@ import {
   SqliteStoryRepository,
   type AssistantLongGoal,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import type { AutopilotCoordinator } from "./autopilot-coordinator.js";
 import { createFoundationRun } from "./automation-service.js";

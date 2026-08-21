@@ -1,16 +1,16 @@
 import { randomUUID } from "node:crypto";
 
 import cors from "@fastify/cors";
-import { HealthResponseSchema } from "@narrative-lantern/contracts";
+import { HealthResponseSchema } from "@narralume/contracts";
 import {
   SqliteAutomationRepository,
   SqliteLlmCallRepository,
   SqliteProjectRepository,
   SqliteRunRepository,
   SqliteRunStreamRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
-import { HarnessSupervisor } from "@narrative-lantern/harness";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
+import { HarnessSupervisor } from "@narralume/harness";
 import {
   AutomationWorkerSuite,
   AssistantWorkerSuite,
@@ -20,7 +20,7 @@ import {
   DeliveryWorkerSuite,
   GatewayNarrativeModelClient,
   type NarrativeModelClient,
-} from "@narrative-lantern/narrative";
+} from "@narralume/narrative";
 import {
   AssistantToolExecutor,
   AutopilotCoordinator,
@@ -43,7 +43,7 @@ import {
   registerTemplateRoutes,
   seedEnvironmentModelConfig,
   seedHarnessTemplates,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 import Fastify, { type FastifyInstance } from "fastify";
 
 import type { ServerConfig } from "./config.js";

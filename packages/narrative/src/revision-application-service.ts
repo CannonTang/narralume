@@ -5,7 +5,7 @@ import {
   SqliteStoryRepository,
   type NarrativeDatabase,
   type ReviewRevisionProposalDetail,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 export interface RevisionApplicationResult {
   proposal: ReviewRevisionProposalDetail;

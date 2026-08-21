@@ -1,5 +1,5 @@
-import { SqliteCreativeRepository } from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+import { SqliteCreativeRepository } from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { buildApp } from "../src/app.js";

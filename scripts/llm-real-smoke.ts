@@ -5,8 +5,8 @@ import { config as loadDotEnv } from "dotenv";
 import {
   testModelConnection,
   type ConnectionTestProfile,
-} from "@narrative-lantern/services";
-import { scrubSecrets } from "@narrative-lantern/llm";
+} from "@narralume/services";
+import { scrubSecrets } from "@narralume/llm";
 
 import {
   createSmokeWorkspace,

@@ -1,9 +1,9 @@
-import type { Document } from "@narrative-lantern/domain";
-import { buildManualSettlementRecipe } from "@narrative-lantern/harness";
+import type { Document } from "@narralume/domain";
+import { buildManualSettlementRecipe } from "@narralume/harness";
 import {
   type NarrativeDatabase,
   SqliteRunRepository,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import { randomUuid } from "./internal/crypto.js";
 import { hasWritingAssignment, withRuntimeModelPolicy } from "./run-policy.js";

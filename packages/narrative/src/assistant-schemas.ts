@@ -1,7 +1,4 @@
-import type {
-  JsonSchemaContract,
-  StructuredValidator,
-} from "@narrative-lantern/llm";
+import type { JsonSchemaContract, StructuredValidator } from "@narralume/llm";
 import { z } from "zod";
 
 const IdSchema = z.string().trim().min(1).max(300);

@@ -1,15 +1,12 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
-import type {
-  CanonCandidateItemDto,
-  CanonSpread,
-} from "@narrative-lantern/contracts";
+import type { CanonCandidateItemDto, CanonSpread } from "@narralume/contracts";
 import {
   SqliteCanonRepository,
   SqliteNarrativeStateRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
 import type { CanonCandidateModelResult } from "./canon-candidate-schemas.js";

@@ -1,9 +1,6 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
-import {
-  ContextCompiler,
-  type ContextSource,
-} from "@narrative-lantern/context";
+import { ContextCompiler, type ContextSource } from "@narralume/context";
 import {
   createDocument,
   createOutlineNode,
@@ -12,12 +9,12 @@ import {
   type RunBudgetUsage,
   type RunSnapshot,
   type StoryTurn,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import type {
   StepExecutionResult,
   StepWorker,
   WorkerRegistry,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   SqliteCanonRepository,
   SqliteContextReceiptRepository,
@@ -30,7 +27,7 @@ import {
   SqliteReviewRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import type { NarrativeModelClient } from "./model-client.js";
 import {

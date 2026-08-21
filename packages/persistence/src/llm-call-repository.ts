@@ -2,7 +2,7 @@ import type {
   FinishReason,
   ModelProtocol,
   NormalizedUsage,
-} from "@narrative-lantern/llm";
+} from "@narralume/llm";
 
 import type { NarrativeDatabase } from "./database.js";
 import { PersistenceNotFoundError } from "./project-repository.js";

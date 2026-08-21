@@ -3,7 +3,7 @@ import {
   assistantToolAccess,
   type AssistantToolDescriptorDto,
   type AssistantToolName,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 
 interface AssistantToolDescriptorSeed {
   readonly name: AssistantToolName;
@@ -15,7 +15,7 @@ interface AssistantToolDescriptorSeed {
  * The project assistant can only propose tools declared here. This is a
  * code-owned allowlist, not a model-authored capability list. The access
  * grading (read / auto / confirm) lives in
- * `@narrative-lantern/contracts` assistant-tool-policy and is shared with the
+ * `@narralume/contracts` assistant-tool-policy and is shared with the
  * narrative stage worker; these descriptors only carry author-facing copy.
  */
 const ASSISTANT_TOOL_COPY: readonly AssistantToolDescriptorSeed[] = [

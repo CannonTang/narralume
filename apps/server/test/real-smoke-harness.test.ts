@@ -2,7 +2,7 @@ import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { describe, expect, it } from "vitest";
 
 import {

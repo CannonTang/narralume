@@ -1,6 +1,6 @@
-import { randomUuid } from "@narrative-lantern/domain";
+import { randomUuid } from "@narralume/domain";
 
-import type { Project, ProjectPhase } from "@narrative-lantern/domain";
+import type { Project, ProjectPhase } from "@narralume/domain";
 
 import type { NarrativeDatabase } from "./database.js";
 

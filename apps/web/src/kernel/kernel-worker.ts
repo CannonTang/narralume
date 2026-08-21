@@ -14,7 +14,7 @@
 import {
   NarrativeDatabase,
   createOpfsSahpoolDriver,
-} from "@narrative-lantern/persistence/browser";
+} from "@narralume/persistence/browser";
 import {
   SqliteAutomationRepository,
   SqliteAssignmentRepository,
@@ -22,7 +22,7 @@ import {
   SqliteRunStreamRepository,
   SqliteRunRepository,
   SqliteProjectRepository,
-} from "@narrative-lantern/persistence/browser";
+} from "@narralume/persistence/browser";
 import {
   AssistantToolExecutor,
   AutopilotCoordinator,
@@ -48,7 +48,7 @@ import {
   seedEnvironmentModelConfig,
   seedHarnessTemplates,
   type RouteMethod,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 import {
   AssistantWorkerSuite,
   AutomationWorkerSuite,
@@ -57,8 +57,8 @@ import {
   CollaborationWorkerSuite,
   DeliveryWorkerSuite,
   GatewayNarrativeModelClient,
-} from "@narrative-lantern/narrative";
-import { HarnessSupervisor } from "@narrative-lantern/harness";
+} from "@narralume/narrative";
+import { HarnessSupervisor } from "@narralume/harness";
 
 import { createRelayFetch } from "./relay-fetch";
 import { exceedsTrialRelayAutopilotLimit } from "../lib/trial-policy";
@@ -345,7 +345,7 @@ async function boot(): Promise<void> {
       body: bytes,
       headers: {
         "content-type": "application/octet-stream",
-        "content-disposition": `attachment; filename="narrative-lantern-${stamp}.sqlite"`,
+        "content-disposition": `attachment; filename="narralume-${stamp}.sqlite"`,
       },
     };
   });

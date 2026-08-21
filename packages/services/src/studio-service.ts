@@ -1,8 +1,8 @@
-import type { ModelExecutionPolicy } from "@narrative-lantern/contracts";
+import type { ModelExecutionPolicy } from "@narralume/contracts";
 import {
   buildSelectionEditRecipe,
   compileCoCreateRecipeTemplate,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   SqliteCreativeRepository,
   SqliteDocumentRepository,
@@ -12,7 +12,7 @@ import {
   SqliteStoryRepository,
   SqliteTemplateRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import { randomUuid } from "./internal/crypto.js";
 import {

@@ -4,7 +4,7 @@ import "./shelf/shelf.css";
 const trialMode = import.meta.env.VITE_TRIAL_MODE === "1";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { AUTOMATION_DEFAULTS } from "@narrative-lantern/contracts";
+import { AUTOMATION_DEFAULTS } from "@narralume/contracts";
 import Lenis from "lenis";
 import {
   Archive,

@@ -15,11 +15,11 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "tsc -b --pretty false && npm run bundle -w @narrative-lantern/web",
-    "dev:bridge": "npm run dev -w @narrative-lantern/bridge",
-    "deploy:relay": "npm run deploy -w @narrative-lantern/relay",
+    "build": "tsc -b --pretty false && npm run bundle -w @narralume/web",
+    "dev:bridge": "npm run dev -w @narralume/bridge",
+    "deploy:relay": "npm run deploy -w @narralume/relay",
     "deploy:web": "node scripts/deploy-web.mjs",
-    "dev": "concurrently -n server,web -c yellow,cyan \"npm run dev -w @narrative-lantern/server\" \"npm run dev -w @narrative-lantern/web\"",
+    "dev": "concurrently -n server,web -c yellow,cyan \"npm run dev -w @narralume/server\" \"npm run dev -w @narralume/web\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "install:bridge-task": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-bridge-task.ps1",
@@ -28,7 +28,8 @@
     "licenses:check": "node scripts/check-licenses.mjs --check",
     "licenses:update": "node scripts/check-licenses.mjs --write",
     "test": "vitest run",
-    "test:e2e": "npm run bundle -w @narrative-lantern/web && npm run bundle:spike -w @narrative-lantern/web && playwright test",
+    "pretest:e2e": "npm run build && npm run bundle:spike -w @narralume/web",
+    "test:e2e": "playwright test",
     "test:golden": "vitest run packages/persistence/test/long-novel-golden.test.ts",
     "test:evidence": "tsx scripts/evidence-protocol-eval.ts",
     "test:coverage": "vitest run --coverage",
@@ -41,11 +42,11 @@
     "test:real:studio": "tsx scripts/studio-real-smoke.ts",
     "test:real:delivery": "tsx scripts/delivery-real-smoke.ts",
     "seed:example": "tsx scripts/seed-example.ts",
-    "start:bridge": "npm run start -w @narrative-lantern/bridge",
+    "start:bridge": "npm run start -w @narralume/bridge",
     "typecheck": "tsc -b --pretty false && tsc -p scripts/tsconfig.json --noEmit --pretty false",
     "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run test:evidence && npm run licenses:check && npm run build",
-    "verify:release": "npm run verify && npm run test:coverage && npm run test:e2e && npm run test:real",
-    "verify:nightly": "npm run verify:release && npm run test:real:autopilot"
+    "verify:ci": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run test:evidence && npm run licenses:check",
+    "verify:release": "npm run verify:ci && npm run test:e2e && npm run test:real"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

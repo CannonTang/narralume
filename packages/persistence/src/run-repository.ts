@@ -1,4 +1,4 @@
-import { randomUuid, sha256Hex } from "@narrative-lantern/domain";
+import { randomUuid, sha256Hex } from "@narralume/domain";
 
 import type {
   NarrativeCheckpoint,
@@ -10,7 +10,7 @@ import type {
   RunSnapshot,
   RunStepError,
   RunStatus,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 
 import type { NarrativeDatabase } from "./database.js";
 import { PersistenceNotFoundError } from "./project-repository.js";

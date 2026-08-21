@@ -3,9 +3,9 @@ import { ZodError } from "zod";
 import {
   POLICY_UNKNOWN_FIELD,
   extractPolicyUnknownFields,
-} from "@narrative-lantern/contracts";
-import { ContextCompileError } from "@narrative-lantern/context";
-import { DomainError } from "@narrative-lantern/domain";
+} from "@narralume/contracts";
+import { ContextCompileError } from "@narralume/context";
+import { DomainError } from "@narralume/domain";
 import {
   AssignmentPersistenceError,
   AssistantPersistenceError,
@@ -21,8 +21,8 @@ import {
   PersistenceNotFoundError,
   RunPersistenceError,
   TemplatePersistenceError,
-} from "@narrative-lantern/persistence";
-import { RecipeTemplateError } from "@narrative-lantern/harness";
+} from "@narralume/persistence";
+import { RecipeTemplateError } from "@narralume/harness";
 import {
   AgentSkillImportError,
   AssistantRouteError,

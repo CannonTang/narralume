@@ -1,4 +1,4 @@
-import type { NarrativeRunStep, RunSnapshot } from "@narrative-lantern/domain";
+import type { NarrativeRunStep, RunSnapshot } from "@narralume/domain";
 
 import {
   classifyStepError,

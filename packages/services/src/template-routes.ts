@@ -1,17 +1,17 @@
-import { randomUuid } from "@narrative-lantern/domain";
-import type { RouteApp } from "@narrative-lantern/services";
+import { randomUuid } from "@narralume/domain";
+import type { RouteApp } from "@narralume/services";
 
 import {
   CloneHarnessTemplateRequestSchema,
   HarnessTemplateSchema,
   RestoreHarnessTemplateRequestSchema,
   UpdateHarnessTemplateRequestSchema,
-} from "@narrative-lantern/contracts";
-import { validateRecipeTemplateContent } from "@narrative-lantern/harness";
+} from "@narralume/contracts";
+import { validateRecipeTemplateContent } from "@narralume/harness";
 import {
   SqliteTemplateRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
 const ParamsSchema = z.object({ key: z.string().min(1) });

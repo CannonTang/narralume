@@ -37,7 +37,7 @@ import {
   type UpsertModelRequest,
   type UpsertProviderRequest,
   type WireApi,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 
 import { kernelRequest } from "../kernel/kernel-client";
 import {

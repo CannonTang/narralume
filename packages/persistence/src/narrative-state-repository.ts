@@ -4,7 +4,7 @@ import type {
   NarrativeSummary,
   RelationshipEvent,
   TimelineEvent,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 
 import type { SqliteCanonRepository } from "./canon-repository.js";
 import type { NarrativeDatabase } from "./database.js";

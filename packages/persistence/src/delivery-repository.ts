@@ -7,7 +7,7 @@ import type {
   StyleProfile,
   WritingSkill,
   WritingSkillScope,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 
 import type { NarrativeDatabase } from "./database.js";
 import { PersistenceNotFoundError } from "./project-repository.js";

@@ -1,7 +1,4 @@
-import {
-  AgentSkillSchema,
-  type AgentSkillDto,
-} from "@narrative-lantern/contracts";
+import { AgentSkillSchema, type AgentSkillDto } from "@narralume/contracts";
 
 /**
  * 内置 Agent Skill 注册表：代码所有，与 Writing Skill（写作提示层）分离。

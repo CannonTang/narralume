@@ -8,7 +8,7 @@ const narrativeSource = fileURLToPath(
 export default defineConfig({
   resolve: {
     alias: {
-      "@narrative-lantern/narrative": narrativeSource,
+      "@narralume/narrative": narrativeSource,
     },
   },
   test: {

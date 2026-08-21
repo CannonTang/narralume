@@ -1,5 +1,5 @@
-import { randomUuid, sha256Hex } from "@narrative-lantern/domain";
-import { AUTOMATION_DEFAULTS } from "@narrative-lantern/contracts";
+import { randomUuid, sha256Hex } from "@narralume/domain";
+import { AUTOMATION_DEFAULTS } from "@narralume/contracts";
 import { decodeBase64 as decodeBase64Bytes } from "./internal/bytes.js";
 import { declaredUncompressedSize } from "./internal/zip.js";
 import {
@@ -25,7 +25,7 @@ import {
   type QualityIssue,
   type StyleProfile,
   type WritingSkill,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import {
   SqliteAutomationRepository,
   SqliteCanonRepository,
@@ -39,8 +39,8 @@ import {
   SqliteRetrievalRepository,
   SqliteStoryRepository,
   type ImportUploadSession,
-} from "@narrative-lantern/persistence";
-import type { NarrativeDatabase } from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
+import type { NarrativeDatabase } from "@narralume/persistence";
 import JSZip from "jszip";
 import { z } from "zod";
 

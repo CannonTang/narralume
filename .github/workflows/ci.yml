@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -18,10 +22,19 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run verify
-      - run: npm run test:coverage
+      - run: npm run verify:ci
       - run: npx playwright install chromium
       - run: npm run test:e2e
+      - name: Upload Playwright diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-diagnostics
+          path: |
+            .tmp/playwright-results
+            playwright-report
+          if-no-files-found: ignore
+          retention-days: 7
 
   docker-smoke:
     runs-on: ubuntu-latest

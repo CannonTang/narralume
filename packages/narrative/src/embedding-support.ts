@@ -3,11 +3,11 @@ import type {
   NarrativeRunStep,
   RunBudgetUsage,
   RunStepError,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import {
   SqliteRunRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import type { NarrativeModelClient } from "./model-client.js";
 import { throwIfAborted } from "./project-guard.js";

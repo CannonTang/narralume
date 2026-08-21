@@ -2,12 +2,12 @@ import {
   createOutlineNode,
   createProject,
   type Project,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import {
   SqliteProjectRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 export interface ProjectBootstrapInput {
   projectId: string;

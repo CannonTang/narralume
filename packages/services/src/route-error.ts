@@ -2,7 +2,7 @@ import {
   AutomationServiceError,
   RunServiceError,
   StudioServiceError,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 
 /**
  * 路由层领域错误：与共享服务层的 RunServiceError 同构，继承它使得

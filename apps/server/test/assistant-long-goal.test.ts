@@ -1,17 +1,17 @@
-import type { NarrativeModelClient } from "@narrative-lantern/narrative";
+import type { NarrativeModelClient } from "@narralume/narrative";
 import {
   SqliteAssistantLongGoalRepository,
   SqliteAssistantRepository,
   SqliteAutomationRepository,
   SqliteStoryRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, describe, expect, it } from "vitest";
 
-import { AGENT_SKILL_REGISTRY } from "@narrative-lantern/services";
+import { AGENT_SKILL_REGISTRY } from "@narralume/services";
 import { buildApp } from "../src/app.js";
 import type { ServerConfig } from "../src/config.js";
-import { LongGoalCoordinator } from "@narrative-lantern/services";
+import { LongGoalCoordinator } from "@narralume/services";
 
 const config: ServerConfig = {
   dataDirectory: ".",

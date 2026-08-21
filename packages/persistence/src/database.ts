@@ -1,4 +1,4 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 import type { SqliteRawDatabase } from "./driver.js";
 
 import { migration001 } from "./migrations/001-foundation.js";
@@ -136,7 +136,7 @@ export class NarrativeDatabase {
   /**
    * 运行时无关的库实例：驱动由调用方提供。
    * Node 用 NodeNarrativeDatabase（node:sqlite），浏览器先初始化
-   * OPFS sahpool 驱动再 new（见 @narrative-lantern/persistence/browser）。
+   * OPFS sahpool 驱动再 new（见 @narralume/persistence/browser）。
    */
   constructor(path: string, driver: SqliteRawDatabase) {
     this.path = path;

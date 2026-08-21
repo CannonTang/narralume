@@ -20,8 +20,8 @@ import {
   SystemBackupManifestSchema,
   type SystemBackupManifestDto,
   type SystemBackupPreviewDto,
-} from "@narrative-lantern/contracts";
-import type { NarrativeDatabase } from "@narrative-lantern/persistence";
+} from "@narralume/contracts";
+import type { NarrativeDatabase } from "@narralume/persistence";
 
 export class DatabaseBackupService {
   readonly backupDirectory: string;

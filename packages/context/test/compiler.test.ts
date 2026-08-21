@@ -1,4 +1,4 @@
-import { createCanonEntity, createCanonFact } from "@narrative-lantern/domain";
+import { createCanonEntity, createCanonFact } from "@narralume/domain";
 import { describe, expect, it } from "vitest";
 
 import {

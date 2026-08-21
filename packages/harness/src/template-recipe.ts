@@ -1,4 +1,4 @@
-import type { RunStepKind } from "@narrative-lantern/domain";
+import type { RunStepKind } from "@narralume/domain";
 
 import type { ChapterRecipe, RunStepSeed } from "./recipe.js";
 import type { CollaborationRecipe } from "./collaboration-recipes.js";

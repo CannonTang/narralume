@@ -1,12 +1,12 @@
-import type { AssistantConversationDto } from "@narrative-lantern/contracts";
-import type { SqliteAssignmentRepository } from "@narrative-lantern/persistence";
+import type { AssistantConversationDto } from "@narralume/contracts";
+import type { SqliteAssignmentRepository } from "@narralume/persistence";
 import {
   type SqliteDocumentRepository,
   type SqliteModelRepository,
   type SqliteProjectRepository,
   type SqliteProviderRepository,
   type SqliteStoryRepository,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import { ServiceError } from "./service-error.js";
 

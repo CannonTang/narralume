@@ -1,4 +1,4 @@
-import { randomUuid, sha256Hex } from "@narrative-lantern/domain";
+import { randomUuid, sha256Hex } from "@narralume/domain";
 
 import { estimateTokens } from "./token-estimator.js";
 import type {

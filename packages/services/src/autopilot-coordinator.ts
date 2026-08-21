@@ -1,10 +1,10 @@
-import { randomUuid } from "@narrative-lantern/domain";
+import { randomUuid } from "@narralume/domain";
 
 import {
   buildRollingOutlineRecipe,
   classifyStepError,
   compileChapterRecipeTemplate,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   SqliteAutomationRepository,
   SqliteProjectRepository,
@@ -12,7 +12,7 @@ import {
   SqliteStoryRepository,
   SqliteTemplateRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import type { RunCoordinator } from "./run-coordinator.js";
 import { withRuntimeModelPolicy } from "./run-policy.js";
@@ -458,7 +458,7 @@ export class AutopilotCoordinator {
  * effectivePolicy, so this is idempotent for them; legacy rows holding a
  * partial policy are upgraded with built-in defaults.
  */
-// 迁移至 @narrative-lantern/services（automation-service）；本文件与路由都从那里取用。
+// 迁移至 @narralume/services（automation-service）；本文件与路由都从那里取用。
 export { resolveSessionEffectivePolicy } from "./automation-service.js";
 import { resolveSessionEffectivePolicy } from "./automation-service.js";
 

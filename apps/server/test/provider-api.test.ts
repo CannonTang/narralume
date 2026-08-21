@@ -1,4 +1,4 @@
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { buildApp } from "../src/app.js";

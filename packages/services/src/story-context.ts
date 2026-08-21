@@ -2,15 +2,15 @@ import {
   canonContextSources,
   ContextCompiler,
   type ContextSource,
-} from "@narrative-lantern/context";
-import type { CanonAccess } from "@narrative-lantern/domain";
+} from "@narralume/context";
+import type { CanonAccess } from "@narralume/domain";
 import {
   SqliteCanonRepository,
   SqliteContextReceiptRepository,
   SqliteRetrievalRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 export interface StoryContextPreviewInput {
   projectId: string;

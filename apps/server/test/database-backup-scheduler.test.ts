@@ -1,4 +1,4 @@
-import type { SystemBackupManifestDto } from "@narrative-lantern/contracts";
+import type { SystemBackupManifestDto } from "@narralume/contracts";
 import { describe, expect, it, vi } from "vitest";
 
 import { DatabaseBackupScheduler } from "../src/database-backup-scheduler.js";

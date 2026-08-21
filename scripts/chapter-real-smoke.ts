@@ -2,21 +2,18 @@ import { resolve } from "node:path";
 
 import { config as loadDotEnv } from "dotenv";
 
-import { seedEnvironmentModelConfig } from "@narrative-lantern/services";
-import { resolveEffectivePolicy } from "@narrative-lantern/contracts";
+import { seedEnvironmentModelConfig } from "@narralume/services";
+import { resolveEffectivePolicy } from "@narralume/contracts";
 import {
   createOutlineNode,
   createProject,
   type RunStatus,
-} from "@narrative-lantern/domain";
-import {
-  buildChapterRecipe,
-  HarnessSupervisor,
-} from "@narrative-lantern/harness";
+} from "@narralume/domain";
+import { buildChapterRecipe, HarnessSupervisor } from "@narralume/harness";
 import {
   ChapterWorkerSuite,
   GatewayNarrativeModelClient,
-} from "@narrative-lantern/narrative";
+} from "@narralume/narrative";
 import {
   SqliteAssignmentRepository,
   SqliteDocumentRepository,
@@ -29,8 +26,8 @@ import {
   SqliteStoryRepository,
   resolveCredential,
   type StoredProvider,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 
 import {
   createSmokeWorkspace,

@@ -3,7 +3,7 @@ import {
   SqliteAssignmentRepository,
   SqliteModelRepository,
   SqliteProviderRepository,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 /**
  * M4 demo 中继 provider 预置（D5）：

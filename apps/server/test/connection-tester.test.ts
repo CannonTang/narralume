@@ -1,10 +1,10 @@
-import type { FetchLike } from "@narrative-lantern/llm";
+import type { FetchLike } from "@narralume/llm";
 import { describe, expect, it, vi } from "vitest";
 
 import {
   testModelConnection,
   type ConnectionTestProfile,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 
 describe("model connection capability fallback", () => {
   it("sends provider query parameters on connection probes", async () => {

@@ -1,26 +1,26 @@
-import { createProject } from "@narrative-lantern/domain";
+import { createProject } from "@narralume/domain";
 import {
   buildChapterRecipe,
   HarnessSupervisor,
   type StepWorker,
-} from "@narrative-lantern/harness";
-import type * as llm from "@narrative-lantern/llm";
-import type { AdapterConfig } from "@narrative-lantern/llm";
+} from "@narralume/harness";
+import type * as llm from "@narralume/llm";
+import type { AdapterConfig } from "@narralume/llm";
 import {
   SqliteAssignmentRepository,
   SqliteModelRepository,
   SqliteProjectRepository,
   SqliteProviderRepository,
   SqliteRunRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { GatewayNarrativeModelClient } from "../src/model-client.js";
 
 const captured = vi.hoisted(() => ({ adapterConfigs: [] as AdapterConfig[] }));
 
-vi.mock("@narrative-lantern/llm", async (importOriginal) => {
+vi.mock("@narralume/llm", async (importOriginal) => {
   const actual = await importOriginal<typeof llm>();
   return {
     ...actual,

@@ -2,19 +2,19 @@ import {
   ImportAgentSkillPackageRequestSchema,
   ImportedAgentSkillSchema,
   SetImportedAgentSkillEnabledRequestSchema,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 import {
   SqliteProjectRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
-import type { RouteApp } from "@narrative-lantern/services";
+import type { RouteApp } from "@narralume/services";
 import {
   AgentSkillImportError,
   AgentSkillImportService,
-} from "@narrative-lantern/services";
-import { StoryServiceError } from "@narrative-lantern/services";
+} from "@narralume/services";
+import { StoryServiceError } from "@narralume/services";
 
 const ProjectParamsSchema = z.object({ projectId: z.string().trim().min(1) });
 const SkillParamsSchema = z.object({ skillId: z.string().trim().min(1) });

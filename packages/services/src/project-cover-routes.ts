@@ -2,14 +2,14 @@ import {
   SqliteProjectCoverRepository,
   SqliteProjectRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
 import {
   StoryServiceError,
   type RouteApp,
   type RouteResponse,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 
 const ProjectCoverParamsSchema = z.object({
   projectId: z.string().trim().min(1),

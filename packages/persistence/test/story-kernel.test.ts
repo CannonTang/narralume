@@ -6,7 +6,7 @@ import {
   type Foreshadow,
   type RelationshipEvent,
   type TimelineEvent,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import { NodeNarrativeDatabase } from "../src/node.js";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 

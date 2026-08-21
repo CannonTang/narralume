@@ -12,7 +12,7 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
-import { CanonEntityTypeSchema } from "@narrative-lantern/contracts";
+import { CanonEntityTypeSchema } from "@narralume/contracts";
 
 import { BibleWorkspace } from "../src/workspaces/bible";
 

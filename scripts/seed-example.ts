@@ -7,7 +7,7 @@ import {
   createOutlineNode,
   createProject,
   transitionProjectPhase,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import {
   SqliteCanonRepository,
   SqliteCreativeRepository,
@@ -16,8 +16,8 @@ import {
   SqliteNarrativeStateRepository,
   SqliteProjectRepository,
   SqliteStoryRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 
 import { readServerConfig } from "../apps/server/src/config.js";
 

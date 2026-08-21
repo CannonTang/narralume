@@ -1,4 +1,4 @@
-import type { RunStepError } from "@narrative-lantern/domain";
+import type { RunStepError } from "@narralume/domain";
 
 import { DEADLINE_EXCEEDED_CODE } from "./deadline.js";
 
@@ -13,7 +13,7 @@ export const MAX_RETRY_DELAY_MS = 30_000;
 
 /**
  * Fatal categories never consume a retry: the run fails immediately.
- * Mirrors the fatal ModelErrorCategory values from @narrative-lantern/llm
+ * Mirrors the fatal ModelErrorCategory values from @narralume/llm
  * (harness deliberately does not depend on the llm package).
  */
 const FATAL_CATEGORIES = new Set([

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import type { ServerEvent } from "@narrative-lantern/contracts";
+import type { ServerEvent } from "@narralume/contracts";
 
 import { addKernelEventListener } from "../kernel/kernel-client";
 import {

@@ -1,6 +1,6 @@
-import { ContextCompiler } from "@narrative-lantern/context";
+import { ContextCompiler } from "@narralume/context";
 import { NodeNarrativeDatabase } from "../src/node.js";
-import { createProject } from "@narrative-lantern/domain";
+import { createProject } from "@narralume/domain";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import {

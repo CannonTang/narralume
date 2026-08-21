@@ -1,5 +1,5 @@
-import { ContextCompiler } from "@narrative-lantern/context";
-import type { NarrativeSummary, OutlineNode } from "@narrative-lantern/domain";
+import { ContextCompiler } from "@narralume/context";
+import type { NarrativeSummary, OutlineNode } from "@narralume/domain";
 import { describe, expect, it } from "vitest";
 
 import { outlineContextSources } from "../src/outline-context.js";

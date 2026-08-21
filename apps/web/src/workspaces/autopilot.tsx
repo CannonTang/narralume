@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   AUTOMATION_DEFAULTS,
   AUTOMATION_LIMITS,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 import { Compass, Play, Send } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router";

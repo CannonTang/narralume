@@ -1,7 +1,7 @@
 import http from "node:http";
 
-import type { NarrativeModelClient } from "@narrative-lantern/narrative";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+import type { NarrativeModelClient } from "@narralume/narrative";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { buildApp } from "../src/app.js";
@@ -224,8 +224,7 @@ describe("run_events SSE push", () => {
       // instances (e.g. run.degraded, run.llm.repair_attempt). A fresh
       // instance here simulates that path: the database-level broadcast must
       // still push it over SSE.
-      const { SqliteRunRepository } =
-        await import("@narrative-lantern/persistence");
+      const { SqliteRunRepository } = await import("@narralume/persistence");
       new SqliteRunRepository(database).appendRunEvent(
         runId,
         null,

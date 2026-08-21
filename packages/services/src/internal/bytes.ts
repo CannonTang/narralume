@@ -1,4 +1,4 @@
-import { sha256BytesHex } from "@narrative-lantern/domain";
+import { sha256BytesHex } from "@narralume/domain";
 
 /**
  * 纯 JS 字节工具：Node 与浏览器 Worker 共用，避免 Buffer 依赖。

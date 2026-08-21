@@ -36,14 +36,14 @@ import {
   UpdateForeshadowRequestSchema,
   UpdateTimelineEventRequestSchema,
   WithdrawCanonFactRequestSchema,
-} from "@narrative-lantern/contracts";
+} from "@narralume/contracts";
 import {
   createCanonEntity,
   createCanonFact,
   createDocument,
   createOutlineNode,
   randomUuid,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 import {
   SqliteCanonRepository,
   SqliteDocumentRepository,
@@ -54,15 +54,15 @@ import {
   SqliteRequestReplayRepository,
   SqliteStoryRepository,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 import { z } from "zod";
 
-import type { RunCoordinator, RouteApp } from "@narrative-lantern/services";
-import { StoryContextPreviewService } from "@narrative-lantern/services";
-import { DeliveryService } from "@narrative-lantern/services";
-import { ContextPreviewRequestSchema } from "@narrative-lantern/contracts";
-import { bootstrapProject } from "@narrative-lantern/services";
-import { ProjectOverviewService } from "@narrative-lantern/services";
+import type { RunCoordinator, RouteApp } from "@narralume/services";
+import { StoryContextPreviewService } from "@narralume/services";
+import { DeliveryService } from "@narralume/services";
+import { ContextPreviewRequestSchema } from "@narralume/contracts";
+import { bootstrapProject } from "@narralume/services";
+import { ProjectOverviewService } from "@narralume/services";
 import {
   applyCoverMutation,
   commitDocumentVersion,
@@ -72,7 +72,7 @@ import {
   softDeleteProject,
   StoryServiceError,
   withdrawCanonFact,
-} from "@narrative-lantern/services";
+} from "@narralume/services";
 
 const ProjectParamsSchema = z.object({ projectId: z.string().min(1) });
 

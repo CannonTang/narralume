@@ -4,8 +4,8 @@ import {
   type AssistantActivityArtifactDto,
   type AssistantActivityDto,
   type AssistantContext,
-} from "@narrative-lantern/contracts";
-import type { NarrativeRun, RunSnapshot } from "@narrative-lantern/domain";
+} from "@narralume/contracts";
+import type { NarrativeRun, RunSnapshot } from "@narralume/domain";
 import {
   SqliteAssistantLongGoalRepository,
   SqliteAssistantRepository,
@@ -16,7 +16,7 @@ import {
   type AssistantActivity,
   type AssistantLongGoal,
   type NarrativeDatabase,
-} from "@narrative-lantern/persistence";
+} from "@narralume/persistence";
 
 import { runProductProjection } from "./run-policy.js";
 import { getBuiltinAgentSkill } from "./agent-skill-registry.js";

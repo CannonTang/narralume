@@ -4,7 +4,7 @@ import {
   type FetchLike,
   type ModelProtocol,
   type ModelRequest,
-} from "@narrative-lantern/llm";
+} from "@narralume/llm";
 
 export interface ConnectionTestOptions {
   includeStreaming: boolean;

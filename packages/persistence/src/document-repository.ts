@@ -1,10 +1,10 @@
-import { sha256Hex } from "@narrative-lantern/domain";
+import { sha256Hex } from "@narralume/domain";
 
 import type {
   Document,
   DocumentKind,
   DocumentVersion,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
 
 import type { NarrativeDatabase } from "./database.js";
 import { PersistenceNotFoundError } from "./project-repository.js";

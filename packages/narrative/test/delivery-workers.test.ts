@@ -1,14 +1,14 @@
-import { createProject } from "@narrative-lantern/domain";
+import { createProject } from "@narralume/domain";
 import {
   buildImportAnalysisRecipe,
   HarnessSupervisor,
-} from "@narrative-lantern/harness";
+} from "@narralume/harness";
 import {
   SqliteDeliveryRepository,
   SqliteProjectRepository,
   SqliteRunRepository,
-} from "@narrative-lantern/persistence";
-import { NodeNarrativeDatabase } from "@narrative-lantern/persistence/node";
+} from "@narralume/persistence";
+import { NodeNarrativeDatabase } from "@narralume/persistence/node";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { DeliveryWorkerSuite } from "../src/delivery-workers.js";

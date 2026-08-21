@@ -14,7 +14,7 @@ export async function createOpfsSahpoolDriver(
 ): Promise<SqliteRawDatabase> {
   const sqlite3: Sqlite3Static = await sqlite3InitModule();
   const poolUtil = await sqlite3.installOpfsSAHPoolVfs({
-    name: "narrative-lantern-pool",
+    name: "narralume-pool",
     initialCapacity: 12,
   });
   // 必须显式用 pool 的 DB/VFS——裸 oo1.DB 会落在 wasm 内存 FS，重载即丢。

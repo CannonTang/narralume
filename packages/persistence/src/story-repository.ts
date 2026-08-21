@@ -1,4 +1,4 @@
-import type { OutlineNode, OutlineStatus } from "@narrative-lantern/domain";
+import type { OutlineNode, OutlineStatus } from "@narralume/domain";
 
 import type { NarrativeDatabase } from "./database.js";
 import { PersistenceNotFoundError } from "./project-repository.js";

@@ -8,11 +8,8 @@ import type {
   StoryPersona,
   StoryTurn,
   TurnSwipe,
-} from "@narrative-lantern/domain";
-import {
-  requireCreativeText,
-  validateTextRange,
-} from "@narrative-lantern/domain";
+} from "@narralume/domain";
+import { requireCreativeText, validateTextRange } from "@narralume/domain";
 
 import type { NarrativeDatabase } from "./database.js";
 import { PersistenceNotFoundError } from "./project-repository.js";
