@@ -273,12 +273,12 @@
 .btn--primary {
   border-color: var(--vera);
   background: var(--vera);
-  color: var(--paper-raised);
+  color: var(--accent-contrast);
 }
 .btn--primary:hover:not(:disabled) {
   border-color: var(--vera-deep);
   background: var(--vera-deep);
-  color: var(--paper-raised);
+  color: var(--accent-contrast);
 }
 
 .icon-button {

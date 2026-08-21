@@ -2,7 +2,7 @@
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { followSystemTheme, useTheme } from "../src/app/theme";
+import { VISUAL_THEMES, followSystemTheme, useTheme } from "../src/app/theme";
 
 function stubThemeMedia(matches = false) {
   const listeners = new Set<(event: MediaQueryListEvent) => void>();
@@ -27,8 +27,9 @@ function stubThemeMedia(matches = false) {
 describe("system theme", () => {
   afterEach(() => {
     delete document.documentElement.dataset.theme;
+    delete document.documentElement.dataset.visualTheme;
     window.localStorage.clear();
-    useTheme.setState({ preference: "system", theme: "light" });
+    useTheme.setState({ preference: "system", theme: "light", visualTheme: "editorial" });
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
   });
@@ -73,5 +74,24 @@ describe("system theme", () => {
     expect(window.localStorage.length).toBe(0);
 
     stop();
+  });
+
+  it("offers the new authored visual directions and persists a selection", () => {
+    expect(VISUAL_THEMES.map((option) => option.id)).toEqual([
+      "editorial",
+      "publisher",
+      "typewriter",
+      "lacquer",
+      "lighthouse",
+      "observatory",
+      "night",
+      "forest",
+      "indigo",
+      "amber",
+    ]);
+
+    useTheme.getState().setVisualTheme("typewriter");
+    expect(document.documentElement.dataset.visualTheme).toBe("typewriter");
+    expect(window.localStorage.getItem("narralume:visual-theme")).toBe("typewriter");
   });
 });

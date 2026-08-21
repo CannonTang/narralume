@@ -95,7 +95,7 @@
 .lab__search-btn {
   padding: 0.5rem 1rem;
   background: var(--vera);
-  color: var(--paper-raised);
+  color: var(--accent-contrast);
   border-radius: var(--radius-card);
   font-size: 0.82rem;
   letter-spacing: 0.06em;

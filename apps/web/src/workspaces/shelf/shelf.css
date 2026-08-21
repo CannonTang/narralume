@@ -1,6 +1,6 @@
 /* ==========================================================================
    藏书室 v3：巨型刊头 + ghost 底字 + 编目索引行 + 行尾真书脊 + 右缘竖排卷首语。
-   构图纪律：张力全部来自字级、空间与一件纸造物（书脊），不动色。
+   构图纪律：张力来自字级、空间、纸造物与当前视觉主题的色彩关系。
    ========================================================================== */
 
 .shelf {
@@ -56,7 +56,7 @@
 .btn--primary {
   border: 1px solid var(--vera);
   background: var(--vera);
-  color: var(--paper-raised);
+  color: var(--accent-contrast);
 }
 .btn--primary:hover {
   background: var(--vera-deep);
@@ -152,6 +152,90 @@
 }
 [data-visual-theme="night"] .shelf__empty-mark {
   box-shadow: 0 0.7rem 1.2rem rgba(0, 0, 0, 0.42);
+}
+
+[data-visual-theme="typewriter"] .shelf__title {
+  font-family: var(--font-mono);
+  font-size: clamp(2.35rem, 4.8vw, 4.8rem);
+  letter-spacing: 0.015em;
+}
+[data-visual-theme="typewriter"] .shelf__ghost {
+  color: var(--vera);
+  opacity: 0.08;
+  transform: none;
+  -webkit-text-stroke: 1px var(--vera);
+}
+[data-visual-theme="typewriter"] .shelf__catalog-head {
+  border-top: 1px dashed var(--hairline);
+  border-bottom: 1px dashed var(--hairline);
+}
+[data-visual-theme="typewriter"] .shelf-row,
+[data-visual-theme="typewriter"] .shelf-list__head {
+  font-family: var(--font-mono);
+}
+[data-visual-theme="typewriter"] .shelf-row__title {
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 1.8vw, 1.45rem);
+  letter-spacing: 0;
+}
+[data-visual-theme="typewriter"] .shelf__empty-panel {
+  border-style: dashed;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 9%, transparent);
+}
+[data-visual-theme="typewriter"] .shelf__empty-mark {
+  border-style: dashed;
+  border-radius: 0;
+  transform: rotate(0);
+}
+
+[data-visual-theme="lacquer"] .shelf__title {
+  letter-spacing: 0.1em;
+  text-shadow: 1px 1px 0 color-mix(in srgb, var(--vera) 14%, transparent);
+}
+[data-visual-theme="lacquer"] .shelf__ghost {
+  color: var(--vera);
+  opacity: 0.08;
+  -webkit-text-stroke-color: var(--vera);
+}
+[data-visual-theme="lacquer"] .shelf__empty-panel,
+[data-visual-theme="lacquer"] .shelf-menu {
+  border-color: var(--vera-hairline);
+}
+[data-visual-theme="lacquer"] .shelf__empty-mark {
+  box-shadow: 0.6rem 0.6rem 0 color-mix(in srgb, var(--vera) 14%, transparent), var(--shadow-lift-soft);
+}
+
+[data-visual-theme="lighthouse"] .shelf__title {
+  letter-spacing: 0.055em;
+}
+[data-visual-theme="lighthouse"] .shelf__ghost {
+  color: var(--vera);
+  opacity: 0.06;
+  transform: rotate(-1deg);
+}
+[data-visual-theme="lighthouse"] .shelf__catalog-rule {
+  background: linear-gradient(90deg, var(--vera), var(--hairline), transparent);
+}
+[data-visual-theme="lighthouse"] .shelf__empty-panel {
+  background:
+    radial-gradient(circle at 82% 8%, color-mix(in srgb, var(--vera) 18%, transparent), transparent 28%),
+    var(--paper-raised);
+}
+
+[data-visual-theme="observatory"] .shelf__title {
+  letter-spacing: 0.08em;
+}
+[data-visual-theme="observatory"] .shelf__ghost {
+  color: var(--vera);
+  opacity: 0.055;
+  -webkit-text-stroke-color: var(--vera);
+}
+[data-visual-theme="observatory"] .shelf__catalog-head {
+  border-top: 1px solid var(--vera-hairline);
+}
+[data-visual-theme="observatory"] .shelf__catalog-rule {
+  background: repeating-linear-gradient(90deg, var(--vera) 0 2px, transparent 2px 10px);
 }
 
 /* --- 工具行：检索 / 归档开关 -------------------------------------------- */

@@ -5,6 +5,8 @@
 
 .shell {
   --rail-current: var(--rail-width);
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
 }
@@ -234,22 +236,37 @@
   box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.22);
 }
 .theme-picker__swatch[data-theme="editorial"] {
-  background: linear-gradient(135deg, #f5f2ec 0 62%, #b94731 62% 100%);
+  background: linear-gradient(135deg, #edf4ff 0 50%, #2457d6 50% 76%, #8b3dff 76% 100%);
 }
 .theme-picker__swatch[data-theme="publisher"] {
-  background: linear-gradient(135deg, #fffaf0 0 46%, #a84230 46% 74%, #30221c 74% 100%);
+  background: linear-gradient(135deg, #f1efff 0 42%, #7436d6 42% 72%, #f04bc1 72% 100%);
+}
+.theme-picker__swatch[data-theme="typewriter"] {
+  background:
+    repeating-linear-gradient(0deg, #e9eef5 0 3px, #c4d0df 3px 4px),
+    linear-gradient(135deg, #101827 0 64%, #1264d8 64% 84%, #8a4eff 84% 100%);
+  box-shadow: inset 0 0 0 3px rgba(252, 253, 255, 0.3);
+}
+.theme-picker__swatch[data-theme="lacquer"] {
+  background: linear-gradient(135deg, #e5f5f1 0 42%, #008f83 42% 72%, #74b82a 72% 100%);
+}
+.theme-picker__swatch[data-theme="lighthouse"] {
+  background: linear-gradient(135deg, #e6f5ff 0 42%, #0079d8 42% 70%, #ffc83d 70% 100%);
+}
+.theme-picker__swatch[data-theme="observatory"] {
+  background: radial-gradient(circle at 72% 24%, #ffd052 0 7%, transparent 8%), linear-gradient(135deg, #eeebff 0 43%, #6f43e8 43% 72%, #e23ed0 72% 100%);
 }
 .theme-picker__swatch[data-theme="night"] {
-  background: linear-gradient(135deg, #15171b 0 62%, #ed8060 62% 100%);
+  background: linear-gradient(135deg, #070b18 0 54%, #6e5bff 54% 78%, #36e0bd 78% 100%);
 }
 .theme-picker__swatch[data-theme="forest"] {
-  background: linear-gradient(135deg, #eef3ed 0 62%, #2f7663 62% 100%);
+  background: linear-gradient(135deg, #e6f4ed 0 48%, #008f72 48% 74%, #84bf2a 74% 100%);
 }
 .theme-picker__swatch[data-theme="indigo"] {
-  background: linear-gradient(135deg, #eef2fa 0 62%, #4c67b7 62% 100%);
+  background: linear-gradient(135deg, #e8ecff 0 46%, #385dff 46% 72%, #d748ef 72% 100%);
 }
 .theme-picker__swatch[data-theme="amber"] {
-  background: linear-gradient(135deg, #f8f1de 0 62%, #bc862b 62% 100%);
+  background: linear-gradient(135deg, #fff8c9 0 46%, #e0ac00 46% 72%, #3c55e8 72% 100%);
 }
 .theme-picker__copy {
   min-width: 0;
@@ -505,6 +522,67 @@
   right: 0;
   bottom: auto;
   left: auto;
+}
+
+/* --- 新主题的骨架语气 -------------------------------------------------- */
+
+[data-visual-theme="typewriter"] .rail {
+  border-right-style: dashed;
+}
+[data-visual-theme="typewriter"] .rail__brand,
+[data-visual-theme="typewriter"] .rail__tools {
+  border-color: var(--hairline);
+  border-top-style: dashed;
+}
+[data-visual-theme="typewriter"] .rail__brand {
+  border-bottom-style: dashed;
+}
+[data-visual-theme="typewriter"] .rail__item {
+  border-radius: 0;
+  letter-spacing: 0.02em;
+}
+[data-visual-theme="typewriter"] .rail__item[aria-current="page"] {
+  box-shadow: inset 0 -1px var(--vera-hairline);
+}
+[data-visual-theme="typewriter"] .shell__main {
+  border-left: 1px solid var(--hairline-soft);
+}
+[data-visual-theme="typewriter"] .theme-picker__menu,
+[data-visual-theme="typewriter"] .palette__frame {
+  border-radius: 0;
+}
+
+[data-visual-theme="lacquer"] .rail {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--vera) 5%, var(--paper)), var(--paper) 38%);
+}
+[data-visual-theme="lacquer"] .rail__brand {
+  border-bottom-color: var(--vera-hairline);
+}
+[data-visual-theme="lacquer"] .rail__item[aria-current="page"] {
+  box-shadow: inset 0 0 0 1px var(--vera-hairline), 3px 3px 0 color-mix(in srgb, var(--vera) 12%, transparent);
+}
+[data-visual-theme="lacquer"] .theme-picker__menu {
+  border-color: var(--vera-hairline);
+}
+
+[data-visual-theme="lighthouse"] .rail {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--vera) 5%, var(--paper)), var(--paper) 42%);
+}
+[data-visual-theme="lighthouse"] .shell__main {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--paper-sunk) 14%, transparent), transparent 18rem);
+}
+[data-visual-theme="lighthouse"] .rail__item[aria-current="page"]::before {
+  box-shadow: 0 0 14px color-mix(in srgb, var(--vera) 55%, transparent);
+}
+
+[data-visual-theme="observatory"] .rail {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 5%, var(--paper)), var(--paper) 45%);
+}
+[data-visual-theme="observatory"] .rail__item[aria-current="page"] {
+  box-shadow: inset 0 0 0 1px var(--vera-hairline), 0 0 22px color-mix(in srgb, var(--vera) 8%, transparent);
+}
+[data-visual-theme="observatory"] .shell__main {
+  background: radial-gradient(ellipse at 92% 0%, color-mix(in srgb, var(--vera) 8%, transparent), transparent 24rem);
 }
 
 @media (max-width: 760px) {

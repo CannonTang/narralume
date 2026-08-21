@@ -343,7 +343,7 @@
   align-self: flex-end;
   padding: 0.45rem 1rem;
   background: var(--vera);
-  color: var(--paper-raised);
+  color: var(--accent-contrast);
   border-radius: var(--radius-card);
   font-size: 0.78rem;
   letter-spacing: 0.06em;

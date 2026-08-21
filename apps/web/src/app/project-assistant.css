@@ -40,7 +40,7 @@
   place-items: center;
   border-radius: 999px;
   background: var(--vera);
-  color: var(--paper-raised);
+  color: var(--accent-contrast);
   font-size: 0.58rem;
   letter-spacing: 0;
 }
@@ -592,13 +592,13 @@
 .assistant-activity__decisions .assistant-activity__confirm {
   border-color: var(--vera);
   background: var(--vera);
-  color: var(--paper-raised);
+  color: var(--accent-contrast);
 }
 
 .assistant-activity__decisions .assistant-activity__confirm:hover {
   border-color: var(--vera-deep);
   background: var(--vera-deep);
-  color: var(--paper-raised);
+  color: var(--accent-contrast);
 }
 
 .assistant-activity__decisions button:disabled {
@@ -818,7 +818,7 @@
   place-items: center;
   border-radius: 50%;
   background: var(--vera);
-  color: var(--paper-raised);
+  color: var(--accent-contrast);
   transition:
     transform 180ms var(--ease-out-editorial),
     background-color 150ms ease;

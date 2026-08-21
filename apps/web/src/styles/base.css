@@ -35,6 +35,98 @@ body {
     color 240ms ease;
 }
 
+/* 主题的第一层不是装饰，而是工作状态：打字机的稿纸线、漆器的光泽、
+   灯塔的海雾和天文台的星点都保持在内容之后，不干扰文字与控件。 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+[data-visual-theme="typewriter"] body::before {
+  opacity: 0.88;
+  background:
+    linear-gradient(90deg, transparent 0 4.3rem, color-mix(in srgb, var(--vera) 30%, transparent) 4.3rem 4.38rem, transparent 4.38rem),
+    repeating-linear-gradient(0deg, transparent 0 1.85rem, color-mix(in srgb, var(--branch) 16%, transparent) 1.85rem 1.9rem);
+  background-size: 100% 100%, 100% 1.9rem;
+  mix-blend-mode: multiply;
+}
+
+[data-visual-theme="lacquer"] body::before {
+  opacity: 0.72;
+  background:
+    radial-gradient(ellipse at 12% 0%, color-mix(in srgb, var(--vera) 24%, transparent), transparent 34%),
+    radial-gradient(ellipse at 92% 100%, color-mix(in srgb, var(--branch) 16%, transparent), transparent 30%);
+}
+
+[data-visual-theme="lighthouse"] body::before {
+  opacity: 0.82;
+  background:
+    radial-gradient(ellipse at 100% 8%, color-mix(in srgb, var(--vera) 30%, transparent), transparent 24%),
+    linear-gradient(180deg, color-mix(in srgb, var(--branch) 15%, transparent), transparent 14rem);
+}
+
+[data-visual-theme="observatory"] body::before {
+  opacity: 0.62;
+  background-image:
+    radial-gradient(circle at 20% 28%, color-mix(in srgb, var(--vera) 78%, transparent) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 78% 12%, color-mix(in srgb, var(--branch) 58%, transparent) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 64% 76%, color-mix(in srgb, var(--canon) 42%, transparent) 0 1px, transparent 1.6px);
+  background-size: 180px 180px, 260px 260px, 220px 220px;
+}
+
+[data-visual-theme="editorial"] body::before {
+  opacity: 0.62;
+  background:
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--branch) 18%, transparent), transparent 28rem),
+    linear-gradient(118deg, color-mix(in srgb, var(--vera) 9%, transparent) 0 24%, transparent 24% 72%, color-mix(in srgb, var(--branch) 8%, transparent) 72% 100%);
+}
+
+[data-visual-theme="publisher"] body::before {
+  opacity: 0.62;
+  background:
+    radial-gradient(ellipse at 0% 12%, color-mix(in srgb, var(--vera) 22%, transparent), transparent 30%),
+    linear-gradient(140deg, transparent 0 52%, color-mix(in srgb, var(--branch) 12%, transparent) 52% 100%),
+    repeating-linear-gradient(90deg, transparent 0 4.5rem, color-mix(in srgb, var(--vera) 7%, transparent) 4.5rem 4.56rem);
+}
+
+[data-visual-theme="night"] body::before {
+  opacity: 0.76;
+  background:
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--vera) 28%, transparent), transparent 30%),
+    radial-gradient(ellipse at 0% 100%, color-mix(in srgb, var(--branch) 22%, transparent), transparent 34%);
+}
+
+[data-visual-theme="forest"] body::before {
+  opacity: 0.52;
+  background:
+    radial-gradient(ellipse at 10% 100%, color-mix(in srgb, var(--canon) 20%, transparent), transparent 34%),
+    repeating-radial-gradient(circle at 12% 100%, transparent 0 3rem, color-mix(in srgb, var(--vera) 11%, transparent) 3rem 3.08rem);
+}
+
+[data-visual-theme="indigo"] body::before {
+  opacity: 0.58;
+  background:
+    linear-gradient(125deg, color-mix(in srgb, var(--vera) 13%, transparent), transparent 42%),
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--branch) 20%, transparent), transparent 32%),
+    repeating-linear-gradient(90deg, transparent 0 5rem, color-mix(in srgb, var(--branch) 8%, transparent) 5rem 5.05rem);
+}
+
+[data-visual-theme="amber"] body::before {
+  opacity: 0.64;
+  background:
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--vera) 26%, transparent), transparent 32%),
+    radial-gradient(ellipse at 0% 100%, color-mix(in srgb, var(--branch) 15%, transparent), transparent 30%);
+}
+
+[data-visual-theme="typewriter"] input,
+[data-visual-theme="typewriter"] textarea {
+  caret-color: var(--vera);
+}
+
 /* 纸纹层：整张纸上的纤维噪点。浅色 multiply、夜灯 screen，都不抢戏。 */
 body::after {
   content: "";

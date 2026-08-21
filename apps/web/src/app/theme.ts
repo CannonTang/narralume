@@ -7,6 +7,10 @@ export type ThemePreference = "system" | Theme;
 export type VisualTheme =
   | "editorial"
   | "publisher"
+  | "typewriter"
+  | "lacquer"
+  | "lighthouse"
+  | "observatory"
   | "night"
   | "forest"
   | "indigo"
@@ -22,12 +26,32 @@ export const VISUAL_THEMES: VisualThemeOption[] = [
   {
     id: "editorial",
     label: "文学编辑室",
-    description: "温和纸面，适合日常编写与整理",
+    description: "冷白纸面与钴蓝强调，适合日常编写与整理",
   },
   {
     id: "publisher",
-    label: "出版书架",
-    description: "更强的封面、纸张与出版物气质",
+    label: "旧书装帧室",
+    description: "紫靛纸张与荧光彩边，保留出版物的慢节奏",
+  },
+  {
+    id: "typewriter",
+    label: "打字机编辑室",
+    description: "冷灰稿纸、蓝色墨线与紫色校对标记",
+  },
+  {
+    id: "lacquer",
+    label: "东方漆器",
+    description: "墨青、玉色与荧光绿，带一点仪式感的创作空间",
+  },
+  {
+    id: "lighthouse",
+    label: "北海灯塔",
+    description: "深海蓝、信号蓝与海雾青，适合沿着长篇航线推进",
+  },
+  {
+    id: "observatory",
+    label: "青铜天文台",
+    description: "星轨、靛紫与青色光点，适合整理复杂世界观",
   },
   {
     id: "night",
@@ -37,7 +61,7 @@ export const VISUAL_THEMES: VisualThemeOption[] = [
   {
     id: "forest",
     label: "松柏档案馆",
-    description: "青绿纸面，安静、自然、偏知识库气质",
+    description: "青绿纸面与荧光叶色，安静、自然、偏知识库气质",
   },
   {
     id: "indigo",
@@ -47,7 +71,7 @@ export const VISUAL_THEMES: VisualThemeOption[] = [
   {
     id: "amber",
     label: "琥珀印刷所",
-    description: "金黄纸张，温暖、复古、强调出版感",
+    description: "明黄纸张、海蓝与紫色，明快、复古、强调出版感",
   },
 ];
 
@@ -77,6 +101,10 @@ function readVisualTheme(): VisualTheme {
   try {
     const value = window.localStorage.getItem(VISUAL_THEME_KEY);
     return value === "publisher" ||
+      value === "typewriter" ||
+      value === "lacquer" ||
+      value === "lighthouse" ||
+      value === "observatory" ||
       value === "night" ||
       value === "forest" ||
       value === "indigo" ||
